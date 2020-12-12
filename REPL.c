@@ -213,37 +213,35 @@ int main(int argc, char* argv[]) {
 		print_prompt();
 		read_input(input_buffer);
 
-		if(strcmp(input_buffer->buffer, ".exit") == 0) {
-			if(input_buffer->buffer[0] == '.') {
-				switch(do_meta_command(input_buffer, table)) {
-					case (META_COMMAND_SUCCESS):	
-						continue;
-					case (META_COMMAND_UNRECOGNIZED_COMMAND):
-						printf("Unrecognized command '%s'\n", input_buffer->buffer);
-						continue;
-				}
-			}	
-
-			Statement statement;
-			switch(prepare_statement(input_buffer, &statement)){
-				case(PREPARE_SUCCESS):	
-					break;
-				case(PREPARE_SYNTAX_ERROR):
-					print("Syntax error. Could not parse statement. \n");
+		if(input_buffer->buffer[0] == '.') {
+			switch(do_meta_command(input_buffer, table)) {
+				case (META_COMMAND_SUCCESS):	
 					continue;
-				case(PREPARE_UNRECOGNIZED_STATEMENT):
-					print("Unrecognized keyword ar start of '%s'.\n", input_buffer->buffer);
+				case (META_COMMAND_UNRECOGNIZED_COMMAND):
+					printf("Unrecognized command '%s'\n", input_buffer->buffer);
 					continue;
 			}
+		}
 
-			switch(prepare_statement(&statement, table)){
-				case(EXECUTE_SUCCESS):
-					printf("Executed \n");
-					break;
-				case(EXECUTE_TABLE_FULL):
-					printf("Error: Table full. \n");
-					break;
-			}
+		Statement statement;
+		switch(prepare_statement(input_buffer, &statement)){
+			case(PREPARE_SUCCESS):	
+				break;
+			case(PREPARE_SYNTAX_ERROR):
+				printf("Syntax error. Could not parse statement. \n");
+				continue;
+			case(PREPARE_UNRECOGNIZED_STATEMENT):
+				printf("Unrecognized keyword ar start of '%s'.\n", input_buffer->buffer);
+				continue;
+		}
+
+		switch(execute_statement(&statement, table)){
+			case(EXECUTE_SUCCESS):
+				printf("Executed \n");
+				break;
+			case(EXECUTE_TABLE_FULL):
+				printf("Error: Table full. \n");
+				break;
 		}
 	}		
 }
