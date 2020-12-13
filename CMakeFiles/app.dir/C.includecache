@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/guilherme/my-git/a_simple_experimental_database/src/REPL.c
+stdio.h
+-
+sys/types.h
+-
+stdlib.h
+-
+stdbool.h
+-
+string.h
+-
+stdint.h
+-
+
