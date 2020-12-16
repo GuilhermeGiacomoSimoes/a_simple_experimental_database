@@ -1,3 +1,0 @@
-/home/guilherme/my-git/a_simple_experimental_database/CMakeFiles/rebuild_cache.dir
-/home/guilherme/my-git/a_simple_experimental_database/CMakeFiles/edit_cache.dir
-/home/guilherme/my-git/a_simple_experimental_database/CMakeFiles/app.dir
