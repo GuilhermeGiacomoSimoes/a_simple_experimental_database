@@ -5,10 +5,10 @@
 #include<string.h>
 #include<stdint.h>
 
-#define  COLUMN_USERNAME_SIZE 32
-#define  COLUMN_EMAIL_SIZE    255 
+#define  COLUMN_USERNAME_SIZE 	32
+#define  COLUMN_EMAIL_SIZE    	255 
+#define  TABLE_MAX_PAGES 		100 
 #define  size_of_attribute(Struct, Attribute) sizeof(((Struct*)0)->Attribute)
-#define  TABLE_MAX_PAGES 100 
 
 typedef struct {
 	uint32_t id;
