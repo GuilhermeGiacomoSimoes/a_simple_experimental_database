@@ -209,9 +209,46 @@ Table* new_table() {
 }
 
 
+//void insert_from_table_max_rows(Table *table){
+//
+//	Statement statement;
+//	statement.type = STATEMENT_INSERT; 
+//
+//	uint32_t id;
+//	char username[COLUMN_USERNAME_SIZE];
+//	char email[COLUMN_EMAIL_SIZE];
+//
+//	for (int i = 1; i <= TABLE_MAX_ROWS + 1; i++){
+//		Row row;
+//		row.id = i;
+//		row.username[0] = 'n'; 
+//		row.username[1] = 'a'; 
+//		row.username[2] = 'm'; 
+//		row.username[3] = 'e'; 
+//
+//		row.email[0] = 'e'; 
+//		row.email[1] = 'm'; 
+//		row.email[2] = 'a'; 
+//		row.email[3] = 'i'; 
+//		row.email[4] = 'l'; 
+//
+//		statement.row_to_insert = row; 
+//		switch(execute_insert(&statement, table)){
+//			case EXECUTE_SUCCESS:
+//				printf("sucess\n");
+//				continue; 
+//			case EXECUTE_TABLE_FULL:
+//				printf("table full\n");
+//				continue;
+//		}
+//	}
+//}
+
 int main(int argc, char* argv[]) {
 	Table* table = new_table();
 	InputBuffer* input_buffer = new_input_buffer();
+
+	//insert_from_table_max_rows(table);
 
 	while(true) {
 		print_prompt();
@@ -247,5 +284,5 @@ int main(int argc, char* argv[]) {
 				printf("Error: Table full. \n");
 				break;
 		}
-	}		
+	}
 }
