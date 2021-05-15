@@ -286,6 +286,9 @@ int main(int argc, char* argv[]) {
 
 		Statement statement;
 		switch(prepare_statement(input_buffer, &statement)){
+			case(PREPARE_STRING_TOO_LONG):
+				printf("String is too long");
+				continue; 
 			case(PREPARE_SUCCESS):	
 				break;
 			case(PREPARE_SYNTAX_ERROR):
