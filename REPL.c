@@ -4,8 +4,8 @@
 #include<stdbool.h>
 #include<string.h>
 #include<stdint.h>
+#include<string.h>
 
-#define _GNU_SOURCE
 #define  COLUMN_USERNAME_SIZE 	32
 #define  COLUMN_EMAIL_SIZE    	255 
 #define  TABLE_MAX_PAGES 		100 
@@ -13,8 +13,8 @@
 
 typedef struct {
 	uint32_t id;
-	char username[COLUMN_USERNAME_SIZE];
-	char email[COLUMN_EMAIL_SIZE];
+	char username[COLUMN_USERNAME_SIZE + 1];
+	char email[COLUMN_EMAIL_SIZE + 1];
 } Row;
 
 const uint32_t PAGE_SIZE        = 4096;
@@ -36,6 +36,7 @@ typedef struct {
 	void* pages[TABLE_MAX_PAGES];
 } Table; 
 
+//void * memcpy ( void * destination, const void * source, size_t num );
 void serialize_row(Row* source, void* destination) {
   memcpy(destination + ID_OFFSET, &(source->id), ID_SIZE);
   memcpy(destination + USERNAME_OFFSET, &(source->username), USERNAME_SIZE);
@@ -151,7 +152,7 @@ PrepareResult prepare_statement(InputBuffer* input_buffer, Statement* statement)
 
 		int args_assigned = sscanf(input_buffer->buffer, "insert %d %s %s", &(statement->row_to_insert.id), statement->row_to_insert.username, statement->row_to_insert.email);
 
-		if(args_assigned < 3){
+		if(args_assigned != 3){
 			return PREPARE_SYNTAX_ERROR;
 		} 
 
