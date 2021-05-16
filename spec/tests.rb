@@ -27,14 +27,14 @@ describe 'database' do
     ])
   end
 
-  #it 'tests TABLE_MAX_ROWS' do
-  #  script = (1..1401).map do |i|
-  #    "insert #{i} person#{i} person#{i}@gmail.com"
-  #  end
-  #  script << ".exit"
-  #  result = run_script(script)
-  #  expect(result[-2]).to eq("db> Error: Table full. ")
-  #end
+  it 'tests TABLE_MAX_ROWS' do
+    script = (1..1401).map do |i|
+      "insert #{i} person#{i} person#{i}@gmail.com"
+    end
+    script << ".exit"
+    result = run_script(script)
+    expect(result[-2]).to eq("db> Error: Table full. ")
+  end
 
   it 'allows inserting strings that are the maximum length' do
     long_username = "a"*32
