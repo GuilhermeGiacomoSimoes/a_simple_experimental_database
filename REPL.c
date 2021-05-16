@@ -335,11 +335,15 @@ Pager* pager_open(const char* filename) {
 	pager->file_length = file_length;
 
 	for(uint32_t i = 0; i < TABLE_MAX_PAGES; i++) {
-		table->pages[i] = NULL;	
+		pager->pages[i] = NULL;
 	}
-	return table;
+
+	return pager;
 }
 
+Table* db_open(const char* filename) {
+	Pager* pager = pager_open(filename);
+	uint32_t num_rows = pager->file_length / ROW_SIZE;
 
 //void insert_from_table_max_rows(Table *table){
 //
