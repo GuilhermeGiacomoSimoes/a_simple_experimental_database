@@ -315,9 +315,25 @@ ExecuteResult execute_statement(Statement* statement, Table* table) {
 	}
 }
 
-Table* new_table() {
-	Table* table = malloc(sizeof(Table));
-	table->num_rows = 0;
+Pager* pager_open(const char* filename) {
+	int fd = open(filename, 
+			O_RDWR |
+				O_CREAT,
+			S_IWUSR |
+				S_IRUSR 
+			);
+
+	if(fd == -1) {
+		printf("Unable to open file \n"); 
+		exit(EXIT_FAILURE);
+	}
+
+	off_t file_length = lseek(fd, 0, SEEK_END);
+
+	Pager* pager = malloc(sizeof(Pager));
+	pager->file_descriptor = fd;
+	pager->file_length = file_length;
+
 	for(uint32_t i = 0; i < TABLE_MAX_PAGES; i++) {
 		table->pages[i] = NULL;	
 	}
