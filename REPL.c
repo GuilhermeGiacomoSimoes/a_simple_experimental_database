@@ -324,7 +324,7 @@ Pager* pager_open(const char* filename) {
 			);
 
 	if(fd == -1) {
-		printf("Unable to open file \n"); 
+		printf("Unable to open or create file \n"); 
 		exit(EXIT_FAILURE);
 	}
 
