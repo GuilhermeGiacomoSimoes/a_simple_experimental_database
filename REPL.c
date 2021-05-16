@@ -20,6 +20,12 @@ typedef struct {
 	char email[COLUMN_EMAIL_SIZE + 1];
 } Row;
 
+typedef struct {
+	int file_descriptor;
+	uint32_t file_length;
+	void* pages[TABLE_MAX_PAGES];
+} Pager; 
+
 const uint32_t PAGE_SIZE        = 4096;
 
 const uint32_t ID_SIZE 			= size_of_attribute(Row, id);
