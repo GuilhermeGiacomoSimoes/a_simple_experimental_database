@@ -51,4 +51,17 @@ describe 'database' do
       "db> ",
     ])
   end
+
+  it 'You cant not submit a negative id' do
+    script = [
+      "insert -1 person1 person1@gmail.com", 
+      ".exit"
+    ] 
+    result = run_script(script)
+    expect(result).to match_array([
+      "db> This id is negative ", 
+      "db> "
+    ])
+  end
+
 end
