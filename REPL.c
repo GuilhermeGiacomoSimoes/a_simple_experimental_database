@@ -210,7 +210,7 @@ ExecuteResult execute_select(Statement* statement, Table* table) {
 	return EXECUTE_SUCCESS;
 }
 
- ExecuteResult execute_statement(Statement* statement, Table* table) {
+ExecuteResult execute_statement(Statement* statement, Table* table) {
 	switch (statement->type) {
 		case (STATEMENT_INSERT):
 			return execute_insert(statement, table);
@@ -287,7 +287,7 @@ int main(int argc, char* argv[]) {
 		Statement statement;
 		switch(prepare_statement(input_buffer, &statement)){
 			case(PREPARE_STRING_TOO_LONG):
-				printf("String is too long");
+				printf("String is too long\n");
 				continue; 
 			case(PREPARE_SUCCESS):	
 				break;
