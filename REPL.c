@@ -5,6 +5,9 @@
 #include<string.h>
 #include<stdint.h>
 #include<string.h>
+#include<errno.h>
+#include<fcntl.h>
+#include<unistd.h>
 
 #define  COLUMN_USERNAME_SIZE 	32
 #define  COLUMN_EMAIL_SIZE    	255 
