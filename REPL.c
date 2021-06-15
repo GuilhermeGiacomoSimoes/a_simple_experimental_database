@@ -352,7 +352,7 @@ ExecuteResult execute_statement(Statement* statement, Table* table) {
 		case (STATEMENT_INSERT):
 			return execute_insert(statement, table);
 		case (STATEMENT_SELECT):
-			return execute_select(statement, table);
+			return execute_select(table);
 	}
 }
 
