@@ -45,6 +45,30 @@ typedef struct {
 	Pager* pager;
 } Table; 
 
+typedef struct { 
+	Table* table;
+	uint32_t row_num;
+	bool end_of_table;
+} Cursor;
+
+Cursor* table_start(Table* table){
+	Cursor* cursor = ( Cursor* ) malloc(sizeof(Cursor));
+	cursor->table = table;
+	cursor->row_num = 0;
+	cursor->end_of_table = ( table->num_rows == 0 );
+
+	return cursor;
+}
+
+Cursor* table_end( Table* table ) {
+	Cursor* cursor = ( Cursor* ) malloc(sizeof(Cursor));
+	cursor->table = table;
+	cursor->row_num = table->num_rows;
+	cursor->end_of_table = true;
+
+	return cursor;
+}
+
 //void * memcpy ( void * destination, const void * source, size_t num );
 void serialize_row(Row* source, void* destination) {
   memcpy(destination + ID_OFFSET, &(source->id), ID_SIZE);
