@@ -314,9 +314,12 @@ ExecuteResult execute_insert(Statement* statement, Table* table) {
   }
   else {
 	  Row* row_to_insert = &(statement->row_to_insert);
+	  Cursor* cursor = table_end(table);
 
-	  serialize_row(row_to_insert, row_slot(table, table->num_rows));
+	  serialize_row(row_to_insert, cursor_value(cursor));
 	  table->num_rows += 1;
+
+	  free(cursor);
 
 	  return EXECUTE_SUCCESS;
   }
