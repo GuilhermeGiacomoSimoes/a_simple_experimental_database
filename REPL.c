@@ -325,12 +325,24 @@ ExecuteResult execute_insert(Statement* statement, Table* table) {
   }
 }
 
-ExecuteResult execute_select(Statement* statement, Table* table) {
-	Row row;
-	for (uint32_t i=0; i < table->num_rows; i++) {
-		deserialize_row(row_slot(table, i), &row);	
-		print_row(&row);
+void cursor_advance( Cursor* cursor ) {
+	cursor->row_num += 1;
+	if ( cursor->row_num >= cursor->table->num_rows ) {
+		cursor->end_of_table = true;
 	}
+}
+
+ExecuteResult execute_select(Table* table) {
+	Cursor* cursor = table_start(table);
+
+	Row row;
+	while( ! ( cursor->end_of_table ) ){
+		deserialize_row(cursor_value(cursor), &row);
+		print_row(&row);
+		cursor_advance(cursor);
+	}
+
+	free(cursor);
 
 	return EXECUTE_SUCCESS;
 }
