@@ -1,7 +1,5 @@
-A SIMPLE EXPERIMENTAL DATABASE
-
+A simple experimental database
 ==============================
 
-“Nothing in the world can take the place of persistence.” – Calvin Coolidge
-
-This database is a blatant copy of sqlite. But in the future it will evolve ... I hope
+"Nothin in the world can take the place of persistence." - Calvin Coolidge
+This database is a blatant copy of sqlit. But in the future it will evolve ... I hope
