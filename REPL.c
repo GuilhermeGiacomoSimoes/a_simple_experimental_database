@@ -13,6 +13,8 @@
 #define  TABLE_MAX_PAGES 		100 
 #define  size_of_attribute(Struct, Attribute) sizeof(((Struct*)0)->Attribute)
 
+typedef enum { NODE_INTERNAL, NODE_LEAF } NodeType;
+
 typedef struct {
 	uint32_t id;
 	char username[COLUMN_USERNAME_SIZE + 1];
@@ -38,6 +40,14 @@ const uint32_t ROW_SIZE 		= EMAIL_OFFSET + EMAIL_SIZE;
 
 const uint32_t ROWS_PER_PAGE  = PAGE_SIZE / ROW_SIZE;
 const uint32_t TABLE_MAX_ROWS = ROWS_PER_PAGE * TABLE_MAX_PAGES;
+
+const uint32_t NODE_TYPE_SIZE = sizeof(uint8_t);
+const uint32_t NODE_TYPE_OFFSET = 0;
+const uint32_t IS_ROOT_SIZE = sizeof(uint8_t);
+const uint32_t IS_ROOT_OFFSET = NODE_TYPE_SIZE;
+const uint32_t PARENT_POINTER_SIZE = sizeof(uint32_t) ;
+const uint32_t PARENT_POINTER_OFFSET = IS_ROOT_OFFSET + IS_ROOT_SIZE;
+const uint8_t COMMON_NODE_HEADER_SIZE = NODE_TYPE_SIZE + IS_ROOT_SIZE + PARENT_POINTER_SIZE;
 
 typedef struct {
 	uint32_t num_rows;
