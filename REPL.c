@@ -225,7 +225,7 @@ typedef struct {
 } InputBuffer;
 
 InputBuffer* new_input_buffer() {
-	InputBuffer* input_buffer 	= malloc(sizeof(InputBuffer));
+	InputBuffer* input_buffer 	= (InputBuffer*) malloc(sizeof(InputBuffer));
 	input_buffer->buffer 		= NULL;
 	input_buffer->buffer_length = 0;
 	input_buffer->input_length 	= 0;
@@ -370,7 +370,7 @@ Pager* pager_open(const char* filename) {
 
 	off_t file_length = lseek(fd, 0, SEEK_END);
 
-	Pager* pager = malloc(sizeof(Pager));
+	Pager* pager = (Pager*) malloc(sizeof(Pager));
 	pager->file_descriptor = fd;
 	pager->file_length = file_length;
 
@@ -385,7 +385,7 @@ Table* db_open(const char* filename) {
 	Pager* pager = pager_open(filename);
 	uint32_t num_rows = pager->file_length / ROW_SIZE;
 
-	Table* table = malloc(sizeof(Table));
+	Table* table = (Table*) malloc(sizeof(Table));
 	table->pager = pager;
 	table->num_rows = num_rows;
 
