@@ -25,6 +25,7 @@ typedef struct {
 	int file_descriptor;
 	uint32_t file_length;
 	void* pages[TABLE_MAX_PAGES];
+	uint32_t num_pages;
 } Pager; 
 
 const uint32_t PAGE_SIZE        = 4096;
@@ -37,9 +38,6 @@ const uint32_t ID_OFFSET 		= 0;
 const uint32_t USERNAME_OFFSET 	= ID_OFFSET + ID_SIZE; 
 const uint32_t EMAIL_OFFSET 	= USERNAME_OFFSET + USERNAME_SIZE; 
 const uint32_t ROW_SIZE 		= EMAIL_OFFSET + EMAIL_SIZE; 
-
-const uint32_t ROWS_PER_PAGE  = PAGE_SIZE / ROW_SIZE;
-const uint32_t TABLE_MAX_ROWS = ROWS_PER_PAGE * TABLE_MAX_PAGES;
 
 const uint32_t NODE_TYPE_SIZE = sizeof(uint8_t);
 const uint32_t NODE_TYPE_OFFSET = 0;
@@ -82,8 +80,8 @@ void initialize_leaf_node(void* node) {
 }
 
 typedef struct {
-	uint32_t num_rows;
 	Pager* pager;
+	uint32_t root_page_num;
 } Table; 
 
 typedef struct { 
@@ -148,6 +146,10 @@ void* get_page(Pager* pager, uint32_t page_num) {
 		}
 
 		pager->pages[page_num] = page;
+
+		if (page_num >= pager->num_pages) {
+			pager->num_pages = page_num + 1;
+		}
 	}
 
 	return pager->pages[page_num];
@@ -176,26 +178,14 @@ void pager_flush(Pager* pager, uint32_t page_num) {
 
 void db_close(Table* table) {
 	Pager* pager = table->pager;
-	uint32_t num_full_pages = table->num_rows / ROWS_PER_PAGE;
 
-	for(uint32_t i = 0; i < num_full_pages; i++) {
+	for(uint32_t i = 0; i < pager->num_pages; i++) {
 		if(pager->pages[i] == NULL) {
 			continue;
 		}
-		pager_flush(pager, i, PAGE_SIZE);
+		pager_flush(pager, i);
 		free(pager->pages[i]);
 		pager->pages[i] = NULL;
-	}
-
-	uint32_t num_additional_rows = table->num_rows % ROWS_PER_PAGE;
-	if(num_additional_rows > 0) {
-		uint32_t page_num = num_full_pages;
-
-		if(pager->pages[page_num] != NULL) {
-			pager_flush(pager, page_num, num_additional_rows * ROW_SIZE);
-			free(pager->pages[page_num]);
-			pager->pages[page_num] = NULL; 
-		}
 	}
 
 	int result = close(pager->file_descriptor);
@@ -415,6 +405,12 @@ Pager* pager_open(const char* filename) {
 	Pager* pager = (Pager*) malloc(sizeof(Pager));
 	pager->file_descriptor = fd;
 	pager->file_length = file_length;
+	pager->num_pages = (file_length / PAGE_SIZE);
+
+	if (file_length % PAGE_SIZE != 0) {
+		printf("Db file is not a whole number of pages. Corrupt file. \n"); 
+		exit(EXIT_FAILURE);
+	}
 
 	for(uint32_t i = 0; i < TABLE_MAX_PAGES; i++) {
 		pager->pages[i] = NULL;
