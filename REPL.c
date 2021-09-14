@@ -420,9 +420,9 @@ ExecuteResult execute_statement(Statement* statement, Table* table) {
 Pager* pager_open(const char* filename) {
 	int fd = open(filename, 
 			O_RDWR |
-				O_CREAT,
+			O_CREAT,
 			S_IWUSR |
-				S_IRUSR 
+			S_IRUSR 
 			);
 
 	if(fd == -1) {
