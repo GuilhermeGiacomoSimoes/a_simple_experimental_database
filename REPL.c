@@ -373,20 +373,14 @@ PrepareResult prepare_statement(InputBuffer* input_buffer, Statement* statement)
 }
 
 ExecuteResult execute_insert(Statement* statement, Table* table) {
-  if (table->num_rows >= TABLE_MAX_ROWS) {
-    return EXECUTE_TABLE_FULL;
-  }
-  else {
-	  Row* row_to_insert = &(statement->row_to_insert);
-	  Cursor* cursor = table_end(table);
+	void* node = get_page(table->pager, table->root_page_num);
+	if((*leaf_node_num_cells(node) >= LEAF_NODE_MAX_CELLS)){ 
+		return EXECUTE_TABLE_FULL;
+	}
+	Row* row_to_insert = &(statement->row_to_insert);
+	Cursor* cursor = table_end(table);
 
-	  serialize_row(row_to_insert, cursor_value(cursor));
-	  table->num_rows += 1;
-
-	  free(cursor);
-
-	  return EXECUTE_SUCCESS;
-  }
+	return EXECUTE_SUCCESS;
 }
 
 void cursor_advance( Cursor* cursor ) {
