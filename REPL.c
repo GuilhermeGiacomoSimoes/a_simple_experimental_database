@@ -119,15 +119,15 @@ Cursor* table_end( Table* table ) {
 
 //void * memcpy ( void * destination, const void * source, size_t num );
 void serialize_row(Row* source, void* destination) {
-  memcpy(destination + ID_OFFSET, &(source->id), ID_SIZE);
-  memcpy(destination + USERNAME_OFFSET, &(source->username), USERNAME_SIZE);
-  memcpy(destination + EMAIL_OFFSET, &(source->email), EMAIL_SIZE);
+	memcpy(destination + ID_OFFSET, &(source->id), ID_SIZE);
+	memcpy(destination + USERNAME_OFFSET, &(source->username), USERNAME_SIZE);
+	memcpy(destination + EMAIL_OFFSET, &(source->email), EMAIL_SIZE);
 }
 
 void deserialize_row(void *source, Row* destination) {
-  memcpy(&(destination->id), source + ID_OFFSET, ID_SIZE);
-  memcpy(&(destination->username), source + USERNAME_OFFSET, USERNAME_SIZE);
-  memcpy(&(destination->email), source + EMAIL_OFFSET, EMAIL_SIZE);
+	memcpy(&(destination->id), source + ID_OFFSET, ID_SIZE);
+	memcpy(&(destination->username), source + USERNAME_OFFSET, USERNAME_SIZE);
+	memcpy(&(destination->email), source + EMAIL_OFFSET, EMAIL_SIZE);
 }
 
 void* get_page(Pager* pager, uint32_t page_num) {
@@ -143,7 +143,7 @@ void* get_page(Pager* pager, uint32_t page_num) {
 		if(pager->file_length % PAGE_SIZE) {
 			num_pages += 1;
 		}
-		
+
 		if(page_num <= num_pages) {
 			lseek(pager->file_descriptor, page_num * PAGE_SIZE, SEEK_SET);
 			ssize_t bytes_read = read(pager->file_descriptor, page, PAGE_SIZE);
