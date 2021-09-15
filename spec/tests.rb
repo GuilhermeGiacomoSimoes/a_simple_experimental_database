@@ -83,7 +83,6 @@ describe 'database' do
       "db> Executed ", 
       "db> " 
     ])
-
   end
 
   it 'prints constants' do 
@@ -101,11 +100,11 @@ describe 'database' do
       "LEAF_NODE_MAX_CELLS: 13",
       "db> ",
     ])
-  end
+  end 
 
   it 'allows printing out the structure of a one-node btree' do
-    script = [3,1,2].map do |i|
-      "insert #{i} user #{i} person#{i}@example.com"
+    script = [3, 1, 2].map do |i|
+      "insert #{i} user#{i} person#{i}@example.com"
     end
     script << ".btree"
     script << ".exit"
@@ -117,10 +116,10 @@ describe 'database' do
       "db > Executed.",
       "db > Tree:",
       "leaf (size 3)",
-      "    - 0 : 3",
-      "    - 1 : 1",
-      "    - 2 : 2",
+      "  - 0 : 3",
+      "  - 1 : 1",
+      "  - 2 : 2",
       "db> "
     ])
-
+  end
 end
