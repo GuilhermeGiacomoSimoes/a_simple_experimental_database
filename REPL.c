@@ -221,7 +221,8 @@ void print_row(Row* row) {
 
 typedef enum {
 	EXECUTE_SUCCESS, 
-	EXECUTE_TABLE_FULL
+	EXECUTE_TABLE_FULL, 
+	EXECUTE_DUPLICATE_KEY
 } ExecuteResult;
 
 typedef enum {
