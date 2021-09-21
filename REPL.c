@@ -419,7 +419,7 @@ void leaf_node_insert(Cursor* cursor, uint32_t key, Row* value) {
 
 	uint32_t num_cells = *leaf_node_num_cells(node);
 	if(num_cells >= LEAF_NODE_MAX_CELLS) {
-		printf("Need to timplement spliting a leaf node \n");
+		printf("Need to implement spliting a leaf node \n");
 		exit(EXIT_FAILURE);
 	}
 
