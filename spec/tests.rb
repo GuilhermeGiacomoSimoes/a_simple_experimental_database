@@ -103,30 +103,21 @@ describe 'database' do
     result = run_script(script)
 
     expect(result).to match_array([
-      "db > Executed.",
-      "db > Executed.",
-      "db > Executed.",
-      "db > Tree:",
-      "leaf (size 3)",
-      "  - 0 : 1",
-      "  - 1 : 2",
-      "  - 2 : 3",
-      "db> "
-    ])
-  end
-  it 'prints an error message if there is a duplicate id' do
-    script = [
-      "insert 1 user1 person1@example.com",
-      "insert 1 user1 person1@example.com",
-      "select",
-      ".exit"
-    ]
-    result = run_script(script)
-    expect(result).to match_array([
-      "db> Executed.",
-      "db> Error: Duplicate key ",
-      "db> (1, user1, person1@example.com)",
-      "Executed.",
+      "db> Tree:",
+      "leaf (size 13)",
+      "   - 0 : 1",
+      "   - 1 : 2",
+      "   - 2 : 3",
+      "   - 3 : 4",
+      "   - 4 : 5",
+      "   - 5 : 6",
+      "   - 6 : 7",
+      "   - 7 : 8",
+      "   - 8 : 9",
+      "   - 9 : 10",
+      "   - 10 : 11",
+      "   - 11 : 12",
+      "   - 12 : 13",
       "db> "
     ])
   end
