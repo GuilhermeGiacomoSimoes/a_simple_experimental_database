@@ -137,4 +137,5 @@ describe 'database' do
       "Executed.",
       "db> "
     ])
+  end
 end
