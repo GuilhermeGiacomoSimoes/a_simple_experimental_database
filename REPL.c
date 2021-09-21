@@ -414,6 +414,10 @@ Cursor* table_find(Table* table, uint32_t key) {
 	}
 }
 
+uint32_t get_unused_page_num(Pager* pager) {
+	return pager->num_pages;
+}
+
 void leaf_node_split_and_insert(Cursor* cursor, uint32_t key, Row* value){
 	void* old_node = get_page(cursor->table->pager, cursor->page_num);
 	uint32_t new_page_num = get_unused_page_num(cursor->table->pager);
