@@ -27,6 +27,22 @@ describe 'database' do
     ])
   end
 
+  it 'keeps data after closing connection' do
+    result_1 = run_script([
+      ".exit"
+    ])
+
+    result_2 = run_script([
+      "select",
+      ".exit"
+    ])
+    expect(result_2).to match_array([
+      "db> (1, user1, person1@example.com)", 
+      "Executed ", 
+      "db> " 
+    ])
+  end
+
   it 'tests TABLE_MAX_ROWS' do
     script = (1..1401).map do |i|
       "insert #{i} person#{i} person#{i}@gmail.com"
@@ -61,27 +77,6 @@ describe 'database' do
     expect(result).to match_array([
       "db> This id is negative ", 
       "db> "
-    ])
-  end
-
-  it 'keeps data after closing connection' do
-    result_1 = run_script([
-      "insert 1 user1 user1@gmail.com", 
-      ".exit"
-    ])
-    expect(result_1).to match_array([
-      "db> Executed", 
-      "db> ", 
-    ])
-
-    result_2 = run_script([
-      "select",
-      ".exit"
-    ])
-    expect(result_1).to match_array([
-      "db> (1 user1 user1@gmail.com)", 
-      "db> Executed ", 
-      "db> " 
     ])
   end
 
