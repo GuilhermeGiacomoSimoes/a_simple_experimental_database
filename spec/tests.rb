@@ -121,4 +121,19 @@ describe 'database' do
       "db> "
     ])
   end
+
+  #it 'prints an error message if there is a duplicate id' do
+  #  script = [
+  #    "insert 1 user1 person1@example.com",
+  #    "select",
+  #    ".exit"
+  #  ]
+  #  result = run_script(script)
+  #  expect(result).to match_array([
+  #    "db> Error: Duplicate key ",
+  #    "db> (1, user1, person1@example.com)",
+  #    "Executed.",
+  #    "db> "
+  #  ])
+  #end
 end
