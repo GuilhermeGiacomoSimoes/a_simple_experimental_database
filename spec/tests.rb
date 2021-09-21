@@ -97,9 +97,7 @@ describe 'database' do
   end 
 
   it 'allows printing out the structure of a one-node btree' do
-    script = [3, 1, 2].map do |i|
-      "insert #{i} user#{i} person#{i}@example.com"
-    end
+    script = []
     script << ".btree"
     script << ".exit"
     result = run_script(script)
