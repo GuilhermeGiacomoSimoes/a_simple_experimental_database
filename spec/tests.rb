@@ -85,7 +85,7 @@ describe 'database' do
     ]
     result = run_script(script);
     expect(result).to match_array([
-      "db> Constants",
+      "db> Constants: ",
       "ROW_SIZE: 293", 
       "COMMON_NODE_HEADER_SIZE: 6",
       "LEAF_NODE_CELL_SIZE: 10",
