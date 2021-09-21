@@ -414,6 +414,13 @@ Cursor* table_find(Table* table, uint32_t key) {
 	}
 }
 
+void leaf_node_split_and_insert(Cursor* cursor, uint32_t key, Row* value){
+	void* old_node = get_page(cursor->table->pager, cursor->page_num);
+	uint32_t new_page_num = get_unused_page_num(cursor->table->pager);
+	void* new_node = get_page(cursor->table->pager, new_page_num);
+	initialize_leaf_node(new_node);
+}
+
 void leaf_node_insert(Cursor* cursor, uint32_t key, Row* value) {
 	void* node = get_page(cursor->table->pager, cursor->page_num);
 
@@ -432,7 +439,6 @@ void leaf_node_insert(Cursor* cursor, uint32_t key, Row* value) {
 	*(leaf_node_key(node, cursor->cell_num)) = key;
 	serialize_row(value, leaf_node_value(node, cursor->cell_num));
 }
-
 
 ExecuteResult execute_insert(Statement* statement, Table* table) {
 	void* node = get_page(table->pager, table->root_page_num);
