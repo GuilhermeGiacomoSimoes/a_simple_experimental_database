@@ -79,7 +79,7 @@ describe 'database' do
   end
 
   it 'prints constants' do 
-    script [
+    script = [
       ".constants", 
       ".exit",
     ]
