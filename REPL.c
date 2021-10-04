@@ -429,7 +429,7 @@ void leaf_node_split_and_insert(Cursor* cursor, uint32_t key, Row* value){
 
 	for(int32_t i = LEAF_NODE_MAX_CELLS; i >= 0; i--){
 		void* destination_node;
-		if(i >= LEAF_NODE_LEFT_SPLIT_COUNT) {
+		if(i >= (int)LEAF_NODE_LEFT_SPLIT_COUNT) {
 			destination_node = new_node;
 		} else {
 			destination_node = old_node;
