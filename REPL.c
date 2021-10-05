@@ -460,11 +460,6 @@ PrepareResult prepare_statement(InputBuffer* input_buffer, Statement* statement)
 	return PREPARE_UNRECOGNIZED_STATEMENT;
 }
 
-NodeType get_node_type(void* node){
-	uint8_t value = *((uint8_t*)(node + NODE_TYPE_OFFSET));
-	return (NodeType)value;
-}
-
 Cursor* leaf_node_find(Table* table, uint32_t page_num, uint32_t key) {
 	void* node = get_page(table->pager, page_num);
 	uint32_t num_cells = *leaf_node_num_cells(node);
