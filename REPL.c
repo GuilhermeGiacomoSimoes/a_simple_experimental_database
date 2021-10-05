@@ -525,6 +525,11 @@ void create_new_root(Table* table, uint32_t right_child_page_num) {
 	*internal_node_right_child(root) = right_child_page_num;
 }
 
+bool is_node_root(void* node){
+	uint8_t value = *((uint8_t)(node + IS_ROOT_OFFSET));
+	return (bool)value;
+}
+
 void leaf_node_split_and_insert(Cursor* cursor, uint32_t key, Row* value){
 	void* old_node = get_page(cursor->table->pager, cursor->page_num);
 	uint32_t new_page_num = get_unused_page_num(cursor->table->pager);
