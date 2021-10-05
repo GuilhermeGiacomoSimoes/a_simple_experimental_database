@@ -118,6 +118,10 @@ uint32_t* internal_node_right_child(void* node){
 	return node + INTERNAL_NODE_RIGHT_CHILD_OFFSET;
 }
 
+uint32_t* internal_node_cell(void* node, uint32_t cell_num) {
+	return node + INTERNAL_NODE_HEADER_SIZE + cell_num * INTERNAL_NODE_CELL_SIZE;
+}
+
 uint32_t* internal_node_child(void* node, uint32_t child_num) {
 	uint32_t num_keys = *internal_node_num_keys(node);
 	if(child_num > num_keys) {
