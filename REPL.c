@@ -530,7 +530,7 @@ void create_new_root(Table* table, uint32_t right_child_page_num) {
 }
 
 bool is_node_root(void* node){
-	uint8_t value = *((uint8_t)(node + IS_ROOT_OFFSET));
+	uint8_t value = *((uint8_t*)(node + IS_ROOT_OFFSET));
 	return (bool)value;
 }
 
