@@ -431,6 +431,24 @@ uint32_t get_unused_page_num(Pager* pager) {
 	return pager->num_pages;
 }
 
+void create_new_root(Table* table, uint32_t right_child_page_num) {
+	void* root = get_page(table->pager, table->root_page_num);
+	void* right_child = get_page(table->pager, right_child_page_num);
+	uint32_t left_child_page_num = get_unused_page_num(table->pager);
+	void* left_child = get_page(table->pager, left_child_page_num);
+
+	memcpy(left_child, root, PAGE_SIZE);
+	set_node_root(left_child, false);
+
+	initialize_internal_node(root);
+	set_node_root(root, true);
+	*internal_node_num_keys(root) = 1;
+	*internal_node_child(root, 0) = left_child_page_num;
+	uint32_t left_child_max_key = get_node_max_key(left_child);
+	*internal_node_key(root, 0) = left_child_max_key;
+	*internal_node_right_child(root) = right_child_page_num;
+}
+
 void leaf_node_split_and_insert(Cursor* cursor, uint32_t key, Row* value){
 	void* old_node = get_page(cursor->table->pager, cursor->page_num);
 	uint32_t new_page_num = get_unused_page_num(cursor->table->pager);
