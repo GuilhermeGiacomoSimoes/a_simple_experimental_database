@@ -204,19 +204,6 @@ void* get_page(Pager* pager, uint32_t page_num) {
 	return pager->pages[page_num];
 }
 
-Cursor* table_start(Table* table){
-	Cursor* cursor = ( Cursor* ) malloc(sizeof(Cursor));
-	cursor->table = table;
-	cursor->page_num = table->root_page_num;
-	cursor->cell_num = 0;
-
-	void* root_node = get_page(table->pager, table->root_page_num);
-	uint32_t num_cells = *leaf_node_num_cells(root_node);
-	cursor->end_of_table = (num_cells == 0);
-
-	return cursor;
-}
-
 //void * memcpy ( void * destination, const void * source, size_t num );
 void serialize_row(Row* source, void* destination) {
 	memcpy(destination + ID_OFFSET, &(source->id), ID_SIZE);
@@ -512,6 +499,17 @@ Cursor* table_find(Table* table, uint32_t key) {
 		exit(EXIT_FAILURE);
 	}
 }
+
+Cursor* table_start(Table* table) {
+	Cursor* cursor = table_find(table, 0);
+
+	void* node = get_page(table->pager, cursor->page_num);
+	uint32_t num_cells = *leaf_node_num_cells(node);
+	cursor->end_of_table = (num_cells==0);
+
+	return cursor;
+}
+
 
 uint32_t get_unused_page_num(Pager* pager) {
 	return pager->num_pages;
