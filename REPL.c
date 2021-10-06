@@ -74,6 +74,10 @@ const uint32_t INTERNAL_NODE_KEY_SIZE = sizeof(uint32_t);
 const uint32_t INTERNAL_NODE_CHILD_SIZE = sizeof(uint32_t);
 const uint32_t INTERNAL_NODE_CELL_SIZE = INTERNAL_NODE_CHILD_SIZE + INTERNAL_NODE_KEY_SIZE;
 
+uint32_t* leaf_node_next_leaf(void* node) {
+	return node + LEAF_NODE_NEXT_LEAF_OFFSET;
+}
+
 uint32_t* leaf_node_num_cells(void* node) {
 	return node + LEAF_NODE_NUM_CELSS_OFFSET;
 }
