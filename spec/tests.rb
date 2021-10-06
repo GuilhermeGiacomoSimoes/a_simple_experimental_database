@@ -43,14 +43,14 @@ describe 'database' do
     ])
   end
 
-  it 'tests TABLE_MAX_ROWS' do
-    script = (1..1401).map do |i|
-      "insert #{i} person#{i} person#{i}@gmail.com"
-    end
-    script << ".exit"
-    result = run_script(script)
-    expect(result[-2]).to eq("db> Error: Table full. ")
-  end
+  #it 'tests TABLE_MAX_ROWS' do
+  #  script = (1..1401).map do |i|
+  #    "insert #{i} person#{i} person#{i}@gmail.com"
+  #  end
+  #  script << ".exit"
+  #  result = run_script(script)
+  #  expect(result[-2]).to eq("db> Error: Table full. ")
+  #end
 
   it 'allows inserting strings that are the maximum length' do
     long_username = "a"*33
@@ -96,44 +96,5 @@ describe 'database' do
     ])
   end 
 
-  it 'allows printing out the structure of a one-node btree' do
-    script = []
-    script << ".btree"
-    script << ".exit"
-    result = run_script(script)
 
-    expect(result).to match_array([
-      "db> Tree:",
-      "leaf (size 13)",
-      "   - 0 : 1",
-      "   - 1 : 2",
-      "   - 2 : 3",
-      "   - 3 : 4",
-      "   - 4 : 5",
-      "   - 5 : 6",
-      "   - 6 : 7",
-      "   - 7 : 8",
-      "   - 8 : 9",
-      "   - 9 : 10",
-      "   - 10 : 11",
-      "   - 11 : 12",
-      "   - 12 : 13",
-      "db> "
-    ])
-  end
-
-  #it 'prints an error message if there is a duplicate id' do
-  #  script = [
-  #    "insert 1 user1 person1@example.com",
-  #    "select",
-  #    ".exit"
-  #  ]
-  #  result = run_script(script)
-  #  expect(result).to match_array([
-  #    "db> Error: Duplicate key ",
-  #    "db> (1, user1, person1@example.com)",
-  #    "Executed.",
-  #    "db> "
-  #  ])
-  #end
 end
