@@ -21,7 +21,7 @@ typedef struct {
 typedef struct {
 	Pager* pager;
 	uint32_t root_page_num;
-} Table; 
+} Table;
 
 typedef struct { 
 	Table* table;
