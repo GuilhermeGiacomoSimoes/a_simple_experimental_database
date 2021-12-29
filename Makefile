@@ -1,3 +1,5 @@
+all:install
+
 SRC_PATH := ./src/
 TEST_PATH := ./t/
 
@@ -7,8 +9,8 @@ ggs: $(SRC_PATH)REPL.c
 test: $(SRC_PATH)REPL.c
 	bundle exec rspec
 
-install: ggs
-	mv ggs /bin/
+install: test ggs 
+	sudo mv $< /bin/
 
 clean:
 	rm -rf ggs db.db
