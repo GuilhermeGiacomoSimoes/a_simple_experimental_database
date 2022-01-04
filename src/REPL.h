@@ -32,7 +32,8 @@ typedef struct {
 
 typedef enum {
 	STATEMENT_INSERT, 
-	STATEMENT_SELECT
+	STATEMENT_SELECT,
+	STATEMENT_CREATE_TABLE
 } StatementType;
 
 typedef struct {
