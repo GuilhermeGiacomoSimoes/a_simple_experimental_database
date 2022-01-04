@@ -216,7 +216,7 @@ void print_prompt() {
 	printf("db> ");
 }
 
-void read_input(InputBuffer* input_buffer){
+void read_input(InputBuffer* input_buffer) {
 	ssize_t bytes_read = getline( &(input_buffer->buffer), &(input_buffer->buffer_length), stdin);
 
 	if (bytes_read <= 0) {
@@ -341,6 +341,10 @@ PrepareResult prepare_statement(InputBuffer* input_buffer, Statement* statement)
 	if (strcmp(input_buffer->buffer, "select") == 0) {
 		statement->type = STATEMENT_SELECT;
 		return PREPARE_SUCCESS;	
+	}
+	if(strncmp(input_buffer->buffer, "create", 6) == 0) {
+		statement->type = STATEMENT_CREATE_TABLE;
+		return PREPARE_SUCCESS;
 	}
 
 	return PREPARE_UNRECOGNIZED_STATEMENT;
@@ -712,7 +716,7 @@ int main(int argc, char* argv[]) {
 			case(PREPARE_STRING_TOO_LONG):
 				printf("String is too long\n");
 				continue; 
-			case(PREPARE_SUCCESS):	
+			case(PREPARE_SUCCESS):
 				break;
 			case(PREPARE_SYNTAX_ERROR):
 				printf("Syntax error. Could not parse statement. \n");
