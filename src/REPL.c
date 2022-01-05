@@ -628,10 +628,14 @@ ExecuteResult execute_select(Table* table) {
 	return EXECUTE_SUCCESS;
 }
 
+ExecuteResult execute_create_table(Statement* statement) {
+
+}
+
 ExecuteResult execute_statement(Statement* statement, Table* table) {
 	switch (statement->type) {
 		case (STATEMENT_CREATE_TABLE):
-			return execute_create_table(statement, table);
+			return execute_create_table(statement);
 		case (STATEMENT_INSERT):
 			return execute_insert(statement, table);
 		case (STATEMENT_SELECT):
