@@ -71,6 +71,31 @@ void b_tree_insert(Page *root, uint8_t k) {
 	}
 }
 
+void b_tree_insert_nonfull(Page *page, uint8_t k) {
+	uint8_t i = page->elems;
+	if(page->folha) {
+		while(i >= 1 && k < page->info[i]) {
+			page->info[i+1] = page->indo[i];
+			i --;
+		}
+		page->info[i+1] = k;
+		page->elems ++;
+	}
+	else {
+		while(i >= 1 && k < page->info[i]) {
+			i --;
+		}
+		i ++;
+		if(page->filhos[i]->elems = 1 * MAX_ELEMENTS / 2 - 1) {
+			b_tree_split_child(page, i, page->filhos[i]);
+			if(k > page->info[i]) {
+				i ++;
+			}
+		}
+		b_tree_insert_nonfull(page->filhos[i], k);
+	}
+}
+
 int main () {
 
 }
