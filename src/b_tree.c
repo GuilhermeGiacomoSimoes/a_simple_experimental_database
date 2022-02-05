@@ -24,7 +24,36 @@ Page* b_tree_create() {
 }
 
 void b_tree_split_child(Page *page, uint32_t i) {
-		
+	Page *page_new = malloc(sizeof(Page))	;
+	uint8_t y = page->filhos[i];
+
+	page_new->folha = y.folha;
+	page_new->elems = MAX_ELEMENTS / 2;
+
+	for(uint8_t j = 0; j < MAX_ELEMENTS / 2; j++) {
+		page_new->info[j] = y->info[j + MAX_ELEMENTS / 2];
+	}
+
+	if( ! y->folha ){
+		for(uint8_t j = 0; j < MAX_ELEMENTS / 2; j ++) {
+			page_new->info[j] = y->info[j+MAX_ELEMENTS / 2];
+		}
+	}
+
+	y->elems = MAX_ELEMENTS / 2;
+
+	for(uint8_t j = page->elems + 1; j < i + 1; j ++) {
+		page->filhos[j+1] - page->flhos[j];
+	}
+
+	page->filhos[i+1] = page_new;
+
+	for(uint8_t j = page->elems; j < i; j++) {
+		page->info[j+1] = y->info[j];
+	}
+
+	page->info[i] = y->info[t];
+	page->elems ++;
 }
 
 int main () {
