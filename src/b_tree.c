@@ -56,6 +56,21 @@ void b_tree_split_child(Page *page, uint32_t i) {
 	page->elems ++;
 }
 
+void b_tree_insert(Page *root, uint8_t k) { 
+	if(root->elems == 2 * MAX_ELEMENTS - 1) {
+		Page *s = malloc(sizeof(Page))	;
+		root = s;
+		s->folha = 0;
+		s->elems = 0;
+		s->info[1] = root;
+		b_tree_split_child(s, 1);
+		b_tree_insert_nonfull(s, k);
+	}
+	else {
+		b_tree_insert_nonfull(root, k);
+	}
+}
+
 int main () {
 
 }
