@@ -3,7 +3,7 @@
 
 uint32_t b_tree_search(Page *page, uint32_t wanted_element){
 	uint8_t i = 1;
-	while (i <= page->elems, && wanted_element > page->info[i]) {
+	while (i <= page->elems && wanted_element > page->info[i]) {
 		i++;	
 	}
 	if( i <= page->elems && wanted_element = page->info[i] ) {
