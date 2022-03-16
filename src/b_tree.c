@@ -15,7 +15,7 @@ uint32_t b_tree_search(Page *page, uint32_t wanted_element){
 	//TODO fazer a leitura de uma nova página do disco
 	//que no caso é a página page->childs[i]
 
-	return b_tree_search(page->filhos[i])
+	return b_tree_search(page->childs[i])
 }
 
 Page* b_tree_create() {
@@ -26,37 +26,37 @@ Page* b_tree_create() {
 	return x;
 }
 
-void b_tree_split_child(Page *page, uint32_t i) {
+void b_tree_split_child(Page *parent_not_full, uint32_t index_child_full) {
 	Page *page_new = malloc(sizeof(Page))	;
-	uint8_t y = page->filhos[i];
+	Page *child_full = parent_not_full->childs[index_child_full];
 
 	page_new->folha = y.folha;
 	page_new->elems = MAX_ELEMENTS / 2;
 
-	for(uint8_t j = 0; j < MAX_ELEMENTS / 2; j++) {
-		page_new->info[j] = y->info[j + MAX_ELEMENTS / 2];
+	for(int j = 0; j < elems - 1; j++) {
+		page_new->info[j] = child_full->info[j + MAX_ELEMENTS];
 	}
 
-	if( ! y->folha ){
-		for(uint8_t j = 0; j < MAX_ELEMENTS / 2; j ++) {
-			page_new->info[j] = y->info[j+MAX_ELEMENTS / 2];
+	if( ! child_full->folha ){
+		for(int j = 0; j < MAX_ELEMENTS; j ++) {
+			page_new->info[j] = child_full->info[j+MAX_ELEMENTS / 2];
 		}
 	}
 
-	y->elems = MAX_ELEMENTS / 2;
+	child_full->elems = MAX_ELEMENTS;
 
-	for(uint8_t j = page->elems + 1; j < i + 1; j ++) {
-		page->filhos[j+1] - page->flhos[j];
+	for(int j = parent_not_full->elems + 1; j < index_child_full + 1; j ++) {
+		parent_not_full->childs[j+1] - parent_not_full->flhos[j];
 	}
 
-	page->filhos[i+1] = page_new;
+	parent_not_full->childs[index_child_full+1] = page_new;
 
-	for(uint8_t j = page->elems; j < i; j++) {
-		page->info[j+1] = y->info[j];
+	for(int j = parent_not_full->elems; j < index_child_full; j++) {
+		parent_not_full->info[j+1] = child_full->info[j];
 	}
 
-	page->info[i] = y->info[t];
-	page->elems ++;
+	parent_not_full->info[index_child_full] = child_full->info[t];
+	parent_not_full->elems ++;
 }
 
 void b_tree_insert(Page *root, uint8_t k) { 
@@ -89,13 +89,13 @@ void b_tree_insert_nonfull(Page *page, uint8_t k) {
 			i --;
 		}
 		i ++;
-		if(page->filhos[i]->elems = 1 * MAX_ELEMENTS / 2 - 1) {
-			b_tree_split_child(page, i, page->filhos[i]);
+		if(page->childs[i]->elems = 1 * MAX_ELEMENTS / 2 - 1) {
+			b_tree_split_child(page, i, page->childs[i]);
 			if(k > page->info[i]) {
 				i ++;
 			}
 		}
-		b_tree_insert_nonfull(page->filhos[i], k);
+		b_tree_insert_nonfull(page->childs[i], k);
 	}
 }
 
