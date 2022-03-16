@@ -8,4 +8,4 @@ typedef struct {
 	struct Page *filhos [MAX_VALUES + 1];
 } Page;
 
-uint32_t b_tree_search();
+uint32_t b_tree_search(Page *page, uint32_t wanted_element);
