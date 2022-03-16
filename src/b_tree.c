@@ -12,6 +12,8 @@ uint32_t b_tree_search(Page *page, uint32_t wanted_element){
 	else if(page->folha) {
 		return NULL;
 	}
+	//TODO fazer a leitura de uma nova página do disco
+	//que no caso é a página page->childs[i]
 
 	return b_tree_search(page->filhos[i])
 }
@@ -19,7 +21,8 @@ uint32_t b_tree_search(Page *page, uint32_t wanted_element){
 Page* b_tree_create() {
 	Page *x = malloc(sizeof(Page));
 	x->folha = 1;
-	x->n = 0;
+	x->elems = 0;
+	//TODO fazer a escrita dessa inicializacao no disco
 	return x;
 }
 
