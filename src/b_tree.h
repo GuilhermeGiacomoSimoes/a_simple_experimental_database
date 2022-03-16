@@ -1,4 +1,4 @@
-#define MAX_ELEMENTS 10;
+#define MAX_ELEMENTS 1000;
 
 typedef struct {
 	int folha;
