@@ -30,8 +30,8 @@ void b_tree_split_child(Page *parent_not_full, uint32_t index_child_full) {
 	Page *page_new = malloc(sizeof(Page))	;
 	Page *child_full = parent_not_full->childs[index_child_full];
 
-	page_new->folha = y.folha;
-	page_new->elems = MAX_ELEMENTS / 2;
+	page_new->folha = child_full->folha;
+	page_new->elems = 0;
 
 	for(int j = 0; j < elems - 1; j++) {
 		page_new->info[j] = child_full->info[j + MAX_ELEMENTS];
