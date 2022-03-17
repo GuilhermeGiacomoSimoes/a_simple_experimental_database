@@ -31,10 +31,10 @@ void b_tree_split_child(Page *parent_not_full, uint32_t index_child_full) {
 	Page *child_full = parent_not_full->childs[index_child_full];
 
 	page_new->folha = child_full->folha;
-	page_new->elems = 0;
+	page_new->elems = child_full->elems - 1;
 
-	for(int j = 0; j < elems - 1; j++) {
-		page_new->info[j] = child_full->info[j + MAX_ELEMENTS];
+	for(int j = 0; j < child_full->elems - 1; j++) {
+		page_new->info[j] = child_full->info[j + child_full->elems];
 	}
 
 	if( ! child_full->folha ){
