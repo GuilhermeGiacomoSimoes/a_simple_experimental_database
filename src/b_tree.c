@@ -27,32 +27,32 @@ Page* b_tree_create() {
 }
 
 void b_tree_split_child(Page *parent_not_full, uint32_t index_child_full) {
-	Page *page_new = malloc(sizeof(Page))	;
+	int t = (MAX_ELEMENTS / 2) + 1;
+	Page *page_new = malloc(sizeof(Page));
 	Page *child_full = parent_not_full->childs[index_child_full];
 
 	page_new->folha = child_full->folha;
-	page_new->elems = child_full->elems - 1;
+	page_new->elems = t - 1;
 
-	for(int j = 0; j < child_full->elems - 1; j++) {
-		page_new->info[j] = child_full->info[j + child_full->elems];
+	for(int j = 1; j <= t - 1; j++) {
+		page_new->info[j] = child_full->info[j + t];
 	}
 
 	if(!child_full->folha){
-		for(int j = 0; j < MAX_ELEMENTS; j ++) {
-			page_new->info[j] = child_full->info[j+MAX_ELEMENTS / 2];
+		for(int j = 1; j <= t; j ++) {
+			page_new->childs[j] = child_full->childs[j+t];
 		}
 	}
 
-	child_full->elems = MAX_ELEMENTS;
-
-	for(int j = parent_not_full->elems + 1; j < index_child_full + 1; j ++) {
-		parent_not_full->childs[j+1] - parent_not_full->flhos[j];
+	child_full->elems = t - 1;
+	for(int j = parent_not_full->elems + 1; j < index_child_full + 1; j++) {
+		parent_not_full->childs[j+1] = parent_not_full->childs[j];
 	}
 
 	parent_not_full->childs[index_child_full+1] = page_new;
 
-	for(int j = parent_not_full->elems; j < index_child_full; j++) {
-		parent_not_full->info[j+1] = child_full->info[j];
+	for(int j = parent_not_full->elems; j < index_child_full + 1; j++) {
+		parent_not_full->childs[j+1] = parent_not_full->childs[j];
 	}
 
 	parent_not_full->info[index_child_full] = child_full->info[t];
