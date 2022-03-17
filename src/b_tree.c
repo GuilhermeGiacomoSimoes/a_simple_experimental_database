@@ -37,7 +37,7 @@ void b_tree_split_child(Page *parent_not_full, uint32_t index_child_full) {
 		page_new->info[j] = child_full->info[j + child_full->elems];
 	}
 
-	if( ! child_full->folha ){
+	if(!child_full->folha){
 		for(int j = 0; j < MAX_ELEMENTS; j ++) {
 			page_new->info[j] = child_full->info[j+MAX_ELEMENTS / 2];
 		}
