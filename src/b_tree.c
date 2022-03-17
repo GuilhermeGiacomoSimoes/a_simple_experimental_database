@@ -55,7 +55,7 @@ void b_tree_split_child(Page *parent_not_full, uint32_t index_child_full) {
 		parent_not_full->childs[j+1] = parent_not_full->childs[j];
 	}
 
-	parent_not_full->info[index_child_full] = child_full->info[t];
+	parent_not_full->info[index_child_full] = child_full->info[parent_not_full->elems];
 	parent_not_full->elems ++;
 	//TODO escrever child_full no disco
 	//escrever page_new no disco
