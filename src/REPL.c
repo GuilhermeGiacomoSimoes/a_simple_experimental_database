@@ -73,13 +73,6 @@ void db_close(Table* table) {
 	free(table);
 }
 
-void* cursor_value(Cursor* cursor) {
-	uint32_t page_num = cursor->page_num;
-	void* page = get_page(cursor->table->pager, page_num);
-
-	return leaf_node_value(page, cursor->cell_num);
-}
-
 void print_row(Row* row) {
 	printf("(%d, %s, %s)\n", row->id, row->username, row->email);
 }
