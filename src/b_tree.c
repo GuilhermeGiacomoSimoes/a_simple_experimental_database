@@ -63,7 +63,7 @@ void b_tree_split_child(Page *parent_not_full, uint32_t index_child_full) {
 }
 
 void b_tree_insert(Page *root, uint8_t k) { 
-	if(root->elems == 2 * MAX_ELEMENTS - 1) {
+	if(root->elems == MAX_ELEMENTS) {
 		Page *s = malloc(sizeof(Page))	;
 		root = s;
 		s->folha = 0;
@@ -92,8 +92,10 @@ void b_tree_insert_nonfull(Page *page, uint8_t k) {
 			i --;
 		}
 		i ++;
-		if(page->childs[i]->elems = 1 * MAX_ELEMENTS / 2 - 1) {
-			b_tree_split_child(page, i, page->childs[i]);
+		//TODO gravar page->childs[i] no disco
+
+		if(page->childs[i]->elems == MAX_ELEMENTS) {
+			b_tree_split_child(page, i);
 			if(k > page->info[i]) {
 				i ++;
 			}
