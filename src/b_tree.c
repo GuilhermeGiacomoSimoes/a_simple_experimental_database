@@ -104,7 +104,3 @@ void b_tree_insert_nonfull(Page *page, uint8_t k) {
 		b_tree_insert_nonfull(page->childs[i], k);
 	}
 }
-
-int main () {
-
-}
