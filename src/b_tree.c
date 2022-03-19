@@ -86,6 +86,7 @@ void b_tree_insert_nonfull(Page *page, uint8_t k) {
 		}
 		page->info[i+1] = k;
 		page->elems ++;
+		//TODO escrever page no disco
 	}
 	else {
 		while(i >= 1 && k < page->info[i]) {
