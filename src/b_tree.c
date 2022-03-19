@@ -68,7 +68,7 @@ void b_tree_insert(Page *root, uint8_t k) {
 		root = s;
 		s->folha = 0;
 		s->elems = 0;
-		s->info[1] = root;
+		s->childs[1] = root;
 		b_tree_split_child(s, 1);
 		b_tree_insert_nonfull(s, k);
 	}
