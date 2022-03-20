@@ -2,7 +2,7 @@
 #include<stdint.h>
 
 uint32_t b_tree_search(Page *page, uint32_t wanted_element){
-	uint8_t i = 1;
+	uint32_t i = 1;
 	while (i <= page->elems && wanted_element > page->info[i]) {
 		i++;	
 	}
