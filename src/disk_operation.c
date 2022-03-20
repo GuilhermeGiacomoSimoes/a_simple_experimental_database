@@ -10,10 +10,8 @@ void disk_write() {
 Page* disk_read(Page* page, int number_child) {
 	int fd = open(
 			NAME_FILE_DATABASE,
-			O_RDWR |
-			O_CREAT,
-			S_IWUSR |
-			S_IRUSR 
+			O_RDWR | O_CREAT,
+			S_IWUSR | S_IRUSR 
 		);
 
 	if(fd == -1) {
