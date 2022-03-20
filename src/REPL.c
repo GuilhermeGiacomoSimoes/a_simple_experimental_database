@@ -8,6 +8,7 @@
 #include<fcntl.h>
 #include<unistd.h>
 #include "REPL.h"
+#include "b_tree.h"
 
 //void * memcpy ( void * destination, const void * source, size_t num );
 void serialize_row(Row* source, void* destination) {
