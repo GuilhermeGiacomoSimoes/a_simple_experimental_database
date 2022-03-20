@@ -14,21 +14,9 @@ typedef struct {
 typedef struct {
 	int file_descriptor;
 	uint32_t file_length;
-	void* pages[TABLE_MAX_PAGES];
+	Page* page;
 	uint32_t num_pages;
-} Pager; 
-
-typedef struct {
-	Pager* pager;
-	uint32_t root_page_num;
-} Table;
-
-typedef struct { 
-	Table* table;
-	uint32_t page_num;
-	uint32_t cell_num;
-	bool end_of_table;
-} Cursor;
+} Cursor; 
 
 typedef enum {
 	STATEMENT_INSERT, 
