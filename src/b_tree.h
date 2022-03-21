@@ -2,8 +2,8 @@
 
 typedef struct {
 	int folha;
-	int ordem;
 	int elems;
+	int current_address_memmory;
 	int info[MAX_VALUES];
 	int childs[MAX_VALUES + 1];
 } Page;
