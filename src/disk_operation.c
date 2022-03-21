@@ -1,7 +1,6 @@
 #include<stdio.h>
 #include<stdint.h>
 
-#define NAME_FILE_DATABASE "database.db";
 
 void disk_write(Page* page) {
 	if(page == NULL) {

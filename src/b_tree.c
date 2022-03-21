@@ -1,5 +1,6 @@
 #include<stdio.h>
 #include<stdint.h>
+#include "disk_operation.h"
 
 uint32_t b_tree_search(Page *page, uint32_t wanted_element){
 	uint32_t i = 1;
