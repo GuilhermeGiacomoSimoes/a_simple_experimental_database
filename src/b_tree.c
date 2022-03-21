@@ -13,17 +13,17 @@ uint32_t b_tree_search(Page *page, uint32_t wanted_element){
 	else if(page->folha) {
 		return NULL;
 	}
-	//TODO fazer a leitura de uma nova página do disco
-	//que no caso é a página page->childs[i]
 
-	return b_tree_search(page->childs[i])
+	Page* page_child = disk_read(page, i);
+
+	return b_tree_search(page_child);
 }
 
 Page* b_tree_create() {
 	Page *x = malloc(sizeof(Page));
 	x->folha = 1;
 	x->elems = 0;
-	//TODO fazer a escrita dessa inicializacao no disco
+	disk_write(x);
 	return x;
 }
 
@@ -58,9 +58,10 @@ void b_tree_split_child(Page *parent_not_full, uint32_t index_child_full) {
 
 	parent_not_full->info[index_child_full] = child_full->info[parent_not_full->elems];
 	parent_not_full->elems ++;
-	//TODO escrever child_full no disco
-	//escrever page_new no disco
-	//escrever parent_not_full no disco
+
+	disk_write(child_full);
+	disk_write(page_new);
+	disk_write(parent_not_full);
 }
 
 void b_tree_insert(Page *root, uint8_t k) { 
@@ -87,14 +88,14 @@ void b_tree_insert_nonfull(Page *page, uint8_t k) {
 		}
 		page->info[i+1] = k;
 		page->elems ++;
-		//TODO escrever page no disco
+		disk_write(page);
 	}
 	else {
 		while(i >= 1 && k < page->info[i]) {
 			i --;
 		}
 		i ++;
-		//TODO gravar page->childs[i] no disco
+		disk_write(page->childs[i]);
 
 		if(page->childs[i]->elems == MAX_ELEMENTS) {
 			b_tree_split_child(page, i);
