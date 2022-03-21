@@ -57,7 +57,8 @@ Page* disk_read(Page* page, int number_child) {
 		exit(EXIT_FAILURE);
 	}
 
-	off_t offset = lseek(fd, page->childs[number_child], SEEK_SET);
+	int memmory_address_at_disk = page->childs[number_child];
+	off_t offset = lseek(fd, memmory_address_at_disk, SEEK_SET);
 	if(offset == -1) {
 		printf("Error seeking: %d\n", errno);
 	}
