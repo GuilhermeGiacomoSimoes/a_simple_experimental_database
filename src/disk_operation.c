@@ -20,7 +20,12 @@ void disk_write(Page* page) {
 		exit(EXIT_FAILURE);
 	}
 
-	off_t offset = lseek(fd, 0, SEEK_END);
+	off_t offset = lseek(fd, page->current_address_memmory, SEEK_SET);
+	if(!page->current_address_memmory) {
+		offset = lseek(fd, 0, SEEK_END);
+		page->current_address_memmory = offset;
+	}
+
 	if(offset == -1) {
 		printf("Error seeking\n");
 		exit(EXIT_FAILURE);
