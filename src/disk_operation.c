@@ -1,5 +1,6 @@
 #include<stdio.h>
 #include<stdint.h>
+#include "disk_operation.h"
 
 
 void disk_write(Page* page) {
