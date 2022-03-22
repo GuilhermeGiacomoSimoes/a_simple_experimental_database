@@ -41,11 +41,6 @@ void disk_write(Page* page) {
 }
 
 Page* disk_read(Page* page, int number_child) {
-	if(page == NULL) {
-		printf("Tried read a NULL page\n");
-		exit(EXIT_FAILURE);
-	}
-
 	int fd = open(
 			NAME_FILE_DATABASE,
 			O_RDWR | O_CREAT,
@@ -57,6 +52,32 @@ Page* disk_read(Page* page, int number_child) {
 		exit(EXIT_FAILURE);
 	}
 
+	if(page == NULL) {
+		return read_a_root_page(fd);
+	}
+
+	return read_a_child_page(Page* page, number_child, fd);
+}
+
+Page* read_a_root_page(int fd) {
+	off_t offset = lseek(fd, 0, SEEK_SET);
+	if(offset == -1) {
+		printf("Error seeking: %d\n", errno);
+	}
+
+	const size_t OFFSET_PAGE = sizeof(Page); 
+	Page *root = malloc(OFFSET_PAGE);
+	size_t bytes_read = read(fd, root, OFFSET_PAGE);
+
+	if(bytes_read == -1) {
+		printf("Error while reading file database: %d\n", errno);
+		exit(EXIT_FAILURE);
+	}
+
+	return root;
+}
+
+Page* read_a_child_page(Page* page, int number_child, int fd) {
 	int memmory_address_at_disk = page->childs[number_child];
 	off_t offset = lseek(fd, memmory_address_at_disk, SEEK_SET);
 	if(offset == -1) {
