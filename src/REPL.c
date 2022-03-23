@@ -10,19 +10,6 @@
 #include "REPL.h"
 #include "b_tree.h"
 
-//void * memcpy ( void * destination, const void * source, size_t num );
-void serialize_row(Row* source, void* destination) {
-	memcpy(destination + ID_OFFSET, &(source->id), ID_SIZE);
-	memcpy(destination + USERNAME_OFFSET, &(source->username), USERNAME_SIZE);
-	memcpy(destination + EMAIL_OFFSET, &(source->email), EMAIL_SIZE);
-}
-
-void deserialize_row(void *source, Row* destination) {
-	memcpy(&(destination->id), source + ID_OFFSET, ID_SIZE);
-	memcpy(&(destination->username), source + USERNAME_OFFSET, USERNAME_SIZE);
-	memcpy(&(destination->email), source + EMAIL_OFFSET, EMAIL_SIZE);
-}
-
 void pager_flush(Pager* pager, uint32_t page_num) {
 	if(pager->pages[page_num] == NULL) {
 		printf("Tried to flush null page \n");
