@@ -64,7 +64,7 @@ void b_tree_split_child(Page *parent_not_full, uint32_t index_child_full) {
 	disk_write(parent_not_full);
 }
 
-void b_tree_insert(Page *root, uint8_t k) { 
+void b_tree_insert(Page *root, Row k) { 
 	if(root->elems == MAX_ELEMENTS) {
 		Page *s = malloc(sizeof(Page))	;
 		root = s;
@@ -79,11 +79,11 @@ void b_tree_insert(Page *root, uint8_t k) {
 	}
 }
 
-void b_tree_insert_nonfull(Page *page, uint8_t k) {
-	uint8_t i = page->elems;
+void b_tree_insert_nonfull(Page *page, Row* k) {
+	int i = page->elems;
 	if(page->folha) {
-		while(i >= 1 && k < page->info[i]) {
-			page->info[i+1] = page->indo[i];
+		while(i >= 1 && k->id < page->info[i]->id) {
+			page->info[i+1] = page->info[i];
 			i --;
 		}
 		page->info[i+1] = k;
@@ -91,7 +91,7 @@ void b_tree_insert_nonfull(Page *page, uint8_t k) {
 		disk_write(page);
 	}
 	else {
-		while(i >= 1 && k < page->info[i]) {
+		while(i >= 1 && k->id < page->info[i]->id) {
 			i --;
 		}
 		i ++;
@@ -99,7 +99,7 @@ void b_tree_insert_nonfull(Page *page, uint8_t k) {
 
 		if(page->childs[i]->elems == MAX_ELEMENTS) {
 			b_tree_split_child(page, i);
-			if(k > page->info[i]) {
+			if(k->id > page->info[i]->id) {
 				i ++;
 			}
 		}
