@@ -116,7 +116,7 @@ void indent(uint32_t level){
 
 MetaCommandResult do_meta_command(InputBuffer* input_buffer, Page *page) {
 	if(strcmp(input_buffer->buffer, ".exit") == 0){
-		db_close(table); 
+		free(page); 
 		exit(EXIT_SUCCESS);	
 	} 
 	else if(strcmp(input_buffer->buffer, ".btree") == 0) {
