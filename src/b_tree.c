@@ -96,14 +96,16 @@ void b_tree_insert_nonfull(Page *page, Row* k) {
 			i --;
 		}
 		i ++;
-		disk_write(page->childs[i]);
 
-		if(page->childs[i]->elems == MAX_ELEMENTS) {
+		Page *child = malloc(sizeof(Page));
+		child = disk_read(page, i);  
+
+		if(child->elems == MAX_ELEMENTS) {
 			b_tree_split_child(page, i);
 			if(k->id > page->info[i]->id) {
 				i ++;
 			}
 		}
-		b_tree_insert_nonfull(page->childs[i], k);
+		b_tree_insert_nonfull(child, k);
 	}
 }
