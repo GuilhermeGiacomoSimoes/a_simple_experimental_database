@@ -89,6 +89,7 @@ void b_tree_insert_nonfull(Page *page, Row* k) {
 		page->info[i+1] = k;
 		page->elems ++;
 		disk_write(page);
+		free(page)
 	}
 	else {
 		while(i >= 1 && k->id < page->info[i]->id) {
