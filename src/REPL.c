@@ -220,21 +220,8 @@ Pager* pager_open(const char* filename) {
 	return pager;
 }
 
-Table* db_open(const char* filename) {
-	Pager* pager = pager_open(filename);
-
-	Table* table = (Table*) malloc(sizeof(Table));
-	table->pager = pager;
-
-	table->root_page_num = 0;
-
-	if(pager->num_pages == 0) {
-		void* root_node = get_page(pager, 0);
-		initialize_leaf_node(root_node);
-		set_node_root(root_node, true);
-	}
-
-	return table; 
+Page* db_open(const char* filename) {
+	return disk_read(NULL, 0);
 }
 
 int main(int argc, char* argv[]) {
