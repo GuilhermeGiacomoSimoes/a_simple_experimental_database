@@ -3,14 +3,12 @@ all:install
 SRC_PATH := ./src/
 TEST_PATH := ./t/
 
-ggs: $(SRC_PATH)REPL.c
-	gcc -c $< -o $@ 
+compile:  
+	clang $(SRC_PATH)REPL.c $(SRC_PATH)b_tree.c $(SRC_PATH)disk_operation.c -o REPL 
 
-test: $(SRC_PATH)REPL.c
-	bundle exec rspec
-
-install: test ggs 
+install: REPL 
+	clang $(SRC_PATH)REPL.c $(SRC_PATH)b_tree.c $(SRC_PATH)disk_operation.c -o REPL 
 	sudo mv $< /bin/
 
 clean:
-	$(RM) ggs db.db
+	$(RM) REPL
