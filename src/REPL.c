@@ -177,12 +177,12 @@ ExecuteResult execute_select(Table* table) {
 	return EXECUTE_SUCCESS;
 }
 
-ExecuteResult execute_statement(Statement* statement, Table* table) {
+ExecuteResult execute_statement(Statement* statement) {
 	switch (statement->type) {
 		case (STATEMENT_CREATE_TABLE):
 			return execute_create_table(statement);
 		case (STATEMENT_INSERT):
-			return execute_insert(statement, table);
+			return execute_insert(statement);
 		case (STATEMENT_SELECT):
 			return execute_select(table);
 	}
