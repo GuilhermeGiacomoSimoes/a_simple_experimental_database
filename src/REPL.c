@@ -44,36 +44,6 @@ void pager_flush(Pager* pager, uint32_t page_num) {
 	}
 }
 
-void db_close(Table* table) {
-	Pager* pager = table->pager;
-
-	for(uint32_t i = 0; i < pager->num_pages; i++) {
-		if(pager->pages[i] == NULL) {
-			continue;
-		}
-		pager_flush(pager, i);
-		free(pager->pages[i]);
-		pager->pages[i] = NULL;
-	}
-
-	int result = close(pager->file_descriptor);
-	if(result == -1) {
-		printf("Error closing do file. \n");
-		exit(EXIT_FAILURE);
-	}
-
-	for(uint32_t i = 0; i< TABLE_MAX_PAGES; i++) {
-		void* page = pager->pages[i];
-		if(page) {
-			free(page);
-			pager->pages[i] = NULL;
-		}
-	}
-
-	free(pager);
-	free(table);
-}
-
 void print_row(Row* row) {
 	printf("(%d, %s, %s)\n", row->id, row->username, row->email);
 }
