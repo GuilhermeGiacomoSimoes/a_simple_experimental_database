@@ -161,38 +161,6 @@ ExecuteResult execute_statement(Statement* statement, Page* root) {
 	}
 }
 
-Pager* pager_open(const char* filename) {
-	int fd = open(filename, 
-			O_RDWR |
-			O_CREAT,
-			S_IWUSR |
-			S_IRUSR 
-			);
-
-	if(fd == -1) {
-		printf("Unable to open or create file \n"); 
-		exit(EXIT_FAILURE);
-	}
-
-	off_t file_length = lseek(fd, 0, SEEK_END);
-
-	Pager* pager = (Pager*) malloc(sizeof(Pager));
-	pager->file_descriptor = fd;
-	pager->file_length = file_length;
-	pager->num_pages = (file_length / PAGE_SIZE);
-
-	if (file_length % PAGE_SIZE != 0) {
-		printf("Db file is not a whole number of pages. Corrupt file. \n"); 
-		exit(EXIT_FAILURE);
-	}
-
-	for(uint32_t i = 0; i < TABLE_MAX_PAGES; i++) {
-		pager->pages[i] = NULL;
-	}
-
-	return pager;
-}
-
 Page* db_open(const char* filename) {
 	return disk_read(NULL, 0);
 }
