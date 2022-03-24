@@ -52,7 +52,9 @@ void disk_write(Page* page) {
 	}
 
 	const size_t OFFSET_PAGE = sizeof(Page); 
-	ssize_t bytes_written = write(fd, page, OFFSET_PAGE);
+	void *serialized_page = malloc(OFFSET_PAGE);
+	serialize_row(page, serialized_page);
+	ssize_t bytes_written = write(fd, serialized_row, OFFSET_PAGE);
 
 	if(bytes_written == -1) {
 		printf("Error while try write file database%d\n", errno);
@@ -86,7 +88,7 @@ Page* read_a_root_page(int fd) {
 	}
 
 	const size_t OFFSET_PAGE = sizeof(Page); 
-	Page *root = malloc(OFFSET_PAGE);
+	void *serialized_root = malloc(OFFSET_PAGE);
 	size_t bytes_read = read(fd, root, OFFSET_PAGE);
 
 	if(bytes_read == -1) {
@@ -94,6 +96,10 @@ Page* read_a_root_page(int fd) {
 		exit(EXIT_FAILURE);
 	}
 
+	Page* root = malloc(OFFSET_PAGE);
+	deserialize_row(serialized_root, root);
+
+	free(serialized_root);
 	return root;
 }
 
@@ -105,13 +111,17 @@ Page* read_a_child_page(Page* page, int number_child, int fd) {
 	}
 
 	const size_t OFFSET_PAGE = sizeof(Page); 
-	Page *child = malloc(OFFSET_PAGE);
-	size_t bytes_read = read(fd, child, OFFSET_PAGE);
+	void *serialized_child = malloc(OFFSET_PAGE);
+	size_t bytes_read = read(fd, serialized_child, OFFSET_PAGE);
 
 	if(bytes_read == -1) {
 		printf("Error while reading file database: %d\n", errno);
 		exit(EXIT_FAILURE);
 	}
 
+	Page* child = malloc(OFFSET_PAGE);
+	deserialize_row(serialized_child, child);
+
+	free(serialized_child);
 	return child;
 }
