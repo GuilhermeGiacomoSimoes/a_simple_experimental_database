@@ -128,24 +128,10 @@ PrepareResult prepare_statement(InputBuffer* input_buffer, Statement* statement)
 	return PREPARE_UNRECOGNIZED_STATEMENT;
 }
 
-ExecuteResult execute_insert(Statement* statement, Table* table) {
-	void* node = get_page(table->pager, table->root_page_num);
-	uint32_t num_cells = *leaf_node_num_cells(node);
-
+ExecuteResult execute_insert(Statement* statement, Page *root) {
 	Row* row_to_insert = &(statement->row_to_insert);
 	uint32_t key_to_insert = row_to_insert->id;
-	Cursor* cursor = table_find(table, key_to_insert);
-
-	if(cursor->cell_num < num_cells) {
-		uint32_t key_at_index = *leaf_node_key(node, cursor->cell_num);
-		if(key_at_index == key_to_insert) {
-			return EXECUTE_DUPLICATE_KEY;
-		}
-	}
-
-	leaf_node_insert(cursor, row_to_insert->id, row_to_insert);
-	free(cursor);
-
+	b_tree_insert(root ,row_to_insert);
 	return EXECUTE_SUCCESS;
 }
 
@@ -164,12 +150,12 @@ ExecuteResult execute_select(Table* table) {
 	return EXECUTE_SUCCESS;
 }
 
-ExecuteResult execute_statement(Statement* statement) {
+ExecuteResult execute_statement(Statement* statement, Page* root) {
 	switch (statement->type) {
 		case (STATEMENT_CREATE_TABLE):
 			return execute_create_table(statement);
 		case (STATEMENT_INSERT):
-			return execute_insert(statement);
+			return execute_insert(statement, root);
 		case (STATEMENT_SELECT):
 			return execute_select(table);
 	}
@@ -248,7 +234,7 @@ int main(int argc, char* argv[]) {
 				continue;
 		}
 
-		switch(execute_statement(&statement)){
+		switch(execute_statement(&statement, root)){
 			case(EXECUTE_SUCCESS):
 				printf("Executed \n");
 				break;
