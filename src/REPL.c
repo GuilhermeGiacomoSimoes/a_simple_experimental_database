@@ -124,16 +124,16 @@ ExecuteResult execute_statement(Statement* statement, Page* root) {
 		case (STATEMENT_INSERT):
 			return execute_insert(statement, root);
 		case (STATEMENT_SELECT):
-			return execute_select(table);
+			return execute_select();
 	}
 }
 
-Page* db_open(const char* filename) {
+Page* db_open() {
 	return disk_read(NULL, 0);
 }
 
 int main(int argc, char* argv[]) {
-	Page* root = db_open(filename);
+	Page* root = db_open();
 
 	InputBuffer* input_buffer = new_input_buffer();
 
