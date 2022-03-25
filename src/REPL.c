@@ -121,8 +121,6 @@ ExecuteResult execute_select() {
 
 ExecuteResult execute_statement(Statement* statement, Page* root) {
 	switch (statement->type) {
-		case (STATEMENT_CREATE_TABLE):
-			return execute_create_table(statement);
 		case (STATEMENT_INSERT):
 			return execute_insert(statement, root);
 		case (STATEMENT_SELECT):
