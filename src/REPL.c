@@ -7,29 +7,9 @@
 #include<errno.h>
 #include<fcntl.h>
 #include<unistd.h>
-#include "REPL.h"
 #include "b_tree.h"
-
-void pager_flush(Pager* pager, uint32_t page_num) {
-	if(pager->pages[page_num] == NULL) {
-		printf("Tried to flush null page \n");
-		exit(EXIT_FAILURE);
-	}
-
-	off_t offset = lseek(pager->file_descriptor, page_num * PAGE_SIZE, SEEK_SET);
-
-	if(offset == -1) {
-		printf("Error seeking: %d\n", errno);
-		exit(EXIT_FAILURE);
-	}
-
-	ssize_t bytes_written = write(pager->file_descriptor, pager->pages[page_num], PAGE_SIZE);
-
-	if(bytes_written == -1){
-		printf("Error writing: %d\n", errno);
-		exit(EXIT_FAILURE);
-	}
-}
+#include "REPL.h"
+#include "disk_operation.h"
 
 void print_row(Row* row) {
 	printf("(%d, %s, %s)\n", row->id, row->username, row->email);
