@@ -18,7 +18,7 @@ Row* b_tree_search(Page *page, uint32_t wanted_element){
 	Page* page_child = disk_read(page, i);
 	free(page);
 
-	return b_tree_search(page_child);
+	return b_tree_search(page_child, wanted_element);
 }
 
 Page* load_root() {
