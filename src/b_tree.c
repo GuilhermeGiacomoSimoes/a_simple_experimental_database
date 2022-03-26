@@ -3,6 +3,10 @@
 #include "disk_operation.h"
 
 Row b_tree_search(Page *page, uint32_t wanted_element){
+	if(page == NULL) {
+		load_root();
+	}
+
 	uint32_t i = 1;
 	while (i <= page->elems && wanted_element > page->info[i]) {
 		i++;	
@@ -17,6 +21,10 @@ Row b_tree_search(Page *page, uint32_t wanted_element){
 	Page* page_child = disk_read(page, i);
 
 	return b_tree_search(page_child);
+}
+
+Row load_root() {
+	disk_read(NULL, 0);	
 }
 
 Page* b_tree_create() {
