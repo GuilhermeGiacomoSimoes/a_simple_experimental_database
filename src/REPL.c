@@ -9,7 +9,6 @@
 #include<unistd.h>
 #include "b_tree.h"
 #include "REPL.h"
-#include "disk_operation.h"
 
 void print_row(Row* row) {
 	printf("(%d, %s, %s)\n", row->id, row->username, row->email);

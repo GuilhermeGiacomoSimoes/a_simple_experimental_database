@@ -1,9 +1,8 @@
 #include<stdio.h>
 #include<stdint.h>
 #include "disk_operation.h"
-#include "b_tree.h"
 
-#define  size_of_attribute(Struct, Attribute) sizeof(((Struct*)0)->Attribute)
+#define size_of_attribute(Struct, Attribute) sizeof(((Struct*)0)->Attribute)
 
 const uint32_t ID_SIZE = size_of_attribute(Row, id);
 const uint32_t USERNAME_SIZE = size_of_attribute(Row, username);
