@@ -55,9 +55,7 @@ MetaCommandResult do_meta_command(InputBuffer* input_buffer, Page *page) {
 		free(page); 
 		exit(EXIT_SUCCESS);	
 	} 
-	else {
-		return META_COMMAND_UNRECOGNIZED_COMMAND;	
-	}
+	return META_COMMAND_UNRECOGNIZED_COMMAND;	
 }
 
 PrepareResult prepare_insert(InputBuffer* input_buffer, Statement* statement) {
