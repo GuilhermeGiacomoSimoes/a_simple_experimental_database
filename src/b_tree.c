@@ -1,12 +1,9 @@
 #include<stdio.h>
 #include<stdint.h>
 #include "disk_operation.h"
+#include "b_tree.h"
 
-Row b_tree_search(Page *page, uint32_t wanted_element){
-	if(page == NULL) {
-		load_root();
-	}
-
+Row* b_tree_search(Page *page, uint32_t wanted_element){
 	uint32_t i = 1;
 	while (i <= page->elems && wanted_element > page->info[i]) {
 		i++;	
@@ -23,8 +20,8 @@ Row b_tree_search(Page *page, uint32_t wanted_element){
 	return b_tree_search(page_child);
 }
 
-Row load_root() {
-	disk_read(NULL, 0);	
+Page* load_root() {
+	return disk_read(NULL, 0);	
 }
 
 Page* b_tree_create() {

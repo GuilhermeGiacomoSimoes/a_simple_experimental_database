@@ -128,7 +128,7 @@ ExecuteResult execute_statement(Statement* statement, Page* root) {
 }
 
 Page* db_open() {
-	return b_tree_search(NULL, 0);
+	return (Page*) load_root();
 }
 
 int main(int argc, char* argv[]) {
