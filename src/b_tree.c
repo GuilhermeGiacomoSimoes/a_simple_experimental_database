@@ -4,7 +4,7 @@
 #include "disk_operation.h"
 #include "b_tree.h"
 
-Row* b_tree_search(Page *page, uint32_t wanted_element){
+Row* b_tree_search(Page *page, int wanted_element){
 	uint32_t i = 1;
 	while (i <= page->elems && wanted_element > page->info[i]) {
 		i++;	
