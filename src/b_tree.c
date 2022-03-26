@@ -9,7 +9,7 @@ Row* b_tree_search(Page *page, int wanted_element){
 	while (i <= page->elems && wanted_element > page->info[i]) {
 		i++;	
 	}
-	if( i <= page->elems && wanted_element = page->info[i] ) {
+	if( i <= page->elems && wanted_element == page->info[i] ) {
 		return page->info[i];
 	}
 	else if(page->folha) {
