@@ -126,7 +126,7 @@ ExecuteResult execute_statement(Statement* statement, Page* root) {
 }
 
 Page* db_open() {
-	return (Page*) load_root();
+	return load_root();
 }
 
 int main(int argc, char* argv[]) {
