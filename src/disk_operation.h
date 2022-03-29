@@ -1,4 +1,3 @@
-#include "structure.h"
 
 #define size_of_attribute(Struct, Attribute) sizeof(((Struct*)0)->Attribute)
 #define NAME_FILE_DATABASE "database.db";
