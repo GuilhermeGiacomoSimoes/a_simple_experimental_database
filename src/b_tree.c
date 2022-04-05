@@ -1,7 +1,6 @@
 #include<stdio.h>
 #include<stdint.h>
 #include<stdlib.h>
-#include "disk_operation.h"
 #include "b_tree.h"
 
 Row* b_tree_search(Page *page, int wanted_element){

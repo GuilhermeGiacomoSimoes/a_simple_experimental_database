@@ -1,3 +1,5 @@
+#include "b_tree.h"
+
 typedef enum { NODE_INTERNAL, NODE_LEAF } NodeType;
 
 typedef enum {

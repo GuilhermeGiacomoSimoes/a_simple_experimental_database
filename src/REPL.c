@@ -7,7 +7,6 @@
 #include<errno.h>
 #include<fcntl.h>
 #include<unistd.h>
-#include "b_tree.h"
 #include "REPL.h"
 
 void print_row(Row* row) {
