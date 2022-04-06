@@ -16,7 +16,7 @@ Row* b_tree_search(Page *page, int wanted_element){
 	}
 
 	Page* page_child = disk_read(page, i);
-	//free(page);
+	free(page);
 
 	return b_tree_search(page_child, wanted_element);
 }
