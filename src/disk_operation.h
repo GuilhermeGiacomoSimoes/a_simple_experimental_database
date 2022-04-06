@@ -1,5 +1,5 @@
 #define size_of_attribute(Struct, Attribute) sizeof(((Struct*)0)->Attribute)
-#define NAME_FILE_DATABASE "database.db";
+#define NAME_FILE_DATABASE "database.db"
 
 const uint32_t ID_SIZE = size_of_attribute(Row, id);
 const uint32_t USERNAME_SIZE = size_of_attribute(Row, username);
