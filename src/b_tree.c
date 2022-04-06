@@ -87,18 +87,21 @@ void b_tree_insert(Page *root, Row *k) {
 
 void b_tree_insert_nonfull(Page *page, Row* k) {
 	int i = page->elems;
+	Row *row = malloc(sizeof(Row));
+	row =  row;
+
 	if(page->folha) {
-		while(i >= 1 && k->id < page->info[i]->id) {
-			page->info[i+1] = page->info[i];
+		while(i >= 1 && k->id < row->id) {
+			page->info[i+1] = row;
 			i --;
 		}
 		page->info[i+1] = k;
 		page->elems ++;
 		disk_write(page);
-		free(page)
+		free(page); 
 	}
 	else {
-		while(i >= 1 && k->id < page->info[i]->id) {
+		while(i >= 1 && k->id < row->id) {
 			i --;
 		}
 		i ++;
@@ -108,7 +111,7 @@ void b_tree_insert_nonfull(Page *page, Row* k) {
 
 		if(child->elems == MAX_ELEMENTS) {
 			b_tree_split_child(page, i);
-			if(k->id > page->info[i]->id) {
+			if(k->id > row->id) {
 				i ++;
 			}
 		}
