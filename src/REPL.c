@@ -89,9 +89,7 @@ PrepareResult prepare_insert(InputBuffer* input_buffer, Statement* statement) {
 	strcpy(row->username, username);
 	strcpy(row->email, email);
 
-	statement->row_to_insert.id = id;
-	strcpy(statement->row_to_insert.username, username);
-	strcpy(statement->row_to_insert.email, email);
+	free(row);
 
 	return PREPARE_SUCCESS;
 }
