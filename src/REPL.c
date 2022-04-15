@@ -10,9 +10,9 @@
 #include "b_tree.h"
 #include "REPL.h"
 
-void print_row(Row* row) {
-	printf("(%d, %s, %s)\n", row->id, row->username, row->email);
-}
+//void print_row(struct Row* row) {
+//	printf("(%d, %s, %s)\n", row->id, row->username, row->email);
+//}
 
 InputBuffer* new_input_buffer() {
 	InputBuffer* input_buffer 	= (InputBuffer*) malloc(sizeof(InputBuffer));
@@ -75,12 +75,19 @@ PrepareResult prepare_insert(InputBuffer* input_buffer, Statement* statement) {
 		return PREPARE_NEGATIVE_ID; 
 	}
 
-	if (strlen(username) > COLUMN_USERNAME_SIZE) {
-		return PREPARE_STRING_TOO_LONG;
-	}
-	if (strlen(email) > COLUMN_EMAIL_SIZE) {
-		return PREPARE_STRING_TOO_LONG;
-	}
+	//if (strlen(username) > COLUMN_USERNAME_SIZE) {
+	//	return PREPARE_STRING_TOO_LONG;
+	//}
+	//if (strlen(email) > COLUMN_EMAIL_SIZE) {
+	//	return PREPARE_STRING_TOO_LONG;
+	//}
+
+	struct Row *row = malloc(sizeof(Row));
+	row = statement->row_to_insert;
+
+	row->id = id;
+	strcpy(row->username, username);
+	strcpy(row->email, email);
 
 	statement->row_to_insert.id = id;
 	strcpy(statement->row_to_insert.username, username);
