@@ -8,7 +8,7 @@ typedef enum {
 
 typedef struct {
 	StatementType type;
-	struct *Row row_to_insert;
+	struct Row *row_to_insert;
 } Statement;
 
 typedef struct {
