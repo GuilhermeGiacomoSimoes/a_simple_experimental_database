@@ -1,6 +1,6 @@
 #include<stdio.h>
 #include<stdint.h>
-#include "disk_operation.h"
+#include "structure.h"
 
 void serialize_row(Row* source, void* destination) {
 	memcpy(destination + ID_OFFSET, &(source->id), ID_SIZE);
