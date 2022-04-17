@@ -7,6 +7,8 @@
 #include<errno.h>
 #include<fcntl.h>
 #include<unistd.h>
+#include "structure.h"
+#include "disk_operation.h"
 #include "b_tree.h"
 #include "REPL.h"
 
