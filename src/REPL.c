@@ -84,7 +84,7 @@ PrepareResult prepare_insert(InputBuffer* input_buffer, Statement* statement) {
 	//	return PREPARE_STRING_TOO_LONG;
 	//}
 
-	struct Row *row = malloc(sizeof(Row));
+	Row *row = malloc(sizeof(Row));
 	row = statement->row_to_insert;
 
 	row->id = id;
