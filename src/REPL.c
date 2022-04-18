@@ -5,7 +5,6 @@
 #include<stdint.h>
 #include<string.h>
 #include<errno.h>
-#include<fcntl.h>
 #include<unistd.h>
 #include "structure.h"
 #include "disk_operation.h"
