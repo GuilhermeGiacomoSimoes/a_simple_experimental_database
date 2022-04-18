@@ -5,13 +5,13 @@
 #include "structure.h"
 #include "disk_operation.h"
 
-void serialize_row(Row* source, void* destination) {
+void serialize(Row* source, void* destination) {
 	memcpy(destination + ID_OFFSET, &(source->id), ID_SIZE);
 	memcpy(destination + USERNAME_OFFSET, &(source->username), USERNAME_SIZE);
 	memcpy(destination + EMAIL_OFFSET, &(source->email), EMAIL_SIZE);
 }
 
-void deserialize_row(void *source, Row* destination) {
+void deserialize(void *source, Row* destination) {
 	memcpy(&(destination->id), source + ID_OFFSET, ID_SIZE);
 	memcpy(&(destination->username), source + USERNAME_OFFSET, USERNAME_SIZE);
 	memcpy(&(destination->email), source + EMAIL_OFFSET, EMAIL_SIZE);
@@ -47,8 +47,8 @@ void disk_write(Page* page) {
 
 	const size_t OFFSET_PAGE = sizeof(Page); 
 	void *serialized_page = malloc(OFFSET_PAGE);
-	serialize_row(page, serialized_page);
-	ssize_t bytes_written = write(fd, serialized_row, OFFSET_PAGE);
+	serialize(page, serialized_page);
+	ssize_t bytes_written = write(fd, serialized_page, OFFSET_PAGE);
 
 	if(bytes_written == -1) {
 		printf("Error while try write file database%d\n", errno);
@@ -91,7 +91,7 @@ Page* read_a_root_page(int fd) {
 	}
 
 	Page* root = malloc(OFFSET_PAGE);
-	deserialize_row(serialized_root, root);
+	deserialize(serialized_root, root);
 
 	free(serialized_root);
 	return root;
