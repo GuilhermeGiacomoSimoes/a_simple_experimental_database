@@ -51,7 +51,7 @@ void disk_write(Page* page) {
 	ssize_t bytes_written = write(fd, serialized_page, OFFSET_PAGE);
 
 	if(bytes_written == -1) {
-		printf("Error while try write file database%d\n", errno);
+		printf("Error while try write file database\n");
 		exit(EXIT_FAILURE);
 	}
 }
@@ -78,7 +78,7 @@ Page* disk_read(Page* page, int number_child) {
 Page* read_a_root_page(int fd) {
 	off_t offset = lseek(fd, 0, SEEK_SET);
 	if(offset == -1) {
-		printf("Error seeking: %d\n", errno);
+		printf("Error seeking\n");
 	}
 
 	const size_t OFFSET_PAGE = sizeof(Page); 
@@ -86,7 +86,7 @@ Page* read_a_root_page(int fd) {
 	size_t bytes_read = read(fd, root, OFFSET_PAGE);
 
 	if(bytes_read == -1) {
-		printf("Error while reading file database: %d\n", errno);
+		printf("Error while reading file database: \n");
 		exit(EXIT_FAILURE);
 	}
 
@@ -101,7 +101,7 @@ Page* read_a_child_page(Page* page, int number_child, int fd) {
 	int memmory_address_at_disk = page->childs[number_child];
 	off_t offset = lseek(fd, memmory_address_at_disk, SEEK_SET);
 	if(offset == -1) {
-		printf("Error seeking: %d\n", errno);
+		printf("Error seeking\n");
 	}
 
 	const size_t OFFSET_PAGE = sizeof(Page); 
@@ -109,12 +109,12 @@ Page* read_a_child_page(Page* page, int number_child, int fd) {
 	size_t bytes_read = read(fd, serialized_child, OFFSET_PAGE);
 
 	if(bytes_read == -1) {
-		printf("Error while reading file database: %d\n", errno);
+		printf("Error while reading file database\n");
 		exit(EXIT_FAILURE);
 	}
 
 	Page* child = malloc(OFFSET_PAGE);
-	deserialize_row(serialized_child, child);
+	deserialize(serialized_child, child);
 
 	free(serialized_child);
 	return child;
