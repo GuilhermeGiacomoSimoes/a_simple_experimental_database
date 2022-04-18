@@ -64,7 +64,7 @@ Page* read_a_root_page(int fd) {
 
 	const size_t OFFSET_PAGE = sizeof(Page); 
 	void *serialized_root = malloc(OFFSET_PAGE);
-	size_t bytes_read = read(fd, root, OFFSET_PAGE);
+	size_t bytes_read = read(fd, serialized_root, OFFSET_PAGE);
 
 	if(bytes_read == -1) {
 		printf("Error while reading file database: \n");
