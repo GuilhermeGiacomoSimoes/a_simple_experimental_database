@@ -56,25 +56,6 @@ void disk_write(Page* page) {
 	}
 }
 
-Page* disk_read(Page* page, int number_child) {
-	int fd = open(
-			NAME_FILE_DATABASE,
-			O_RDWR | O_CREAT,
-			S_IWUSR | S_IRUSR 
-		);
-
-	if(fd == -1) {
-		printf("Unable to open or create file\n");
-		exit(EXIT_FAILURE);
-	}
-
-	if(page == NULL) {
-		return read_a_root_page(fd);
-	}
-
-	return read_a_child_page(Page* page, number_child, fd);
-}
-
 Page* read_a_root_page(int fd) {
 	off_t offset = lseek(fd, 0, SEEK_SET);
 	if(offset == -1) {
@@ -119,3 +100,23 @@ Page* read_a_child_page(Page* page, int number_child, int fd) {
 	free(serialized_child);
 	return child;
 }
+
+Page* disk_read(Page* page, int number_child) {
+	int fd = open(
+			NAME_FILE_DATABASE,
+			O_RDWR | O_CREAT,
+			S_IWUSR | S_IRUSR 
+		);
+
+	if(fd == -1) {
+		printf("Unable to open or create file\n");
+		exit(EXIT_FAILURE);
+	}
+
+	if(page == NULL) {
+		return read_a_root_page(fd);
+	}
+
+	return read_a_child_page(page, number_child, fd);
+}
+
