@@ -19,7 +19,7 @@ typedef struct {
 typedef enum {
 	EXECUTE_SUCCESS, 
 	EXECUTE_TABLE_FULL, 
-	EXECUTE_DUPLICATE_KEY
+	EXECUTE_DUPLICATE_KEY,
 } ExecuteResult;
 
 typedef enum {
