@@ -5,10 +5,10 @@
 
 Row* b_tree_search(Page *page, int wanted_element){
 	uint32_t i = 1;
-	while (i <= page->elems && wanted_element > page->info[i]) {
+	while (i <= page->elems && wanted_element > page->info[i]->id) {
 		i++;	
 	}
-	if( i <= page->elems && wanted_element == page->info[i] ) {
+	if( i <= page->elems && wanted_element == page->info[i]->id ) {
 		return page->info[i];
 	}
 	else if(page->folha) {
