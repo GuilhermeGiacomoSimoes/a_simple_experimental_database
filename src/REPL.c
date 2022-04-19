@@ -103,10 +103,6 @@ PrepareResult prepare_statement(InputBuffer* input_buffer, Statement* statement)
 		statement->type = STATEMENT_SELECT;
 		return PREPARE_SUCCESS;	
 	}
-	if(strncmp(input_buffer->buffer, "create", 6) == 0) {
-		statement->type = STATEMENT_CREATE_TABLE;
-		return PREPARE_SUCCESS;
-	}
 
 	return PREPARE_UNRECOGNIZED_STATEMENT;
 }
