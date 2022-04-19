@@ -51,7 +51,7 @@ void indent(uint32_t level){
 	}
 }
 
-MetaCommandResult do_meta_command(InputBuffer* input_buffer, struct Page *page) {
+MetaCommandResult do_meta_command(InputBuffer* input_buffer, Page *page) {
 	if(strcmp(input_buffer->buffer, ".exit") == 0){
 		free(page); 
 		exit(EXIT_SUCCESS);	
@@ -111,8 +111,8 @@ PrepareResult prepare_statement(InputBuffer* input_buffer, Statement* statement)
 	return PREPARE_UNRECOGNIZED_STATEMENT;
 }
 
-ExecuteResult execute_insert(Statement* statement, struct Page *root) {
-	Row* row_to_insert = &(statement->row_to_insert);
+ExecuteResult execute_insert(Statement* statement, Page *root) {
+	Row* row_to_insert = statement->row_to_insert;
 	uint32_t key_to_insert = row_to_insert->id;
 	b_tree_insert(root ,row_to_insert);
 	return EXECUTE_SUCCESS;
@@ -122,7 +122,7 @@ ExecuteResult execute_select() {
 	return EXECUTE_SUCCESS;
 }
 
-ExecuteResult execute_statement(Statement* statement, struct Page* root) {
+ExecuteResult execute_statement(Statement* statement, Page* root) {
 	switch (statement->type) {
 		case (STATEMENT_INSERT):
 			return execute_insert(statement, root);
@@ -131,12 +131,12 @@ ExecuteResult execute_statement(Statement* statement, struct Page* root) {
 	}
 }
 
-struct Page* db_open() {
+Page* db_open() {
 	return load_root();
 }
 
 int main(int argc, char* argv[]) {
-	struct Page* root = db_open();
+	Page* root = db_open();
 
 	InputBuffer* input_buffer = new_input_buffer();
 

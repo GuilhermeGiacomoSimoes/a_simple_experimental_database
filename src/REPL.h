@@ -2,13 +2,12 @@ typedef enum { NODE_INTERNAL, NODE_LEAF } NodeType;
 
 typedef enum {
 	STATEMENT_INSERT, 
-	STATEMENT_SELECT,
-	STATEMENT_CREATE_TABLE
+	STATEMENT_SELECT
 } StatementType;
 
 typedef struct {
 	StatementType type;
-	struct Row *row_to_insert;
+	Row *row_to_insert;
 } Statement;
 
 typedef struct {
