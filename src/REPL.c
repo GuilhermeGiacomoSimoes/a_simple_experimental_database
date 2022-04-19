@@ -84,11 +84,11 @@ PrepareResult prepare_insert(InputBuffer* input_buffer, Statement* statement) {
 	//}
 
 	Row *row = malloc(sizeof(Row));
-	row = statement->row_to_insert;
-
 	row->id = id;
 	strcpy(row->username, username);
 	strcpy(row->email, email);
+
+	statement->row_to_insert = row ;
 
 	free(row);
 
