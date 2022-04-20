@@ -2,6 +2,8 @@
 #include<fcntl.h>
 #include<stdint.h>
 #include<stdlib.h>
+#include<string.h>
+#include<unistd.h>
 #include "structure.h"
 #include "disk_operation.h"
 
