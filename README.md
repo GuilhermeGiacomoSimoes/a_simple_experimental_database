@@ -11,10 +11,10 @@
    Forke (or no) the project and open PR. Only. It can be directly on the master.
 
    **Code style** <br>
-   All header files must contains #ifndef _HEADER_FILE_ and #define _HEADER_FILE_ after, to avoid multiple imports.<br>
+   All header files must contains `#ifndef _HEADER_FILE_` and `#define _HEADER_FILE_` after, to avoid multiple imports.<br>
    All variable and functions must contains small latters and words separated  with _ (underline).<br>
 
-   I understand that in your web project you use words separated by capital letters, however, in C all commands are in snake_case, which in itself is a good reason to separate words with _ (underline). Furthermore, which of the two strings below do you find more comfortable to read:
+   I understand that in your web project you use words separated by capital letters, however, in C all commands are in snake_case, which in itself is a good reason to separate words with _ (underline). Furthermore, which of the two strings below do you find more comfortable to read?
    ```
    IHadAGreenDollWithALargeTShirt
    
@@ -25,3 +25,4 @@
    The ifs must contains spacings between operations: `a != b`, although dont after parentheses: `ìf(a != b)`.<br>
    The keys must declared on the same line as the function: `void function() {` and must contains space after the parentheses.<br>
    The identation must a 4 spaces. Configure your code editor. <br>
+   All constants must declared with capital latters and separated for _ : ``#define CONS_EXAMPLE 10`
