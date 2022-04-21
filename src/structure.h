@@ -1,3 +1,6 @@
+#ifndef _STRUCTURE_H_ 
+#define _STRUCTURE_H_ 
+
 #define MAX_ELEMENTS 1000
 #define COLUMN_USERNAME_SIZE 32
 #define COLUMN_EMAIL_SIZE 255
@@ -16,3 +19,5 @@ typedef struct Page {
 	struct Row* info[MAX_ELEMENTS];
 	int childs[MAX_ELEMENTS + 1];
 } Page;
+
+#endif
