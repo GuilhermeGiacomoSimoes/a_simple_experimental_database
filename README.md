@@ -25,4 +25,4 @@
    The ifs must contains spacings between operations: `a != b`, although dont after parentheses: `ìf(a != b)`.<br>
    The keys must declared on the same line as the function: `void function() {` and must contains space after the parentheses.<br>
    The identation must a 4 spaces. Configure your code editor. <br>
-   All constants must declared with capital latters and separated for _ : ``#define CONS_EXAMPLE 10`
+   All constants must declared with capital latters and separated for _ : `#define CONS_EXAMPLE 10`
