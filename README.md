@@ -22,6 +22,6 @@
 
    ```
 
-   The ifs must contains spacings between operations: `a != b`, although dont after parentheses: `ìf(a != b)`.
-   The keys must declared on the same line as the function: `void function() {` and must contains space after the parentheses.
-   The identation must a 4 spaces. Configure your code editor. 
+   - The ifs must contains spacings between operations: `a != b`, although dont after parentheses: `ìf(a != b)`.
+   - The keys must declared on the same line as the function: `void function() {` and must contains space after the parentheses.
+   - The identation must a 4 spaces. Configure your code editor. 
