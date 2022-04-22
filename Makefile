@@ -4,7 +4,7 @@ SRC_PATH := ./src/
 TEST_PATH := ./t/
 
 compile_arm:  
-	clang $(SRC_PATH)main.c $(SRC_PATH)b_tree.c $(SRC_PATH)disk_operation.c -g -arch arm64 -o REPL 
+	clang $(SRC_PATH)main.c $(SRC_PATH)b_tree.c $(SRC_PATH)disk_operation.c -g -fdebug-macro -arch arm64 -o REPL 
 
 compile_x86:  
 	clang $(SRC_PATH)main.c $(SRC_PATH)b_tree.c $(SRC_PATH)disk_operation.c -g -o REPL 
