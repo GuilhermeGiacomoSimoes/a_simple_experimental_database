@@ -14,4 +14,4 @@ install: REPL
 	sudo mv $< /bin/
 
 clean:
-	$(RM) REPL
+	rm -rf REPL REPL.dSYM database.db
