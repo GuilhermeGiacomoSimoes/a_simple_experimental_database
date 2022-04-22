@@ -8,7 +8,6 @@
 #include "structure.h"
 #include "disk_operation.h"
 
-<<<<<<< HEAD
 #define size_of_attribute(Struct, Attribute) sizeof(((Struct*)0)->Attribute)
 #define NAME_FILE_DATABASE "database.db"
 #define ID_SIZE size_of_attribute(Row, id)
@@ -18,10 +17,7 @@
 #define USERNAME_OFFSET ID_OFFSET + ID_SIZE
 #define EMAIL_OFFSET USERNAME_OFFSET + USERNAME_SIZE
 
-void serialize(Row* source, void* destination) {
-=======
 void static serialize(Row* source, void* destination) {
->>>>>>> 46310c8225a97cde1f052244d2c101f86b33eb9f
 	memcpy(destination + ID_OFFSET, &(source->id), ID_SIZE);
 	memcpy(destination + USERNAME_OFFSET, &(source->username), USERNAME_SIZE);
 	memcpy(destination + EMAIL_OFFSET, &(source->email), EMAIL_SIZE);
