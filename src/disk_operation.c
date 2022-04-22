@@ -4,6 +4,7 @@
 #include<stdlib.h>
 #include<string.h>
 #include<unistd.h>
+#include<sys/types.h>
 #include "structure.h"
 #include "disk_operation.h"
 
@@ -58,6 +59,15 @@ void disk_write(Page* page) {
 	}
 }
 
+static Page* build_tree(int fd) {
+	Page *x = malloc(sizeof(Page));
+	x->folha = 1;
+	x->elems = 0;
+	x->current_address_memmory = 0;
+	disk_write(x);
+	return x;
+}
+
 Page* read_a_root_page(int fd) {
 	off_t offset = lseek(fd, 0, SEEK_SET);
 	if(offset == -1) {
@@ -69,7 +79,7 @@ Page* read_a_root_page(int fd) {
 	size_t bytes_read = read(fd, serialized_root, OFFSET_PAGE);
 
 	if(bytes_read == 0) {
-		Page* root = build_tree(fd);	
+		Page* root = build_tree(fd);
 		return root; 
 	}
 
