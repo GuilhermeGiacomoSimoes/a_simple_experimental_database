@@ -68,8 +68,8 @@ Page* read_a_root_page(int fd) {
 	void *serialized_root = malloc(OFFSET_PAGE);
 	size_t bytes_read = read(fd, serialized_root, OFFSET_PAGE);
 
-	if(bytes_read == 0) {
-		Page* root = build_tree(fd);	
+	if (bytes_read == 0) {
+		Page* root = build_tree(fd);
 		return root; 
 	}
 
