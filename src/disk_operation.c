@@ -17,16 +17,14 @@
 #define USERNAME_OFFSET ID_OFFSET + ID_SIZE
 #define EMAIL_OFFSET USERNAME_OFFSET + USERNAME_SIZE
 
-void static serialize(Row* source, void* destination) {
-	memcpy(destination + ID_OFFSET, &(source->id), ID_SIZE);
-	memcpy(destination + USERNAME_OFFSET, &(source->username), USERNAME_SIZE);
-	memcpy(destination + EMAIL_OFFSET, &(source->email), EMAIL_SIZE);
+void static serialize(Page* source, void* destination) {
+	size_t source_size = sizeof(source);
+	memcpy(destination, source, source_size);
 }
 
-void static deserialize(void *source, Row* destination) {
-	memcpy(&(destination->id), source + ID_OFFSET, ID_SIZE);
-	memcpy(&(destination->username), source + USERNAME_OFFSET, USERNAME_SIZE);
-	memcpy(&(destination->email), source + EMAIL_OFFSET, EMAIL_SIZE);
+void static deserialize(void *source, Page* destination) {
+	size_t source_size = sizeof(source);
+	memcpy(source, destination, source_size);
 }
 
 void disk_write(Page* page) {
@@ -145,4 +143,3 @@ Page* disk_read(Page* page, int number_child) {
 
 	return read_a_child_page(page, number_child, fd);
 }
-
