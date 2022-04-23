@@ -115,7 +115,7 @@ ExecuteResult execute_insert(Statement* statement, Page *root) {
 	return EXECUTE_SUCCESS;
 }
 
-ExecuteResult execute_select() {
+ExecuteResult execute_select(Statement* statement, Page* root) {
 	return EXECUTE_SUCCESS;
 }
 
@@ -124,7 +124,7 @@ ExecuteResult execute_statement(Statement* statement, Page* root) {
 		case (STATEMENT_INSERT):
 			return execute_insert(statement, root);
 		case (STATEMENT_SELECT):
-			return execute_select();
+			return execute_select(statement, root);
 	}
 }
 
