@@ -11,6 +11,7 @@ typedef enum {
 typedef struct {
 	StatementType type;
 	Row *row_to_insert;
+	uint32_t wanted_element;
 } Statement;
 
 typedef struct {

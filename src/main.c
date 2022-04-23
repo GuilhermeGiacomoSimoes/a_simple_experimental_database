@@ -11,9 +11,9 @@
 #include "b_tree.h"
 #include "main.h"
 
-//void print_row(struct Row* row) {
-//	printf("(%d, %s, %s)\n", row->id, row->username, row->email);
-//}
+void print_row(Row* row) {
+	printf("(%d, %s, %s)\n", row->id, row->username, row->email);
+}
 
 InputBuffer* new_input_buffer() {
 	InputBuffer* input_buffer 	= (InputBuffer*) malloc(sizeof(InputBuffer));
@@ -91,10 +91,13 @@ PrepareResult prepare_insert(InputBuffer* input_buffer, Statement* statement) {
 PrepareResult prepare_select(InputBuffer* input_buffer, Statement* statement) {
 	statement->type = STATEMENT_SELECT;
 
-	char* keyword = strok(input_buffer->buffer, " ");
-	char* id_string = strok(NULL, " ");
+	char* keyword = strtok(input_buffer->buffer, " ");
+	char* id_string = strtok(NULL, " ");
 
-	return PREPARE_SUCCESS;	
+	uint32_t id = atoi(id_string);
+	statement->wanted_element = id;
+
+	return PREPARE_SUCCESS;
 }
 
 PrepareResult prepare_statement(InputBuffer* input_buffer, Statement* statement){
@@ -116,6 +119,9 @@ ExecuteResult execute_insert(Statement* statement, Page *root) {
 }
 
 ExecuteResult execute_select(Statement* statement, Page* root) {
+	Row *row = malloc(sizeof(Row)); 
+	row = b_tree_search(root, statement->wanted_element);
+	print_row(row);	
 	return EXECUTE_SUCCESS;
 }
 
