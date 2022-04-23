@@ -88,13 +88,21 @@ PrepareResult prepare_insert(InputBuffer* input_buffer, Statement* statement) {
 	return PREPARE_SUCCESS;
 }
 
+PrepareResult prepare_select(InputBuffer* input_buffer, Statement* statement) {
+	statement->type = STATEMENT_SELECT;
+
+	char* keyword = strok(input_buffer->buffer, " ");
+	char* id_string = strok(NULL, " ");
+
+	return PREPARE_SUCCESS;	
+}
+
 PrepareResult prepare_statement(InputBuffer* input_buffer, Statement* statement){
 	if(strncmp(input_buffer->buffer, "insert", 6) == 0) {
 		return prepare_insert(input_buffer, statement);	
 	}
-	if (strcmp(input_buffer->buffer, "select") == 0) {
-		statement->type = STATEMENT_SELECT;
-		return PREPARE_SUCCESS;	
+	if (strncmp(input_buffer->buffer, "select", 6) == 0) {
+		return prepare_select(input_buffer, statement);
 	}
 
 	return PREPARE_UNRECOGNIZED_STATEMENT;
