@@ -24,7 +24,7 @@ Row* b_tree_search(Page *page, int wanted_element) {
 }
 
 Page* load_root() {
-	return disk_read(NULL, 0);	
+	return disk_read(NULL, 0);
 }
 
 Page* b_tree_create() {

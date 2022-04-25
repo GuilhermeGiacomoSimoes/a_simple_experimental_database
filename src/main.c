@@ -45,12 +45,6 @@ void close_input_buffer(InputBuffer* input_buffer) {
 	free(input_buffer);
 }
 
-void indent(uint32_t level){
-	for(uint32_t i = 0; i < level; i++) {
-		printf("  ");
-	}
-}
-
 MetaCommandResult do_meta_command(InputBuffer* input_buffer, Page *page) {
 	if(strcmp(input_buffer->buffer, ".exit") == 0){
 		free(page); 
