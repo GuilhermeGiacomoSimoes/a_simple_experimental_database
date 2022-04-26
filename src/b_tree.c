@@ -35,7 +35,7 @@ Page* b_tree_create() {
 	return x;
 }
 
-void b_tree_split_child(Page *parent_not_full, uint32_t index_child_full) {
+void static b_tree_split_child(Page *parent_not_full, uint32_t index_child_full) {
 	int t = (MAX_ELEMENTS / 2) + 1;
 	Page *page_new = malloc(sizeof(Page));
 	Page *child_full = parent_not_full->childs[index_child_full];
@@ -72,10 +72,8 @@ void b_tree_split_child(Page *parent_not_full, uint32_t index_child_full) {
 	disk_write(parent_not_full);
 }
 
-void b_tree_insert_nonfull(Page *page, Row* k){
-	int i = page->elems;
-	Row *row = malloc(sizeof(Row));
-	row =  row;
+void static b_tree_insert_nonfull(Page *page, Row* k) {
+	uint32_t i = page->elems;
 
 	if(page->folha) {
 		while(i >= 1 && k->id < row->id) {
@@ -120,4 +118,3 @@ void b_tree_insert(Page *root, Row *k){
 		b_tree_insert_nonfull(root, k);
 	}
 }
-
