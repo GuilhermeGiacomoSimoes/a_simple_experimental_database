@@ -76,8 +76,8 @@ void static b_tree_insert_nonfull(Page *page, Row* k) {
 	uint32_t i = page->elems;
 
 	if(page->folha) {
-		while(i >= 1 && k->id < row->id) {
-			page->info[i+1] = row;
+		while(i >= 0 && k->id < page->info[i]->id) {
+			page->info[i+1] = page->info[i];
 			i --;
 		}
 		page->info[i+1] = k;
@@ -86,7 +86,7 @@ void static b_tree_insert_nonfull(Page *page, Row* k) {
 		free(page); 
 	}
 	else {
-		while(i >= 1 && k->id < row->id) {
+		while(i >= 0 && k->id < page->info[i]->id) {
 			i --;
 		}
 		i ++;
@@ -96,7 +96,7 @@ void static b_tree_insert_nonfull(Page *page, Row* k) {
 
 		if(child->elems == MAX_ELEMENTS) {
 			b_tree_split_child(page, i);
-			if(k->id > row->id) {
+			if(k->id > page->info[i]->id) {
 				i ++;
 			}
 		}
