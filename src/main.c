@@ -77,8 +77,6 @@ PrepareResult prepare_insert(InputBuffer* input_buffer, Statement* statement) {
 
 	statement->row_to_insert = row ;
 
-	free(row);
-
 	return PREPARE_SUCCESS;
 }
 
