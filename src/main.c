@@ -108,7 +108,7 @@ PrepareResult prepare_statement(InputBuffer* input_buffer, Statement* statement)
 ExecuteResult execute_insert(Statement* statement, Page *root) {
 	Row* row_to_insert = statement->row_to_insert;
 	uint32_t key_to_insert = row_to_insert->id;
-	b_tree_insert(root ,row_to_insert);
+	b_tree_insert(root, row_to_insert);
 	return EXECUTE_SUCCESS;
 }
 
