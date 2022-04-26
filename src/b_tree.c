@@ -73,7 +73,7 @@ void static b_tree_split_child(Page *parent_not_full, uint32_t index_child_full)
 }
 
 void static b_tree_insert_nonfull(Page *page, Row* k) {
-	uint32_t i = page->elems;
+	int i = page->elems - 1;
 
 	if(page->folha) {
 		while(i >= 0 && k->id < page->info[i]->id) {
@@ -110,7 +110,7 @@ void b_tree_insert(Page *root, Row *k) {
 		root = s;
 		s->folha = 0;
 		s->elems = 0;
-		s->childs[1] = root;
+		s->childs[0] = root;
 		b_tree_split_child(s, 1);
 		b_tree_insert_nonfull(s, k);
 	}
