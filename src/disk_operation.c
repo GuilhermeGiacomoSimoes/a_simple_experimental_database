@@ -39,11 +39,18 @@ void static deserialize_row(void* source, Row* destination) {
 }
 
 void static serialize(Page* source, void* destination) {
+	memcpy(destination + FOLHA_OFFSET, &(source->folha), FOLHA_SIZE);
+	memcpy(destination + ELEMS_OFFSET, &(source->), ELEMS_SIZE);
+	memcpy(destination + ADDRESS_MEMMORY_OFFSET, &(source->), ADDRESS_MEMMORY_SIZE);
+
+	for(int index_info = 0; index_info < source->elems; index_info ++) {
+		void *row_serialize = malloc(sizeof(Row)); 
+		serialize_row(&source->info[index_info], row_serialize);
+		source->info[index_info] = row_serialize;
+	}
 }
 
 void static deserialize(void *source, Page* destination) {
-	size_t source_size = sizeof(source);
-	memcpy(source, destination, source_size);
 }
 
 void disk_write(Page* page) {
