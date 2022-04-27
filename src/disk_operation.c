@@ -38,12 +38,16 @@ void static deserialize_row(void* source, Row* destination) {
   	memcpy(&(destination->email), source + EMAIL_OFFSET, EMAIL_SIZE);
 }
 
+ssize_t size(int *arr) {
+	return sizeof(arr)/sizeof(int);
+}
+
 void static serialize(Page* source, void* destination) {
 	memcpy(destination + FOLHA_OFFSET, &(source->folha), FOLHA_SIZE);
-	memcpy(destination + ELEMS_OFFSET, &(source->), ELEMS_SIZE);
-	memcpy(destination + ADDRESS_MEMMORY_OFFSET, &(source->), ADDRESS_MEMMORY_SIZE);
+	memcpy(destination + ELEMS_OFFSET, &(source->elems), ELEMS_SIZE);
+	memcpy(destination + ADDRESS_MEMMORY_OFFSET, &(source->current_address_memmory), ADDRESS_MEMMORY_SIZE);
 
-	for(int index_info = 0; index_info < source->elems; index_info ++) {
+	for(uint32_t index_info = 0; index_info < source->elems; index_info ++) {
 		void *row_serialize = malloc(sizeof(Row)); 
 		serialize_row(&source->info[index_info], row_serialize);
 		source->info[index_info] = row_serialize;
