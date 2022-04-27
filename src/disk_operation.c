@@ -9,7 +9,9 @@
 #include "disk_operation.h"
 
 #define size_of_attribute(Struct, Attribute) sizeof(((Struct*)0)->Attribute)
+
 #define NAME_FILE_DATABASE "database.db"
+
 #define ID_SIZE size_of_attribute(Row, id)
 #define USERNAME_SIZE size_of_attribute(Row, username)
 #define EMAIL_SIZE size_of_attribute(Row, email)
