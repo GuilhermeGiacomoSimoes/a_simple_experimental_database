@@ -19,6 +19,13 @@
 #define USERNAME_OFFSET ID_OFFSET + ID_SIZE
 #define EMAIL_OFFSET USERNAME_OFFSET + USERNAME_SIZE
 
+#define FOLHA_SIZE size_of_attribute(Page, folha) 
+#define ELEMS_SIZE size_of_attribute(Page, elems) 
+#define ADDRESS_MEMMORY_SIZE size_of_attribute(Page, current_address_memmory) 
+#define FOLHA_OFFSET 0 
+#define ELEMS_OFFSET FOLHA_OFFSET + FOLHA_SIZE 
+#define ADDRESS_MEMMORY_OFFSET ELEMS_OFFSET + ADDRESS_MEMMORY_SIZE 
+
 void static serialize_row(Row* source, void* destination) {
   memcpy(destination + ID_OFFSET, &(source->id), ID_SIZE);
   memcpy(destination + USERNAME_OFFSET, &(source->username), USERNAME_SIZE);
