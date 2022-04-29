@@ -13,7 +13,7 @@ typedef struct Row {
 } Row;
 
 typedef struct Page {
-	int folha;
+	int leaf;
 	int elems;
 	int current_address_memmory;
 	struct Row* info[MAX_ELEMENTS];

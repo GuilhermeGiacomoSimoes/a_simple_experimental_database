@@ -13,7 +13,7 @@ Row* b_tree_search(Page *page, int wanted_element) {
 	if( i <= page->elems && wanted_element == page->info[i]->id ) {
 		return page->info[i];
 	}
-	else if(page->folha) {
+	else if(page->leaf) {
 		return NULL;
 	}
 
@@ -29,7 +29,7 @@ Page* load_root() {
 
 Page* b_tree_create() {
 	Page *x = malloc(sizeof(Page));
-	x->folha = 1;
+	x->leaf = 1;
 	x->elems = 0;
 	disk_write(x);
 	return x;
@@ -40,14 +40,14 @@ void static b_tree_split_child(Page *parent_not_full, uint32_t index_child_full)
 	Page *page_new = malloc(sizeof(Page));
 	Page *child_full = parent_not_full->childs[index_child_full];
 
-	page_new->folha = child_full->folha;
+	page_new->leaf = child_full->leaf;
 	page_new->elems = t - 1;
 
 	for(int j = 1; j <= t - 1; j++) {
 		page_new->info[j] = child_full->info[j + t];
 	}
 
-	if(!child_full->folha) {
+	if(!child_full->leaf) {
 		for(int j = 1; j <= t; j ++) {
 			page_new->childs[j] = child_full->childs[j+t];
 		}
@@ -75,7 +75,7 @@ void static b_tree_split_child(Page *parent_not_full, uint32_t index_child_full)
 void static b_tree_insert_nonfull(Page *page, Row* k) {
 	int i = page->elems - 1;
 
-	if(page->folha) {
+	if(page->leaf) {
 		while(i >= 0 && k->id < page->info[i]->id) {
 			page->info[i+1] = page->info[i];
 			i --;
@@ -108,7 +108,7 @@ void b_tree_insert(Page *root, Row *k) {
 	if(root->elems == MAX_ELEMENTS) {
 		Page *s = malloc(sizeof(Page))	;
 		root = s;
-		s->folha = 0;
+		s->leaf = 0;
 		s->elems = 0;
 		s->childs[0] = root;
 		b_tree_split_child(s, 1);

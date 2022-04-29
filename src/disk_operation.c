@@ -19,11 +19,11 @@
 #define USERNAME_OFFSET ID_OFFSET + ID_SIZE
 #define EMAIL_OFFSET USERNAME_OFFSET + USERNAME_SIZE
 
-#define FOLHA_SIZE size_of_attribute(Page, folha) 
+#define LEAF_SIZE size_of_attribute(Page, leaf) 
 #define ELEMS_SIZE size_of_attribute(Page, elems) 
 #define ADDRESS_MEMMORY_SIZE size_of_attribute(Page, current_address_memmory) 
-#define FOLHA_OFFSET 0 
-#define ELEMS_OFFSET FOLHA_OFFSET + FOLHA_SIZE 
+#define LEAF_OFFSET 0 
+#define ELEMS_OFFSET LEAF_OFFSET + LEAF_SIZE 
 #define ADDRESS_MEMMORY_OFFSET ELEMS_OFFSET + ADDRESS_MEMMORY_SIZE 
 
 void static serialize_row(Row* source, void* destination) {
@@ -43,11 +43,11 @@ ssize_t size(int *arr) {
 }
 
 void static serialize(Page* source, void* destination) {
-	memcpy(destination + FOLHA_OFFSET, &(source->folha), FOLHA_SIZE);
+	memcpy(destination + LEAF_OFFSET, &(source->leaf), LEAF_SIZE);
 	memcpy(destination + ELEMS_OFFSET, &(source->elems), ELEMS_SIZE);
 	memcpy(destination + ADDRESS_MEMMORY_OFFSET, &(source->current_address_memmory), ADDRESS_MEMMORY_SIZE);
 
-	for(uint32_t index_info = 0; index_info < source->elems; index_info ++) {
+	for(uint32_t index_info = 0; index_info < source->elems; index_info++) {
 		void *row_serialize = malloc(sizeof(Row)); 
 		serialize_row(&source->info[index_info], row_serialize);
 		source->info[index_info] = row_serialize;
@@ -98,7 +98,7 @@ void disk_write(Page* page) {
 
 static Page* build_tree(int fd) {
 	Page *x = malloc(sizeof(Page));
-	x->folha = 1;
+	x->leaf = 1;
 	x->elems = 0;
 	x->current_address_memmory = 0;
 	disk_write(x);
