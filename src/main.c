@@ -12,7 +12,7 @@
 #include "main.h"
 
 void print_row(Row* row) {
-	printf("(%d, %s, %s)\n", row->id, row->username, row->email);
+	printf("(%d, %s)\n", row->id, row->username);
 }
 
 InputBuffer* new_input_buffer() {
@@ -59,9 +59,8 @@ PrepareResult prepare_insert(InputBuffer* input_buffer, Statement* statement) {
 	char* keyword = strtok(input_buffer->buffer, " ");
 	char* id_string = strtok(NULL, " ");
 	char* username = strtok(NULL, " ");
-	char* email = strtok(NULL, " ");
 
-	if (id_string == NULL || username == NULL || email == NULL) {
+	if (id_string == NULL || username == NULL) {
 		return PREPARE_SYNTAX_ERROR;
 	}
 
@@ -73,7 +72,6 @@ PrepareResult prepare_insert(InputBuffer* input_buffer, Statement* statement) {
 	Row *row = malloc(sizeof(Row));
 	row->id = id;
 	strcpy(row->username, username);
-	strcpy(row->email, email);
 
 	statement->row_to_insert = row ;
 
