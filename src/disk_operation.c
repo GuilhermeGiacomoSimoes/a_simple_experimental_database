@@ -71,7 +71,7 @@ void disk_write(Page* page) {
 		);
 
 	if(fd == -1) {
-		printf("Unable to open of create a file database\n");
+		printf("Unable to open or create a file database\n");
 		exit(EXIT_FAILURE);
 	}
 
