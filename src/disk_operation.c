@@ -51,7 +51,7 @@ void static serialize(Page* source, void* destination) {
 		source->info[index_info] = &row_serialize;
 
 		memcpy(destination + initial_serialize_info, source->info, sizeof(source->info));
-		initial_serialize_info += MAX_ELEMENTS * sizeof(Row);
+		initial_serialize_info += sizeof(Row);
 	}
 }
 
