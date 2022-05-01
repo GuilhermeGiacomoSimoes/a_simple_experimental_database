@@ -51,7 +51,7 @@ void static serialize(Page* source, void* destination) {
 	for(uint32_t index_info = 0; index_info < source->elems; index_info++) {
 		void *row_serialize = malloc(sizeof(Row)); 
 
-		serialize_row(&source->info[index_info], row_serialize);
+		serialize_row(&(source->info[index_info]), row_serialize);
 		source->info[index_info] = row_serialize;
 
 		memcpy(destination + initial_serialize_info, source->info, sizeof(source->info));
