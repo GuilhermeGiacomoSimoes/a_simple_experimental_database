@@ -7,6 +7,11 @@
    The frontend layer only have things that client view. <br>
    The backend layer have all neccessary processing to a storage data (disk operation, btree...).  <br>
 
+## Tests
+   In End To End tests is required Test::Exception and Test::Simple
+   `cpanm  Test::Simple`
+   `cpanm  Test::Exception`
+
 ## Contributions
    Just fork the project and open a PR. It can be directly to the the master
 
