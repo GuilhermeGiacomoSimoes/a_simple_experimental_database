@@ -17,7 +17,14 @@ if(index $output_uname, DARWIN_KERNEL != -1) {
 }
 
 if($KERNEL eq DARWIN_KERNEL) {
-	system "" ;
+	system "clang $SRC_PATH/main.c $SRC_PATH/b_tree.c $SRC_PATH/disk_operation.c -g -fdebug-macro -arch arm64 -o REPL" ;
+}
+else {
+	system "clang $SRC_PATH/main.c $SRC_PATH/b_tree.c $SRC_PATH/disk_operation.c -g -v -o REPL" ;
+}
+
+sub execute_main_c {
+	my $o = `./REPL`;
 }
 
 is();
