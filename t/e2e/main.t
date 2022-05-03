@@ -1,5 +1,8 @@
 #!/usr/bin/perl
 
+use warnings;
+use strict;
+
 use Test::More;
 
 use constant DARWIN_KERNEL => 'darwin';
