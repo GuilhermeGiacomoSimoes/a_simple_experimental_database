@@ -65,7 +65,7 @@ PrepareResult prepare_insert(InputBuffer* input_buffer, Statement* statement) {
 	}
 
 	int id = atoi(id_string);
-	if( id < 0) {
+	if(id < 0) {
 		return PREPARE_NEGATIVE_ID; 
 	}
 
