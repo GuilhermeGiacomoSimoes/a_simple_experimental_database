@@ -16,17 +16,12 @@ if(index $output_uname, DARWIN_KERNEL != -1) {
 	$KERNEL = "darwin";
 }
 
+my $compile = "clang $SRC_PATH/main.c $SRC_PATH/b_tree.c $SRC_PATH/disk_operation.c -g ";
 if($KERNEL eq DARWIN_KERNEL) {
-	system "clang $SRC_PATH/main.c $SRC_PATH/b_tree.c $SRC_PATH/disk_operation.c -g -fdebug-macro -arch arm64 -o REPL" ;
+	$compile .= "-fdebug-macro -arch arm64 ";
 }
-else {
-	system "clang $SRC_PATH/main.c $SRC_PATH/b_tree.c $SRC_PATH/disk_operation.c -g -v -o REPL" ;
-}
+$compile .= " -o test.db";
 
-sub execute_main_c {
-	my $o = `./REPL`;
-}
-
-is();
+ok(-e "test.db", "The file exists");
 
 __END__
