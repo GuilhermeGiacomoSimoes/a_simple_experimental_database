@@ -7,6 +7,8 @@ use Test::More;
 
 use constant DARWIN_KERNEL => 'darwin';
 use constant LINUX_KERNEL => 'linux';
+use constant CPU_ARCH_x86 => 'x86';
+use constant CPU_ARCH_ARM => 'arm';
 
 my $KERNEL = "linux";
 my $SRC_PATH = "../../src";
