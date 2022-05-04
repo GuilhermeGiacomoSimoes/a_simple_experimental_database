@@ -5,3 +5,6 @@ db.db
 .DS_Store
 REPL.dSYM
 database.db
+test.db
+test.db.dSYM
+
