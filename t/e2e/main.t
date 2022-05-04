@@ -23,11 +23,18 @@ if(index($output_cpu_inf, "apple m1")){
 	$CPU = CPU_ARCH_ARM;		
 }
 
-my $compile = "clang $SRC_PATH/main.c $SRC_PATH/b_tree.c $SRC_PATH/disk_operation.c -g ";
-if($KERNEL eq DARWIN_KERNEL) {
-	$compile .= "-fdebug-macro -arch arm64 ";
+ok(&compile(), "Compile is sucess");
+sub compile {
+	my $compile = "clang $SRC_PATH/main.c $SRC_PATH/b_tree.c $SRC_PATH/disk_operation.c ";
+	if($KERNEL eq DARWIN_KERNEL && $CPU eq CPU_ARCH_ARM) {
+		$compile .= "-fdebug-macro -arch arm64 ";
+	}
+	$compile .= " -o test.db";
+	
+	system $compile;
+	
+	return -e "test.db";
 }
-$compile .= " -o test.db";
 
 ok(-e "test.db", "The file exists");
 
