@@ -36,6 +36,7 @@ sub compile {
 	return -e "test.db";
 }
 
-ok(-e "test.db", "The file exists");
+
+done_testing();
 
 __END__
