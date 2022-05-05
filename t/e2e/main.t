@@ -36,6 +36,10 @@ sub compile {
 	return -e "test.db";
 }
 
+ok(&execute_insert(), "Verify execute the db");
+sub execute_insert {
+	system "./test.db";
+}
 
 done_testing();
 
