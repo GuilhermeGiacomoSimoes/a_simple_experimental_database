@@ -9,7 +9,3 @@ endif()
 
 add_subdirectory(src)
 add_executable(REPL main.c b_tree.c disk_operation.c)
-
-add_executable(tester main.cpp)
-
-add_test(Tester tester)
