@@ -1,2 +1,3 @@
-
-add_test(NAME main.cpp)
+enable_testing()
+add_executable(main main.cpp)
+add_test(NAME main)
