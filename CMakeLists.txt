@@ -7,5 +7,6 @@ if(BUILD_TESTING)
 	add_subdirectory(t)
 endif()
 
-add_subdirectory(src)
-add_executable(REPL main.c b_tree.c disk_operation.c)
+#add_subdirectory(src)
+file(GLOB_RECURSE SRC_FILES src/.*c)
+add_executable(REPL ${SRC_FILES})
