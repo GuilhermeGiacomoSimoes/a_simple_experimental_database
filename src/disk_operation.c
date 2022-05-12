@@ -24,24 +24,24 @@
 #define ELEMS_OFFSET LEAF_OFFSET + LEAF_SIZE 
 #define ADDRESS_MEMMORY_OFFSET ELEMS_OFFSET + ADDRESS_MEMMORY_SIZE 
 
-void static serialize(Page* source, Page_data* destination) {
-	if(destination == NULL || source == NULL) {
+void static serialize(Page* destination, Page_data* source) {
+	if(source == NULL || source == NULL) {
 		exit(EXIT_FAILURE);
 	}
 
-	memset(page, 0, sizeof(Page));
-	memcpy(&page->leaf, &packed->p1, 3 * sizeof(uint32_t));
-	memcpy(&page->childs, &packed->p2, MAX_ELEMENTS * sizeof(uint32_t));
+	memset(destination, 0, sizeof(Page));
+	memcpy(&destination->leaf, &source->p1, 3 * sizeof(uint32_t));
+	memcpy(&destination->childs, &source->p2, MAX_ELEMENTS * sizeof(uint32_t));
 
-	char *p = (char*) &packed->p2;
+	char *p = (char*) &source->p2;
 
 	for(uint32_t i = 0; i < MAX_ELEMENTS; i ++) {
 		if(*p++ == 0) {
-			page->info[i] = NULL;
+			destination->info[i] = NULL;
 		}
 		else {
-			page->info[i] = (Row*) malloc(sizeof(Row));
-			memcpy(page->info[i], p, sizeof(Row));
+			destination->info[i] = (Row*) malloc(sizeof(Row));
+			memcpy(destination->info[i], p, sizeof(Row));
 			p += sizeof(Row);
 		}
 	}
