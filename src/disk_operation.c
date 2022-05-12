@@ -24,34 +24,26 @@
 #define ELEMS_OFFSET LEAF_OFFSET + LEAF_SIZE 
 #define ADDRESS_MEMMORY_OFFSET ELEMS_OFFSET + ADDRESS_MEMMORY_SIZE 
 
-void static serialize_row(Row* source, void* destination) {
-  	memcpy(destination + ID_OFFSET, &(source->id), ID_SIZE);
-  	memcpy(destination + USERNAME_OFFSET, &(source->username), USERNAME_SIZE);
-}
+void static serialize(Page* source, Page_data* destination) {
+	if(destination == NULL || source == NULL) {
+		exit(EXIT_FAILURE);
+	}
 
-void static deserialize_row(void* source, Row* destination) {
-  	memcpy(&(destination->id), source + ID_OFFSET, ID_SIZE);
-  	memcpy(&(destination->username), source + USERNAME_OFFSET, USERNAME_SIZE);
-}
+	memset(page, 0, sizeof(Page));
+	memcpy(&page->leaf, &packed->p1, 3 * sizeof(uint32_t));
+	memcpy(&page->childs, &packed->p2, MAX_ELEMENTS * sizeof(uint32_t));
 
-ssize_t size(int *arr) {
-	return sizeof(arr)/sizeof(int);
-}
+	char *p = (char*) &packed->p2;
 
-void static serialize(Page* source, void* destination) {
-	memcpy(destination + LEAF_OFFSET, &(source->leaf), LEAF_SIZE);
-	memcpy(destination + ELEMS_OFFSET, &(source->elems), ELEMS_SIZE);
-	memcpy(destination + ADDRESS_MEMMORY_OFFSET, &(source->current_address_memmory), ADDRESS_MEMMORY_SIZE);
-
-	off_t initial_serialize_info = ADDRESS_MEMMORY_OFFSET + ADDRESS_MEMMORY_SIZE;
-	for(uint32_t index_info = 0; index_info < source->elems; index_info++) {
-		void *row_serialize = malloc(sizeof(Row)); 
-
-		serialize_row(&(source->info[index_info]), row_serialize);
-		source->info[index_info] = &row_serialize;
-
-		memcpy(destination + initial_serialize_info, source->info, sizeof(source->info));
-		initial_serialize_info += sizeof(Row);
+	for(uint32_t i = 0; i < MAX_ELEMENTS; i ++) {
+		if(*p++ == 0) {
+			page->info[i] = NULL;
+		}
+		else {
+			page->info[i] = (Row*) malloc(sizeof(Row));
+			memcpy(page->info[i], p, sizeof(Row));
+			p += sizeof(Row);
+		}
 	}
 }
 
