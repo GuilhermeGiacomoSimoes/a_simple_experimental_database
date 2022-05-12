@@ -12,11 +12,22 @@ typedef struct Row {
 } Row;
 
 typedef struct Page {
-	int leaf;
-	int elems;
-	int current_address_memmory;
+	uint32_t leaf;
+	uint32_t elems;
+	uint32_t current_address_memory;
 	struct Row* info[MAX_ELEMENTS];
-	int childs[MAX_ELEMENTS + 1];
+	uint32_t childs[MAX_ELEMENTS + 1];
 } Page;
+
+typedef struct {
+    uint32_t len;
+    char p1[3 * sizeof(uint32_t)];
+    char p2[MAX_ELEMENTS * sizeof(uint32_t)];
+    struct {
+        char flag;
+        char data[sizeof(Row)];
+    } infos[MAX_ELEMENTS];
+
+} Page_data;
 
 #endif
