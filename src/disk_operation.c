@@ -47,7 +47,44 @@ void static serialize(Page* destination, Page_data* source) {
 	}
 }
 
-void static deserialize(void *source, Page* destination) {
+void static deserialize(Page_data *source, Page* destination) {
+	if(source == NULL || destination == NULL) {
+		exit(EXIT_FAILURE);
+	}
+
+	memset((void*)data, 0, sizeof(Page_data));
+
+	uint32_t n_rows = 0;
+
+	for(uint32_t i = 0; i < MAX_ELEMENTS; i ++) {
+		if(destination->info[i] != NULL) {
+			n_rows+= 1;
+		}
+	}
+
+	source->len = sizeof(uint32_t) + MAX_ELEMENTS + (3 + MAX_ELEMENTS) * sizeof(uint32_t) + n_rows * sizeof(Row);
+
+	char* p = (char*)source;
+
+	memcpy(p + sizeof(uint32_t), page, 3 * sizeof(uint32_t));
+	p += 4 * sizeof(uint32_t);
+
+	mempy(p, &source->childs, MAX_ELEMENTS * sizeof(uint32_t));
+
+
+	p += MAX_ELEMENTS * sizeof(uint32_t);
+
+
+	for(uint32_t i = 0; i < MAX_ELEMENTS; i ++) {
+		if(source->info[i] == NULL) {
+			*p++ 0;
+		}
+		else {
+			*p++ = 0xff;
+			memcpy(p, source->info[i], sizeof(Row));
+			p += sizeof(Row);
+		}
+	}
 }
 
 void disk_write(Page* page) {
