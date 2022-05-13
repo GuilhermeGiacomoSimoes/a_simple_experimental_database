@@ -25,29 +25,6 @@
 #define ADDRESS_MEMMORY_OFFSET ELEMS_OFFSET + ADDRESS_MEMMORY_SIZE 
 
 void static serialize(Page* destination, Page_data* source) {
-	if(source == NULL || source == NULL) {
-		exit(EXIT_FAILURE);
-	}
-
-	memset(destination, 0, sizeof(Page));
-	memcpy(&destination->leaf, &source->p1, 3 * sizeof(uint32_t));
-	memcpy(&destination->childs, &source->p2, MAX_ELEMENTS * sizeof(uint32_t));
-
-	char *p = (char*) &source->p2;
-
-	for(uint32_t i = 0; i < MAX_ELEMENTS; i ++) {
-		if(*p++ == 0) {
-			destination->info[i] = NULL;
-		}
-		else {
-			destination->info[i] = (Row*) malloc(sizeof(Row));
-			memcpy(destination->info[i], p, sizeof(Row));
-			p += sizeof(Row);
-		}
-	}
-}
-
-void static deserialize(Page_data *source, Page* destination) {
 	if(source == NULL || destination == NULL) {
 		exit(EXIT_FAILURE);
 	}
@@ -81,7 +58,30 @@ void static deserialize(Page_data *source, Page* destination) {
 		}
 		else {
 			*p++ = 0xff;
-			memcpy(p, source->info[i], sizeof(Row));
+			memcpy(p, destination->info[i], sizeof(Row));
+			p += sizeof(Row);
+		}
+	}
+}
+
+void static deserialize(Page_data *source, Page* destination) {
+	if(source == NULL || source == NULL) {
+		exit(EXIT_FAILURE);
+	}
+
+	memset(destination, 0, sizeof(Page));
+	memcpy(&destination->leaf, &source->p1, 3 * sizeof(uint32_t));
+	memcpy(&destination->childs, &source->p2, MAX_ELEMENTS * sizeof(uint32_t));
+
+	char *p = (char*) &source->p2;
+
+	for(uint32_t i = 0; i < MAX_ELEMENTS; i ++) {
+		if(*p++ == 0) {
+			destination->info[i] = NULL;
+		}
+		else {
+			destination->info[i] = (Row*) malloc(sizeof(Row));
+			memcpy(destination->info[i], p, sizeof(Row));
 			p += sizeof(Row);
 		}
 	}
