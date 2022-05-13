@@ -7,6 +7,5 @@ if(BUILD_TESTING)
 	add_subdirectory(t)
 endif()
 
-#add_subdirectory(src)
-file(GLOB_RECURSE SRC_FILES src/.*c)
-add_executable(REPL ${SRC_FILES})
+file(GLOB_RECURSE SRC_FILES ${CMAKE_CURRENT_SOURCE_DIR}/src/.*c)
+add_executable(${CMAKE_CURRENT_SOURCE_DIR}/REPL ${SRC_FILES})
