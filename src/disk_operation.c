@@ -29,7 +29,7 @@ void static serialize(Page* destination, Page_data* source) {
 		exit(EXIT_FAILURE);
 	}
 
-	memset((void*)data, 0, sizeof(Page_data));
+	memset((void*)destination, 0, sizeof(destination));
 
 	uint32_t n_rows = 0;
 
@@ -43,7 +43,7 @@ void static serialize(Page* destination, Page_data* source) {
 
 	char* p = (char*)source;
 
-	memcpy(p + sizeof(uint32_t), page, 3 * sizeof(uint32_t));
+	memcpy(p + sizeof(uint32_t), destination, 3 * sizeof(uint32_t));
 	p += 4 * sizeof(uint32_t);
 
 	mempy(p, &source->childs, MAX_ELEMENTS * sizeof(uint32_t));
@@ -53,8 +53,8 @@ void static serialize(Page* destination, Page_data* source) {
 
 
 	for(uint32_t i = 0; i < MAX_ELEMENTS; i ++) {
-		if(source->info[i] == NULL) {
-			*p++ 0;
+		if(destination->info[i] == NULL) {
+			*p++ = 0;
 		}
 		else {
 			*p++ = 0xff;
