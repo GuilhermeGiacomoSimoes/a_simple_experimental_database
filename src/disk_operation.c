@@ -116,8 +116,8 @@ void disk_write(Page* page) {
 	}
 
 	const size_t OFFSET_PAGE = sizeof(Page); 
-	Page_data *serialized_page;
-	serialize(page, serialized_page);
+	void* serialized_page;
+	serialize(page, &serialized_page);
 	ssize_t bytes_written = write(fd, serialized_page, OFFSET_PAGE);
 
 	if(bytes_written == -1) {
@@ -178,8 +178,8 @@ Page* read_a_child_page(Page* page, int number_child, int fd) {
 		exit(EXIT_FAILURE);
 	}
 
-	Page* child = malloc(OFFSET_PAGE);
-	deserialize(serialized_child, child);
+	Page* child;
+	deserialize(serialized_child, &child);
 
 	free(serialized_child);
 	return child;
