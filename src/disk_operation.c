@@ -19,7 +19,7 @@
 
 #define LEAF_SIZE size_of_attribute(Page, leaf) 
 #define ELEMS_SIZE size_of_attribute(Page, elems) 
-#define ADDRESS_MEMMORY_SIZE size_of_attribute(Page, current_address_memmory) 
+#define ADDRESS_MEMMORY_SIZE size_of_attribute(Page, current_address_memory) 
 #define LEAF_OFFSET 0 
 #define ELEMS_OFFSET LEAF_OFFSET + LEAF_SIZE 
 #define ADDRESS_MEMMORY_OFFSET ELEMS_OFFSET + ADDRESS_MEMMORY_SIZE 
@@ -104,10 +104,10 @@ void disk_write(Page* page) {
 		exit(EXIT_FAILURE);
 	}
 
-	off_t offset = lseek(fd, page->current_address_memmory, SEEK_SET);
-	if(!page->current_address_memmory) {
+	off_t offset = lseek(fd, page->current_address_memory, SEEK_SET);
+	if(!page->current_address_memory) {
 		offset = lseek(fd, 0, SEEK_END);
-		page->current_address_memmory = offset;
+		page->current_address_memory = offset;
 	}
 
 	if(offset == -1) {
@@ -130,7 +130,7 @@ static Page* build_tree(int fd) {
 	Page *x = malloc(sizeof(Page));
 	x->leaf = 1;
 	x->elems = 0;
-	x->current_address_memmory = 0;
+	x->current_address_memory = 0;
 	disk_write(x);
 	return x;
 }
@@ -155,16 +155,16 @@ Page* read_a_root_page(int fd) {
 		exit(EXIT_FAILURE);
 	}
 
-	Page* root = malloc(OFFSET_PAGE);
-	deserialize(serialized_root, root);
+	Page* root;
+	deserialize(serialized_root, &root);
 
 	free(serialized_root);
 	return root;
 }
 
 Page* read_a_child_page(Page* page, int number_child, int fd) {
-	int memmory_address_at_disk = page->childs[number_child];
-	off_t offset = lseek(fd, memmory_address_at_disk, SEEK_SET);
+	int memory_address_at_disk = page->childs[number_child];
+	off_t offset = lseek(fd, memory_address_at_disk, SEEK_SET);
 	if(offset == -1) {
 		printf("Error seeking\n");
 	}
