@@ -46,7 +46,7 @@ void static serialize(Page* destination, Page_data* source) {
 	memcpy(p + sizeof(uint32_t), destination, 3 * sizeof(uint32_t));
 	p += 4 * sizeof(uint32_t);
 
-	mempy(p, &source->childs, MAX_ELEMENTS * sizeof(uint32_t));
+	memcpy(p, &destination->childs, MAX_ELEMENTS * sizeof(uint32_t));
 
 
 	p += MAX_ELEMENTS * sizeof(uint32_t);
