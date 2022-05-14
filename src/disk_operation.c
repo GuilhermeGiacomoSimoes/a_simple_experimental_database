@@ -50,8 +50,7 @@ void static serialize(Page* destination, Page_data* source) {
 
 	p += MAX_ELEMENTS * sizeof(uint32_t);
 
-
-	for(uint32_t i = 0; i < MAX_ELEMENTS; i ++) {
+	for(uint32_t i = 0; i < MAX_ELEMENTS; i++) {
 		if(destination->info[i] == NULL) {
 			*p++ = 0;
 		}
