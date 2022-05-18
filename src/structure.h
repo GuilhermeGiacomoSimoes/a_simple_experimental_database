@@ -6,16 +6,16 @@
 #define COLUMN_EMAIL_SIZE 255
 #define TABLE_MAX_PAGES 100
 
-typedef struct Row {
+typedef struct {
 	uint32_t id;
 	char username[COLUMN_USERNAME_SIZE + 1];
 } Row;
 
-typedef struct Page {
+typedef struct {
 	uint32_t leaf;
 	uint32_t elems;
 	uint32_t current_address_memory;
-	struct Row* info[MAX_ELEMENTS];
+	Row* info[MAX_ELEMENTS];
 	uint32_t childs[MAX_ELEMENTS + 1];
 } Page;
 
