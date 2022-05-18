@@ -10,7 +10,7 @@ Row* b_tree_search(Page *page, int wanted_element) {
 	while (i <= page->elems && wanted_element > page->info[i]->id) {
 		i++;	
 	}
-	if( i <= page->elems && wanted_element == page->info[i]->id ) {
+	if(i <= page->elems && wanted_element == page->info[i]->id) {
 		return page->info[i];
 	}
 	else if(page->leaf) {
