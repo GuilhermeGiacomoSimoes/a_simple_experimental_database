@@ -24,42 +24,29 @@
 #define ELEMS_OFFSET LEAF_OFFSET + LEAF_SIZE 
 #define ADDRESS_MEMMORY_OFFSET ELEMS_OFFSET + ADDRESS_MEMMORY_SIZE 
 
-void static serialize(Page* destination, Page_data* source) {
-	if(source == NULL || destination == NULL) {
-		exit(EXIT_FAILURE);
-	}
-
-	memset((void*)destination, 0, sizeof(destination));
-
-	uint32_t n_rows = 0;
-
-	for(uint32_t i = 0; i < MAX_ELEMENTS; i ++) {
-		if(destination->info[i] != NULL) {
-			n_rows+= 1;
-		}
-	}
-
-	source->len = sizeof(uint32_t) + MAX_ELEMENTS + (3 + MAX_ELEMENTS) * sizeof(uint32_t) + n_rows * sizeof(Row);
-
-	char* p = (char*)source;
-
-	memcpy(p + sizeof(uint32_t), destination, 3 * sizeof(uint32_t));
-	p += 4 * sizeof(uint32_t);
-
-	memcpy(p, &(destination->childs), MAX_ELEMENTS * sizeof(uint32_t));
-
-	p += MAX_ELEMENTS * sizeof(uint32_t);
-
-	for(uint32_t i = 0; i < MAX_ELEMENTS; i++) {
-		if(destination->info[i] == NULL) {
-			*p++ = 0;
-		}
-		else {
-			*p++ = 0xff;
-			memcpy(p, destination->info[i], sizeof(Row));
-			p += sizeof(Row);
-		}
-	}
+void static serialize(Page* page, Page_data* data) {
+    memset((void*)data, 0, sizeof(Page_data));
+    uint32_t n_rows = 0;
+    for (uint32_t i = 0; i < MAX_ELEMENTS; i += 1)
+        if (page->info[i] != NULL) n_rows += 1;
+    data->len = sizeof(uint32_t) + MAX_ELEMENTS +
+                (3 + MAX_ELEMENTS) * sizeof(uint32_t) +
+                n_rows * sizeof(Row);
+    char* p = (char*)data;
+    memcpy(
+        p + sizeof(uint32_t), page, 3 * sizeof(uint32_t));
+    p += 4 * sizeof(uint32_t);
+    memcpy(p, &page->childs, MAX_ELEMENTS * sizeof(uint32_t));
+    p += MAX_ELEMENTS * sizeof(uint32_t);
+    for (uint32_t i = 0; i < MAX_ELEMENTS; i += 1)
+        if (page->info[i] == NULL)
+            *p++ = 0;
+        else
+        {
+            *p++ = 0xff;
+            memcpy(p, page->info[i], sizeof(Row));
+            p += sizeof(Row);
+        }
 }
 
 void static deserialize(Page_data *source, Page* destination) {
