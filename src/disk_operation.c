@@ -148,11 +148,11 @@ Page* read_a_root_page(int fd) {
 		exit(EXIT_FAILURE);
 	}
 
-	Page* root;
+	Page root;
 	deserialize(serialized_root, &root);
 
 	free(serialized_root);
-	return root;
+	return &root;
 }
 
 Page* read_a_child_page(Page* page, int number_child, int fd) {
@@ -170,11 +170,11 @@ Page* read_a_child_page(Page* page, int number_child, int fd) {
 		exit(EXIT_FAILURE);
 	}
 
-	Page* child;
+	Page child;
 	deserialize(serialized_child, &child);
 
 	free(serialized_child);
-	return child;
+	return &child;
 }
 
 Page* disk_read(Page* page, int number_child) {
