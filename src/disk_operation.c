@@ -25,6 +25,10 @@
 #define ADDRESS_MEMMORY_OFFSET ELEMS_OFFSET + ADDRESS_MEMMORY_SIZE 
 
 void static serialize(Page* page, Page_data* data) {
+	if(page == NULL || data == NULL) {
+		exit(EXIT_FAILURE); 
+	}
+
     memset((void*)data, 0, sizeof(Page_data));
     uint32_t n_rows = 0;
     for (uint32_t i = 0; i < MAX_ELEMENTS; i += 1)
