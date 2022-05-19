@@ -135,9 +135,8 @@ Page* read_a_root_page(int fd) {
 		printf("Error seeking\n");
 	}
 
-	const size_t OFFSET_PAGE = sizeof(Page); 
-	void *serialized_root = malloc(OFFSET_PAGE);
-	size_t bytes_read = read(fd, serialized_root, OFFSET_PAGE);
+	void *serialized_root = malloc(sizeof(Page_data));
+	size_t bytes_read = read(fd, serialized_root, sizeof(Page));
 
 	if(bytes_read == 0) {
 		Page* root = build_tree(fd);
@@ -163,9 +162,8 @@ Page* read_a_child_page(Page* page, int number_child, int fd) {
 		printf("Error seeking\n");
 	}
 
-	const size_t OFFSET_PAGE = sizeof(Page); 
-	void *serialized_child = malloc(OFFSET_PAGE);
-	size_t bytes_read = read(fd, serialized_child, OFFSET_PAGE);
+	void *serialized_child = malloc(sizeof(Page_data));
+	size_t bytes_read = read(fd, serialized_child, sizeof(Page));
 
 	if(bytes_read == -1) {
 		printf("Error while reading file database\n");
