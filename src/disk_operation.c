@@ -31,26 +31,31 @@ void static serialize(Page* page, Page_data* data) {
 
     memset((void*)data, 0, sizeof(Page_data));
     uint32_t n_rows = 0;
-    for (uint32_t i = 0; i < MAX_ELEMENTS; i += 1)
+	for (uint32_t i = 0; i < MAX_ELEMENTS; i++) {
         if (page->info[i] != NULL) n_rows += 1;
-    data->len = sizeof(uint32_t) + MAX_ELEMENTS +
-                (3 + MAX_ELEMENTS) * sizeof(uint32_t) +
-                n_rows * sizeof(Row);
+	}
+
+    data->len = sizeof(uint32_t) + MAX_ELEMENTS + (3 + MAX_ELEMENTS) * sizeof(uint32_t) + n_rows * sizeof(Row);
+
     char* p = (char*)data;
-    memcpy(
-        p + sizeof(uint32_t), page, 3 * sizeof(uint32_t));
+    memcpy(p + sizeof(uint32_t), page, 3 * sizeof(uint32_t));
+
     p += 4 * sizeof(uint32_t);
+
     memcpy(p, &page->childs, MAX_ELEMENTS * sizeof(uint32_t));
+
     p += MAX_ELEMENTS * sizeof(uint32_t);
-    for (uint32_t i = 0; i < MAX_ELEMENTS; i += 1)
-        if (page->info[i] == NULL)
+
+	for (uint32_t i = 0; i < MAX_ELEMENTS; i++) {
+		if (page->info[i] == NULL) {
             *p++ = 0;
-        else
-        {
+		}
+        else {
             *p++ = 0xff;
             memcpy(p, page->info[i], sizeof(Row));
             p += sizeof(Row);
         }
+	}
 }
 
 void static deserialize(Page_data *source, Page* destination) {
