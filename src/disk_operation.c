@@ -29,7 +29,7 @@ void static serialize(Page* page, Page_data* data) {
 		exit(EXIT_FAILURE); 
 	}
 
-	//memset((void*)data, 0, sizeof(Page_data));
+	memset((void*)data, 0, sizeof(Page_data));
     uint32_t n_rows = 0;
 	for(uint32_t i = 0; i < MAX_ELEMENTS; i++) {
         if (page->info[i] != NULL) n_rows += 1;
