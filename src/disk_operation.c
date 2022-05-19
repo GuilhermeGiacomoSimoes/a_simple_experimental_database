@@ -58,27 +58,27 @@ void static serialize(Page* page, Page_data* data) {
 	}
 }
 
-void static deserialize(Page_data *source, Page* destination) {
-	if(source == NULL || source == NULL) {
+void static deserialize(Page_data* packed, Page* page) {
+	if (page == NULL || packed == NULL) {
 		exit(EXIT_FAILURE);
-	}
-
-	memset(destination, 0, sizeof(Page));
-	memcpy(&destination->leaf, &source->p1, 3 * sizeof(uint32_t));
-	memcpy(&destination->childs, &source->p2, MAX_ELEMENTS * sizeof(uint32_t));
-
-	char *p = (char*) &source->p2;
-
-	for(uint32_t i = 0; i < MAX_ELEMENTS; i ++) {
-		if(*p++ == 0) {
-			destination->info[i] = NULL;
-		}
-		else {
-			destination->info[i] = (Row*) malloc(sizeof(Row));
-			memcpy(destination->info[i], p, sizeof(Row));
-			p += sizeof(Row);
-		}
-	}
+	} 
+    memset(page, 0, sizeof(Page));
+    memcpy(&page->leaf, &packed->p1, 3 * sizeof(uint32_t));
+    memcpy(
+        &page->childs, &packed->p2,
+        MAX_ELEMENTS * sizeof(uint32_t));
+    // now for the rows
+    char* p = (char*)&packed->infos;
+    // creates a new row for each one in disk
+    for (uint32_t i = 0; i < MAX_ELEMENTS; i += 1)
+        if (*p++ == 0)
+            page->info[i] = NULL;
+        else
+        {
+            page->info[i] = (Row*)malloc(sizeof(Row));
+            memcpy(page->info[i], p, sizeof(Row));
+            p += sizeof(Row);
+        }
 }
 
 void disk_write(Page* page) {
