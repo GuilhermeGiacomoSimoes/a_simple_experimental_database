@@ -31,7 +31,7 @@ void static serialize(Page* page, Page_data* data) {
 
 	//memset((void*)data, 0, sizeof(Page_data));
     uint32_t n_rows = 0;
-	for (uint32_t i = 0; i < MAX_ELEMENTS; i++) {
+	for(uint32_t i = 0; i < MAX_ELEMENTS; i++) {
         if (page->info[i] != NULL) n_rows += 1;
 	}
 
@@ -46,8 +46,8 @@ void static serialize(Page* page, Page_data* data) {
 
     p += MAX_ELEMENTS * sizeof(uint32_t);
 
-	for (uint32_t i = 0; i < MAX_ELEMENTS; i++) {
-		if (page->info[i] == NULL) {
+	for(uint32_t i = 0; i < MAX_ELEMENTS; i++) {
+		if(page->info[i] == NULL) {
             *p++ = 0;
 		}
         else {
