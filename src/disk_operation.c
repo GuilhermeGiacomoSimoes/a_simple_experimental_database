@@ -110,9 +110,9 @@ void disk_write(Page* page) {
 	}
 
 	const size_t OFFSET_PAGE = sizeof(Page); 
-	Page_data* serialized_page;
+	Page_data serialized_page;
 	serialize(page, &serialized_page);
-	ssize_t bytes_written = write(fd, serialized_page, OFFSET_PAGE);
+	ssize_t bytes_written = write(fd, &serialized_page, OFFSET_PAGE);
 
 	if(bytes_written == -1) {
 		printf("Error while try write file database\n");
