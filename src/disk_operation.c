@@ -192,6 +192,7 @@ Page* disk_read(Page* page, int number_child) {
 	if(page == NULL) {
 		return read_a_root_page(fd);
 	}
-
-	return read_a_child_page(page, number_child, fd);
+	else {
+		return read_a_child_page(page, number_child, fd);
+	}
 }
