@@ -7,4 +7,8 @@ REPL.dSYM
 database.db
 test.db
 test.db.dSYM
-
+build
+CMakeCache.txt
+CMakeFiles
+DartConfiguration.tcl
+Testing
