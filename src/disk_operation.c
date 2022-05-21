@@ -137,7 +137,7 @@ Page* read_a_root_page(int fd) {
 	}
 
 	void *serialized_root = malloc(sizeof(Page_data));
-	size_t bytes_read = read(fd, serialized_root, sizeof(Page));
+	size_t bytes_read = read(fd, serialized_root, sizeof(Page_data));
 
 	if(bytes_read == 0) {
 		Page* root = build_tree(fd);
