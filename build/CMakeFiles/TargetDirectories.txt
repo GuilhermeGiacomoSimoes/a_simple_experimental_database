@@ -1,2 +1,0 @@
-/Users/simoes/repositories/a_simple_experimental_database/build/CMakeFiles/edit_cache.dir
-/Users/simoes/repositories/a_simple_experimental_database/build/CMakeFiles/rebuild_cache.dir
