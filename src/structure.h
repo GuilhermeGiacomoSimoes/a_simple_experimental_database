@@ -27,7 +27,6 @@ typedef struct {
         char flag;
         char data[sizeof(Row)];
     } infos[MAX_ELEMENTS];
-
 } Page_data;
 
 #endif
