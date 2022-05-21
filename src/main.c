@@ -84,6 +84,10 @@ PrepareResult prepare_select(InputBuffer* input_buffer, Statement* statement) {
 	char* keyword = strtok(input_buffer->buffer, " ");
 	char* id_string = strtok(NULL, " ");
 
+	if(id_string == NULL || id_string == 0 || id_string == "") {
+		exit("You dont parsing a id"); 
+	}
+
 	uint32_t id = atoi(id_string);
 	statement->wanted_element = id;
 
