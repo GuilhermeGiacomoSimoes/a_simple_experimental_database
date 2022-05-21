@@ -133,6 +133,7 @@ Page* read_a_root_page(int fd) {
 	off_t offset = lseek(fd, 0, SEEK_SET);
 	if(offset == -1) {
 		printf("Error seeking\n");
+		exit(EXIT_FAILURE); 
 	}
 
 	void *serialized_root = malloc(sizeof(Page_data));
