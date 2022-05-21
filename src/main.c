@@ -86,7 +86,7 @@ PrepareResult prepare_select(InputBuffer* input_buffer, Statement* statement) {
 
 	if(id_string == NULL || id_string == 0 || id_string == "") {
 		printf("You dont parsing a id\n");
-		exit(EXIT_FAILURE); 
+		return PREPARE_NEGATIVE_ID;
 	}
 
 	uint32_t id = atoi(id_string);
