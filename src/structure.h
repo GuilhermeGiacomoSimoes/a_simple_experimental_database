@@ -24,7 +24,6 @@ typedef struct {
     char p1[3 * sizeof(uint32_t)];
     char p2[MAX_ELEMENTS * sizeof(uint32_t)];
     struct {
-        char flag;
         char data[sizeof(Row)];
     } infos[MAX_ELEMENTS];
 } Page_data;
