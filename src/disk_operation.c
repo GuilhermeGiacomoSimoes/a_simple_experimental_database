@@ -34,7 +34,7 @@ void static serialize(Page* page, Page_data* data) {
     char* p = (char*)data;
     memcpy(p + sizeof(uint32_t), page, 3 * sizeof(uint32_t));
 
-    p += 4 * sizeof(uint32_t);
+    p += 3 * sizeof(uint32_t);
 
     memcpy(p, &page->childs, MAX_ELEMENTS * sizeof(uint32_t));
 
