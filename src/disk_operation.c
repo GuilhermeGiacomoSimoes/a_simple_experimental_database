@@ -30,10 +30,6 @@ void static serialize(Page* page, Page_data* data) {
 	}
 
 	memset((void*)data, 0, sizeof(Page_data));
-    uint32_t n_rows = 0;
-	for(uint32_t i = 0; i < MAX_ELEMENTS; i++) {
-        if (page->info[i] != NULL) n_rows += 1;
-	}
 
     char* p = (char*)data;
     memcpy(p + sizeof(uint32_t), page, 3 * sizeof(uint32_t));
