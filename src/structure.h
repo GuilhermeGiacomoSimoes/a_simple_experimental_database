@@ -20,7 +20,6 @@ typedef struct {
 } Page;
 
 typedef struct {
-    uint32_t len;
     char p1[3 * sizeof(uint32_t)];
     char p2[MAX_ELEMENTS * sizeof(uint32_t)];
     struct {
