@@ -8,9 +8,8 @@
    The backend layer have all neccessary processing to a storage data (disk operation, btree...).  <br>
 
 ## Tests
-   In End To End tests is required Test::Exception and Test::Simple<br>
-   `cpanm  Test::Simple`<br>
-   `cpanm  Test::Exception`<br>
+   In End To End tests is required rspec<br>
+   `bundle exec rspec`<br>
 
 ## Contributions
    Just fork the project and open a PR. It can be directly to the the master
