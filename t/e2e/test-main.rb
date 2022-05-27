@@ -1,3 +1,5 @@
+#!/usr/bin/env ruby
+
 describe 'database' do 
 
   before(:all) do
