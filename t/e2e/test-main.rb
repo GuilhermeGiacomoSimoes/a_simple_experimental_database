@@ -1,4 +1,9 @@
 describe 'database' do 
+
+  before(:all) do
+    `clang ../../src/b_tree.c ../../src/main.c ../../src/disk_operation.c -o database.db`
+  end
+
   def run_script(commands)
     raw_output = nil
     IO.popen('./database.db', "r+") do |pipe|
