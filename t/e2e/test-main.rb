@@ -2,8 +2,8 @@
 
 describe 'database' do 
 
-  before(:all) do
-    `clang ../../src/b_tree.c ../../src/main.c ../../src/disk_operation.c -o database.db`
+  before(:all) do 
+    `rm database.db`
   end
 
   def run_script(commands)
