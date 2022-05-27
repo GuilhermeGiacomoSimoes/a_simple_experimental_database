@@ -22,18 +22,17 @@ describe 'database' do
     raw_output.split("\n")
   end
 
-
-
   it 'inserts and retrieves a row' do 
     result = run_script([
       "insert 1 guilherme", 
-      "select 1"
+      "select 1", 
       ".exit"
     ])
     expect(result).to match_array([
-      "db> execute.",
+      "Executed ",
+      "db> ", 
       "db> (1, guilherme)", 
-      "db>"
+      "db> Executed ",
     ])
   end
 end
