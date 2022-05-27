@@ -6,9 +6,11 @@ describe 'database' do
     `rm database.db`
   end
 
+
   def run_script(commands)
     raw_output = nil
-    IO.popen('./database.db', "r+") do |pipe|
+
+    IO.popen('t/repl', "r+") do |pipe|
       commands.each do |command|
         pipe.puts command
       end
