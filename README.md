@@ -11,6 +11,8 @@
    In End To End tests is required rspec<br>
    `bundle exec rspec`<br>
 
+   In unittests run: `ctest` <br>
+
 ## Contributions
    Just fork the project and open a PR. It can be directly to the the master
 
