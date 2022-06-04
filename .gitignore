@@ -13,3 +13,7 @@ CMakeFiles
 DartConfiguration.tcl
 Testing
 repl
+Makefile
+CTestTestfile.cmake
+cmake_install.cmake
+main
