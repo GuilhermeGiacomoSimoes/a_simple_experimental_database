@@ -1,16 +1,13 @@
 #include<iostream>
-#include "main.c";
+#include"test-main.hh"
 
-int TEST_do_meta_command_exit() {
-	InputBuffer *input_buffer = malloc(sizeof(InputBuffer));
-	input_buffer->bugger = ".exit";
-	Page *page = malloc(page);
-
-	MetaCommandResult meta_command_result = do_meta_command(input_buffer, page);
-
-	return meta_command_result != META_COMMAND_UNRECOGNIZED_COMMAND;
+void basic_tests() {
+	ALPH_ASSERT_THROW(1 != 2);
+	ALPH_ASSERT_EQUAL(2, 2);
+	ALPH_ASSERT_EQUAL(2, 2);
 }
 
+
 int main() {
-	return TEST_do_meta_command_exit();
+	basic_tests();
 }
