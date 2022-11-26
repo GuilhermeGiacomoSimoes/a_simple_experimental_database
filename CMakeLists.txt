@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 3.14)
-project(calculate)
+project(a_simple_experimental_database)
+add_subdirectory(src)
 
 # GoogleTest requires at least C++14
 set(CMAKE_CXX_STANDARD 14)
@@ -16,13 +17,13 @@ FetchContent_MakeAvailable(googletest)
 enable_testing()
 
 add_executable(
-  calculate_test 
-  calculate_test.cpp
+  main_test 
+  main_test.cpp
 )
 target_link_libraries(
-  calculate_test 
-  GTest::gtest_main
+  main_test 
+  GTest::gtest_main_test
 )
 
 include(GoogleTest)
-gtest_discover_tests(calculate_test)
+gtest_discover_tests(main_test)
