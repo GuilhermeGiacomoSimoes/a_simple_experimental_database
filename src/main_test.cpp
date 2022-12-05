@@ -1,5 +1,8 @@
 #include <gtest/gtest.h>
-#include "main.h"
+
+extern "C" {
+#include "main.c"
+}
 
 TEST(MainTest, test_1) {
 	EXPECT_EQ(sum(1, 1), 2);
