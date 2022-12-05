@@ -69,7 +69,7 @@ PrepareResult prepare_insert(InputBuffer* input_buffer, Statement* statement) {
 		return PREPARE_NEGATIVE_ID; 
 	}
 
-	Row *row = malloc(sizeof(Row));
+	Row *row = (Row*) malloc(sizeof(Row));
 	row->id = id;
 	strcpy(row->username, username);
 
@@ -113,7 +113,7 @@ ExecuteResult execute_insert(Statement* statement, Page *root) {
 }
 
 ExecuteResult execute_select(Statement* statement, Page* root) {
-	Row *row = malloc(sizeof(Row)); 
+	Row *row = (Row*) malloc(sizeof(Row)); 
 	row = b_tree_search(root, statement->wanted_element);
 	print_row(row);	
 	return EXECUTE_SUCCESS;
