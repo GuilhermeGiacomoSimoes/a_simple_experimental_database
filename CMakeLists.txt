@@ -1,8 +1,6 @@
 cmake_minimum_required(VERSION 3.14)
 
-project(NAME a_simple_experimental_database LANGUAGES C CXX)
-
-add_subdirectory(src)
+project(a_simple_experimental_database)
 
 set(CMAKE_CXX_STANDARD 14)
 
