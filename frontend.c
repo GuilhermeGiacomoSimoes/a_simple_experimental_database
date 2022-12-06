@@ -1,0 +1,30 @@
+#include<errno.h>
+#include<stdint.h>
+#include<stdio.h>
+
+#include "service.h"
+
+static void print_prompt() {
+	printf("db> ");
+}
+
+static void read_input(Input_Buffer* initialize_input_buffer) {
+	ssize_t bytes_read = getline(&(initialize_input_buffer->buffer), &(initialize_input_buffer->buffer_length), stdin);
+	initialize_input_buffer->input_length = bytes_read - 1;
+	initialize_input_buffer->buffer[bytes_read - 1] = 0;
+}
+
+static void print_row(Row* row) {
+	printf("(%d, %s)\n", row->id, row->username);
+}
+
+int main() {
+
+	Input_Buffer* initialize_input_buffer = read_input();
+
+	while(1) {
+		print_prompt();
+		read_input(initialize_input_buffer);
+		Result result = execute(initialize_input_buffer);
+	}
+}
