@@ -11,6 +11,10 @@
 #include "b_tree.h"
 #include "main.h"
 
+void print_prompt() {
+	printf("db> ");
+}
+
 void print_row(Row* row) {
 	printf("(%d, %s)\n", row->id, row->username);
 }
@@ -24,12 +28,8 @@ InputBuffer* new_input_buffer() {
 	return input_buffer;
 }
 
-void print_prompt() {
-	printf("db> ");
-}
-
 void read_input(InputBuffer* input_buffer) {
-	ssize_t bytes_read = getline( &(input_buffer->buffer), &(input_buffer->buffer_length), stdin);
+	ssize_t bytes_read = getline(&(input_buffer->buffer), &(input_buffer->buffer_length), stdin);
 
 	if (bytes_read <= 0) {
 		printf("Error reading input \n");
@@ -134,7 +134,6 @@ Page* db_open() {
 
 int main(int argc, char* argv[]) {
 	Page* root = db_open();
-
 	InputBuffer* input_buffer = new_input_buffer();
 
 	while(true) {
@@ -143,7 +142,7 @@ int main(int argc, char* argv[]) {
 
 		if(input_buffer->buffer[0] == '.') {
 			switch(do_meta_command(input_buffer, root)) {
-				case (META_COMMAND_SUCCESS):	
+				case (META_COMMAND_SUCCESS):
 					continue;
 				case (META_COMMAND_UNRECOGNIZED_COMMAND):
 					printf("Unrecognized command '%s'\n", input_buffer->buffer);
