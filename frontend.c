@@ -1,8 +1,16 @@
-#include<errno.h>
 #include<stdint.h>
 #include<stdio.h>
 
 #include "service.h"
+
+Input_Buffer* new_input_buffer() {
+	Input_Buffer* input_buffer 	= (Input_Buffer*) malloc(sizeof(Input_Buffer));
+	input_buffer->buffer 		= NULL;
+	input_buffer->buffer_length = 0;
+	input_buffer->input_length 	= 0;
+
+	return input_buffer;
+}
 
 static void print_prompt() {
 	printf("db> ");
