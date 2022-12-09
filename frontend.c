@@ -22,8 +22,8 @@ static void read_input(Input_Buffer* initialize_input_buffer) {
 	initialize_input_buffer->buffer[bytes_read - 1] = 0;
 }
 
-static void print_row(Row* row) {
-	printf("(%d, %s)\n", row->id, row->username);
+static void print_the_result(Result result) {
+	printf("%s", result.description);
 }
 
 int main() {
