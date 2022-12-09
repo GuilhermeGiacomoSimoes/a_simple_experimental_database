@@ -34,5 +34,6 @@ int main() {
 		print_prompt();
 		read_input(initialize_input_buffer);
 		Result result = execute(initialize_input_buffer);
+		print_the_result(result);
 	}
 }
