@@ -28,7 +28,7 @@ static void print_the_result(Result result) {
 
 int main() {
 
-	Input_Buffer* initialize_input_buffer = read_input();
+	Input_Buffer* initialize_input_buffer = new_input_buffer();
 
 	while(1) {
 		print_prompt();
