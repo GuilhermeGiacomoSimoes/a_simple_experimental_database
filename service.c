@@ -22,5 +22,5 @@ static uint8_t is_meta_command(Input_Buffer* input_buffer) {
 Result execute(Input_Buffer* input_buffer) {
 	if(is_meta_command(input_buffer)) {
 		return do_meta_command(input_buffer);
-	}		
+	}
 }
