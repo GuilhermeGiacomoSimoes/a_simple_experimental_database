@@ -16,13 +16,14 @@ FetchContent_MakeAvailable(googletest)
 enable_testing()
 
 add_executable(
-  service_test 
+  unit_test 
   service_test.cc
 )
+
 target_link_libraries(
-  service_test 
+  unit_test 
   GTest::gtest_main
 )
 
 include(GoogleTest)
-gtest_discover_tests(service_test)
+gtest_discover_tests(unit_test)
