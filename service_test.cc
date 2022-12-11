@@ -34,3 +34,19 @@ TEST(Service, prepare_statement__RETURN_INSERT) {
 	ib->buffer = "insert";
 	EXPECT_EQ(prepare_statement(ib), "insert");
 }
+
+TEST(Service, is_insert_statement__RETURN_TRUE) {
+	EXPECT_TRUE(is_insert_statement("insert"));
+}
+
+TEST(Service, is_insert_statement__RETURN_FALSE) {
+	EXPECT_FALSE(is_insert_statement("inseot"));
+}
+
+TEST(Service, is_select_statement__RETURN_TRUE) {
+	EXPECT_TRUE(is_select_statement("select"));
+}
+
+TEST(Service, is_select_statement__RETURN_FALSE) {
+	EXPECT_FALSE(is_select_statement("inseot"));
+}
