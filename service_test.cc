@@ -52,3 +52,24 @@ TEST(Service, is_select_statement__RETURN_TRUE) {
 TEST(Service, is_select_statement__RETURN_FALSE) {
 	EXPECT_FALSE(is_select_statement("inseot"));
 }
+
+TEST(Service, prepare_insert__RETURN_PREPARE_SUCCESS) {
+	Input_Buffer* ib = (Input_Buffer*) malloc(sizeof(Input_Buffer));
+	ib->buffer = "insert 1 guilherme";
+	Statement statement;
+	EXPECT_EQ(prepare_insert(ib, &statement), PREPARE_SUCCESS);
+}
+
+TEST(Service, prepare_insert__PREPARE_SYNTAX_ERROR) {
+	Input_Buffer* ib = (Input_Buffer*) malloc(sizeof(Input_Buffer));
+	ib->buffer = "insert";
+	Statement statement;
+	EXPECT_EQ(prepare_insert(ib, &statement), PREPARE_SYNTAX_ERROR);
+}
+
+TEST(Service, prepare_insert__PREPARE_NEGATIVE_ID) {
+	Input_Buffer* ib = (Input_Buffer*) malloc(sizeof(Input_Buffer));
+	ib->buffer = "insert -1 guilherme";
+	Statement statement;
+	EXPECT_EQ(prepare_insert(ib, &statement), PREPARE_NEGATIVE_ID);
+}
