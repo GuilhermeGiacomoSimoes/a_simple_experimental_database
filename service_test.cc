@@ -22,3 +22,15 @@ TEST(Service, do_meta_command__RETURN_ERROR) {
 	const Result result = do_meta_command(ib);
 	EXPECT_EQ(result.description, "ERROR: meta command does not exist\n");
 }
+
+TEST(Service, prepare_statement__RETURN_SELECT) {
+	Input_Buffer* ib = (Input_Buffer*) malloc(sizeof(Input_Buffer));
+	ib->buffer = "select";
+	EXPECT_EQ(prepare_statement(ib), "select");
+}
+
+TEST(Service, prepare_statement__RETURN_INSERT) {
+	Input_Buffer* ib = (Input_Buffer*) malloc(sizeof(Input_Buffer));
+	ib->buffer = "insert";
+	EXPECT_EQ(prepare_statement(ib), "insert");
+}
