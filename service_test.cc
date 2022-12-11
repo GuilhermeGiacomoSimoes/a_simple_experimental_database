@@ -26,13 +26,15 @@ TEST(Service, do_meta_command__RETURN_ERROR) {
 TEST(Service, prepare_statement__RETURN_SELECT) {
 	Input_Buffer* ib = (Input_Buffer*) malloc(sizeof(Input_Buffer));
 	ib->buffer = "select";
-	EXPECT_EQ(prepare_statement(ib), "select");
+	Statement statemet;
+	EXPECT_EQ(prepare_statement(ib, &statemet), "select");
 }
 
 TEST(Service, prepare_statement__RETURN_INSERT) {
 	Input_Buffer* ib = (Input_Buffer*) malloc(sizeof(Input_Buffer));
 	ib->buffer = "insert";
-	EXPECT_EQ(prepare_statement(ib), "insert");
+	Statement statement;
+	EXPECT_EQ(prepare_statement(ib, &statement), "insert");
 }
 
 TEST(Service, is_insert_statement__RETURN_TRUE) {
