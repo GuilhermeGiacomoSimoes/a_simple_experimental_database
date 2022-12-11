@@ -45,3 +45,11 @@ char* prepare_statement(Input_Buffer* input_buffer) {
 	}
 	return "";
 }
+
+static uint8_t is_insert_statement(char* str) {
+	return strncmp(str, "insert", 6) == 0;
+} 
+
+static uint8_t is_select_statement(char* str) {
+	return strncmp(str, "select", 6) == 0;
+} 
