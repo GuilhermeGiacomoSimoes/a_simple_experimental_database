@@ -43,5 +43,5 @@ char* prepare_statement(Input_Buffer* input_buffer) {
 	if(strncmp(input_buffer->buffer, "select", 6) == 0) {
 		return "select";
 	}
-	//return prepare_select(input_buffer);
+	return "";
 }
