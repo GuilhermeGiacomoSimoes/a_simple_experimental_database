@@ -10,7 +10,23 @@ typedef enum {
 	PREPARE_SYNTAX_ERROR, 
 	PREPARE_STRING_TOO_LONG, 
 	PREPARE_NEGATIVE_ID
-} PrepareResult;
+} Prepare_Result;
+
+typedef enum {
+	STATEMENT_INSERT, 
+	STATEMENT_SELECT
+} StatementType;
+
+typedef struct {
+	uint32_t id;
+	char value[256];
+} Row;
+
+typedef struct {
+	StatementType type;
+	Row *row_to_insert;
+	uint32_t wanted_element;
+} Statement;
 
 Result do_meta_command(Input_Buffer* input_buffer) {
 	if(strcmp(input_buffer->buffer, ".exit") == 0){
