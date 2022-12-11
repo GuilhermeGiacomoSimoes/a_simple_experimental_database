@@ -17,7 +17,7 @@ static void print_prompt() {
 }
 
 static void read_input(Input_Buffer* initialize_input_buffer) {
-	ssize_t bytes_read = getline(&(initialize_input_buffer->buffer), &(initialize_input_buffer->buffer_length), stdin);
+	size_t bytes_read = getline(&(initialize_input_buffer->buffer), &(initialize_input_buffer->buffer_length), stdin);
 	initialize_input_buffer->input_length = bytes_read - 1;
 	initialize_input_buffer->buffer[bytes_read - 1] = 0;
 }
