@@ -73,7 +73,7 @@ static Prepare_Result prepare_insert(Input_Buffer* input_buffer, Statement* stat
 }
 
 static Prepare_Result prepare_select(Input_Buffer* input_buffer, Statement* statement) {
-
+	return PREPARE_SUCCESS;
 }
 
 static char* prepare_statement(Input_Buffer* input_buffer, Statement* statement) {
