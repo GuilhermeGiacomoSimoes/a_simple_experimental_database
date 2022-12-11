@@ -86,10 +86,11 @@ static char* prepare_statement(Input_Buffer* input_buffer, Statement* statement)
 }
 
 Result execute(Input_Buffer* input_buffer) {
+	Statement statement; 
 	if(is_meta_command(input_buffer)) {
 		return do_meta_command(input_buffer);
 	}
 
-	prepare_statement(input_buffer);
+	prepare_statement(input_buffer, &statement);
 	//execute_statement();
 }
