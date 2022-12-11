@@ -31,4 +31,17 @@ Result execute(Input_Buffer* input_buffer) {
 	if(is_meta_command(input_buffer)) {
 		return do_meta_command(input_buffer);
 	}
+
+	prepare_statement(input_buffer);
+	//execute_statement();
+}
+
+char* prepare_statement(Input_Buffer* input_buffer) {
+	if(strncmp(input_buffer->buffer, "insert", 6) == 0){
+		return "insert";
+	}
+	if(strncmp(input_buffer->buffer, "select", 6) == 0) {
+		return "select";
+	}
+	//return prepare_select(input_buffer);
 }
