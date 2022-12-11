@@ -43,16 +43,6 @@ static uint8_t is_meta_command(Input_Buffer* input_buffer) {
 	return input_buffer->buffer[0] == '.';
 }
 
-static char* prepare_statement(Input_Buffer* input_buffer) {
-	if(strncmp(input_buffer->buffer, "insert", 6) == 0){
-		return "insert";
-	}
-	if(strncmp(input_buffer->buffer, "select", 6) == 0) {
-		return "select";
-	}
-	return "";
-}
-
 static uint8_t is_insert_statement(char* str) {
 	return strncmp(str, "insert", 6) == 0;
 } 
@@ -60,6 +50,40 @@ static uint8_t is_insert_statement(char* str) {
 static uint8_t is_select_statement(char* str) {
 	return strncmp(str, "select", 6) == 0;
 } 
+
+static Prepare_Result prepare_insert(Input_Buffer* input_buffer, Statement* statement) {
+	statement->type = STATEMENT_INSERT;
+
+	char* keyword = strtok(input_buffer->buffer, " ");
+	char* id_string = strtok(NULL, " ");
+	char* value = strtok(NULL, " ");
+
+	if(id_string == NULL || value == NULL) return PREPARE_SYNTAX_ERROR;
+
+	uint32_t id = atoi(id_string);
+
+	Row *row = (Row*) malloc(sizeof(Row));
+	row->id = id;
+	strcpy(row->value, value);
+
+	statement->row_to_insert = row;
+
+	return PREPARE_SUCCESS;
+}
+
+static Prepare_Result prepare_select(Input_Buffer* input_buffer, Statement* statement) {
+
+}
+
+static char* prepare_statement(Input_Buffer* input_buffer, Statement* statement) {
+	if(is_insert_statement(input_buffer->buffer)){
+		return "insert";
+	}
+	if(is_select_statement(input_buffer->buffer)) {
+		return "select";
+	}
+	return "";
+}
 
 Result execute(Input_Buffer* input_buffer) {
 	if(is_meta_command(input_buffer)) {
