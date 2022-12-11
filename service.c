@@ -60,7 +60,8 @@ static Prepare_Result prepare_insert(Input_Buffer* input_buffer, Statement* stat
 
 	if(id_string == NULL || value == NULL) return PREPARE_SYNTAX_ERROR;
 
-	uint32_t id = atoi(id_string);
+	int id = atoi(id_string);
+	if(id < 0) return PREPARE_NEGATIVE_ID;
 
 	Row *row = (Row*) malloc(sizeof(Row));
 	row->id = id;
