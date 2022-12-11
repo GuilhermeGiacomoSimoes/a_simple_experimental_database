@@ -27,16 +27,7 @@ static uint8_t is_meta_command(Input_Buffer* input_buffer) {
 	return input_buffer->buffer[0] == '.';
 }
 
-Result execute(Input_Buffer* input_buffer) {
-	if(is_meta_command(input_buffer)) {
-		return do_meta_command(input_buffer);
-	}
-
-	prepare_statement(input_buffer);
-	//execute_statement();
-}
-
-char* prepare_statement(Input_Buffer* input_buffer) {
+static char* prepare_statement(Input_Buffer* input_buffer) {
 	if(strncmp(input_buffer->buffer, "insert", 6) == 0){
 		return "insert";
 	}
@@ -53,3 +44,12 @@ static uint8_t is_insert_statement(char* str) {
 static uint8_t is_select_statement(char* str) {
 	return strncmp(str, "select", 6) == 0;
 } 
+
+Result execute(Input_Buffer* input_buffer) {
+	if(is_meta_command(input_buffer)) {
+		return do_meta_command(input_buffer);
+	}
+
+	prepare_statement(input_buffer);
+	//execute_statement();
+}
