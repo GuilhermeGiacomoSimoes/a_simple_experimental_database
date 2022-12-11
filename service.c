@@ -4,6 +4,14 @@
 
 #include "service.h"
 
+typedef enum {
+	PREPARE_SUCCESS,
+	PREPARE_UNRECOGNIZED_STATEMENT,
+	PREPARE_SYNTAX_ERROR, 
+	PREPARE_STRING_TOO_LONG, 
+	PREPARE_NEGATIVE_ID
+} PrepareResult;
+
 Result do_meta_command(Input_Buffer* input_buffer) {
 	if(strcmp(input_buffer->buffer, ".exit") == 0){
 		exit(EXIT_SUCCESS);	
