@@ -95,4 +95,9 @@ Result execute(Input_Buffer* input_buffer) {
 
 	prepare_statement(input_buffer, &statement);
 	//execute_statement();
+	Result result;
+	result.code = 1;
+	result.description = "tudo certo";
+
+	return result;
 }
