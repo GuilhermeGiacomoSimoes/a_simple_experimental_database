@@ -23,7 +23,7 @@ static void read_input(Input_Buffer* initialize_input_buffer) {
 }
 
 static void print_the_result(Result result) {
-	printf("%s", result.description);
+	printf("%s\n", result.description);
 }
 
 int main() {
