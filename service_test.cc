@@ -25,7 +25,7 @@ TEST(Service, do_meta_command__RETURN_ERROR) {
 
 TEST(Service, prepare_statement__RETURN_SELECT) {
 	Input_Buffer* ib = (Input_Buffer*) malloc(sizeof(Input_Buffer));
-	ib->buffer = "select";
+	ib->buffer = "select 1";
 	Statement statemet;
 	EXPECT_EQ(prepare_statement(ib, &statemet), "select");
 }
