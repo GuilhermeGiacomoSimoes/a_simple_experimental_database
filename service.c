@@ -77,14 +77,14 @@ static Prepare_Result prepare_select(Input_Buffer* input_buffer, Statement* stat
 	return PREPARE_SUCCESS;
 }
 
-static char* prepare_statement(Input_Buffer* input_buffer, Statement* statement) {
+static Prepare_Result prepare_statement(Input_Buffer* input_buffer, Statement* statement) {
 	if(is_insert_statement(input_buffer->buffer)){
-		return "insert";
+		return prepare_insert(input_buffer, statement);
 	}
 	if(is_select_statement(input_buffer->buffer)) {
-		return "select";
+		return prepare_select(input_buffer, statement);
 	}
-	return "";
+	return PREPARE_UNRECOGNIZED_STATEMENT;
 }
 
 Result execute(Input_Buffer* input_buffer) {
