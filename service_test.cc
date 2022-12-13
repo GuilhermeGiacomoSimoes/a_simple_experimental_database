@@ -27,14 +27,23 @@ TEST(Service, prepare_statement__RETURN_SELECT) {
 	Input_Buffer* ib = (Input_Buffer*) malloc(sizeof(Input_Buffer));
 	ib->buffer = "select 1";
 	Statement statemet;
-	EXPECT_EQ(prepare_statement(ib, &statemet), "select");
+	prepare_statement(ib, &statemet);
+	EXPECT_EQ(statemet.type, STATEMENT_SELECT);
 }
 
 TEST(Service, prepare_statement__RETURN_INSERT) {
 	Input_Buffer* ib = (Input_Buffer*) malloc(sizeof(Input_Buffer));
-	ib->buffer = "insert";
-	Statement statement;
-	EXPECT_EQ(prepare_statement(ib, &statement), "insert");
+	ib->buffer = "insert 1 guilherme";
+	Statement statemet;
+	prepare_statement(ib, &statemet);
+	EXPECT_EQ(statemet.type, STATEMENT_INSERT);
+}
+
+TEST(Service, prepare_statement__RETURN_UNRECOGNIZED_STATEMENT) {
+	Input_Buffer* ib = (Input_Buffer*) malloc(sizeof(Input_Buffer));
+	ib->buffer = "taylor";
+	Statement statemet;
+	EXPECT_EQ(prepare_statement(ib, &statemet), PREPARE_UNRECOGNIZED_STATEMENT);
 }
 
 TEST(Service, is_insert_statement__RETURN_TRUE) {
