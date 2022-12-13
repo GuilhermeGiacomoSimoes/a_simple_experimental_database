@@ -73,6 +73,7 @@ static Prepare_Result prepare_insert(Input_Buffer* input_buffer, Statement* stat
 }
 
 static Prepare_Result prepare_select(Input_Buffer* input_buffer, Statement* statement) {
+	statement->type = STATEMENT_SELECT;
 	return PREPARE_SUCCESS;
 }
 
