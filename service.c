@@ -32,7 +32,7 @@ typedef enum {
 	EXECUTE_SUCCESS, 
 	EXECUTE_TABLE_FULL, 
 	EXECUTE_DUPLICATE_KEY,
-} ExecuteResult;
+} Execute_Result;
 
 Result do_meta_command(Input_Buffer* input_buffer) {
 	if(strcmp(input_buffer->buffer, ".exit") == 0){
@@ -93,15 +93,15 @@ static Prepare_Result prepare_statement(Input_Buffer* input_buffer, Statement* s
 	return PREPARE_UNRECOGNIZED_STATEMENT;
 }
 
-ExecuteResult execute_insert(Statement* statement) {
+Execute_Result execute_insert(Statement* statement) {
 	return EXECUTE_SUCCESS;
 }
 
-ExecuteResult execute_select(Statement* statement) {
+Execute_Result execute_select(Statement* statement) {
 	return EXECUTE_DUPLICATE_KEY;
 }
 
-ExecuteResult execute_statement(Statement* statement) {
+Execute_Result execute_statement(Statement* statement) {
 	switch (statement->type) {
 		case (STATEMENT_INSERT):
 			return execute_insert(statement);
