@@ -85,11 +85,8 @@ TEST(Service, prepare_insert__PREPARE_SYNTAX_ERROR) {
 //	EXPECT_EQ(prepare_insert(ib, &statement), PREPARE_NEGATIVE_ID);
 //}
 
-
 TEST(Service, execute_statement__RETURN_EXECUTE_SUCCESS) {
-	Input_Buffer* ib = (Input_Buffer*) malloc(sizeof(Input_Buffer));
-	ib->buffer = "insert";
-	Statement* statement = ;
-
-	EXPECT_EQ(execute_statement(), "ERROR: meta command does not exist\n");
+	Statement* statement;
+	statement->type = STATEMENT_INSERT;
+	EXPECT_EQ(execute_statement(statement), EXECUTE_SUCCESS);
 }
