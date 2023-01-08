@@ -28,6 +28,12 @@ typedef struct {
 	uint32_t wanted_element;
 } Statement;
 
+typedef enum {
+	EXECUTE_SUCCESS, 
+	EXECUTE_TABLE_FULL, 
+	EXECUTE_DUPLICATE_KEY,
+} ExecuteResult;
+
 Result do_meta_command(Input_Buffer* input_buffer) {
 	if(strcmp(input_buffer->buffer, ".exit") == 0){
 		exit(EXIT_SUCCESS);	
