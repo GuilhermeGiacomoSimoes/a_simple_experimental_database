@@ -93,6 +93,23 @@ static Prepare_Result prepare_statement(Input_Buffer* input_buffer, Statement* s
 	return PREPARE_UNRECOGNIZED_STATEMENT;
 }
 
+ExecuteResult execute_insert(Statement* statement) {
+	return EXECUTE_SUCCESS;
+}
+
+ExecuteResult execute_select(Statement* statement) {
+	return EXECUTE_DUPLICATE_KEY;
+}
+
+ExecuteResult execute_statement(Statement* statement) {
+	switch (statement->type) {
+		case (STATEMENT_INSERT):
+			return execute_insert(statement);
+		case (STATEMENT_SELECT):
+			return execute_select(statement);
+	}
+}
+
 Result execute(Input_Buffer* input_buffer) {
 	Statement statement; 
 	if(is_meta_command(input_buffer)) {
