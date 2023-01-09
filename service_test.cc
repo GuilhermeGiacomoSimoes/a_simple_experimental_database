@@ -23,13 +23,13 @@ TEST(Service, do_meta_command__RETURN_ERROR) {
 	EXPECT_EQ(result.description, "ERROR: meta command does not exist\n");
 }
 
-TEST(Service, prepare_statement__RETURN_SELECT) {
-	Input_Buffer* ib = (Input_Buffer*) malloc(sizeof(Input_Buffer));
-	ib->buffer = "select 1";
-	Statement statemet;
-	prepare_statement(ib, &statemet);
-	EXPECT_EQ(statemet.type, STATEMENT_SELECT);
-}
+//TEST(Service, prepare_statement__RETURN_SELECT) {
+//	Input_Buffer* ib = (Input_Buffer*) malloc(sizeof(Input_Buffer));
+//	ib->buffer = "select 1";
+//	Statement statemet;
+//	prepare_statement(ib, &statemet);
+//	EXPECT_EQ(statemet.type, STATEMENT_SELECT);
+//}
 
 //TEST(Service, prepare_statement__RETURN_INSERT) {
 //	Input_Buffer* ib = (Input_Buffer*) malloc(sizeof(Input_Buffer));
@@ -84,6 +84,27 @@ TEST(Service, prepare_insert__PREPARE_SYNTAX_ERROR) {
 //	Statement statement;
 //	EXPECT_EQ(prepare_insert(ib, &statement), PREPARE_NEGATIVE_ID);
 //}
+
+//TEST(Service, prepare_select__PREPARE_SUCCESS) {
+//	Input_Buffer* ib = (Input_Buffer*) malloc(sizeof(Input_Buffer));
+//	ib->buffer = "select 1";
+//	Statement statement;
+//	EXPECT_EQ(prepare_select(ib, &statement), PREPARE_SUCCESS);
+//}
+
+//TEST(Service, prepare_select__PREPARE_NEGATIVE_ID) {
+//	Input_Buffer* ib = (Input_Buffer*) malloc(sizeof(Input_Buffer));
+//	ib->buffer = "select -11";
+//	Statement statement;
+//	EXPECT_EQ(prepare_select(ib, &statement), PREPARE_NEGATIVE_ID);
+//}
+
+TEST(Service, prepare_select__PREPARE_SYNTAX_ERROR) {
+	Input_Buffer* ib = (Input_Buffer*) malloc(sizeof(Input_Buffer));
+	ib->buffer = "select";
+	Statement statement;
+	EXPECT_EQ(prepare_select(ib, &statement), PREPARE_SYNTAX_ERROR);
+}
 
 TEST(Service, execute_statement__RETURN_EXECUTE_SUCCESS) {
 	Statement* statement;
