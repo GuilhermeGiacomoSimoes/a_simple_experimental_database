@@ -127,3 +127,31 @@ TEST(Service, execute_select__RETURN_EXECUTE_DUPLICATE_KEY) {
 	Statement* statement;
 	EXPECT_EQ(execute_select(statement), EXECUTE_DUPLICATE_KEY);
 }
+
+//TEST(Service, execute__RETURN_CODE_ZERO) {
+//	Input_Buffer* ib = (Input_Buffer*) malloc(sizeof(Input_Buffer));
+//	ib->buffer = "select 1";
+//	Result result = execute(ib);
+//	EXPECT_EQ(result.code, 0);
+//}
+
+//TEST(Service, execute__RETURN_DUPLICATE_KEY_DESCRIPTION) {
+//	Input_Buffer* ib = (Input_Buffer*) malloc(sizeof(Input_Buffer));
+//	ib->buffer = "select 1";
+//	Result result = execute(ib);
+//	EXPECT_EQ(result.description, "Error: Duplicate key");
+//}
+
+//TEST(Service, execute__RETURN_CODE_ONE) {
+//	Input_Buffer* ib = (Input_Buffer*) malloc(sizeof(Input_Buffer));
+//	ib->buffer = "insert 1 guilherme";
+//	Result result = execute(ib);
+//	EXPECT_EQ(result.code, 0);
+//}
+
+//TEST(Service, execute__RETURN_EXECUTE_DESCRIPTION) {
+//	Input_Buffer* ib = (Input_Buffer*) malloc(sizeof(Input_Buffer));
+//	ib->buffer = "insert 1 guilherme";
+//	Result result = execute(ib);
+//	EXPECT_EQ(result.description, "Executed.");
+//}
