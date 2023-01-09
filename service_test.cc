@@ -111,3 +111,19 @@ TEST(Service, execute_statement__RETURN_EXECUTE_SUCCESS) {
 	statement->type = STATEMENT_INSERT;
 	EXPECT_EQ(execute_statement(statement), EXECUTE_SUCCESS);
 }
+
+TEST(Service, execute_statement__RETURN_EXECUTE_DUPLICATE_KEY) {
+	Statement* statement;
+	statement->type = STATEMENT_SELECT;
+	EXPECT_EQ(execute_statement(statement), EXECUTE_DUPLICATE_KEY);
+}
+
+TEST(Service, execute_insert__RETURN_EXECUTE_SUCCESS) {
+	Statement* statement;
+	EXPECT_EQ(execute_insert(statement), EXECUTE_SUCCESS);
+}
+
+TEST(Service, execute_select__RETURN_EXECUTE_DUPLICATE_KEY) {
+	Statement* statement;
+	EXPECT_EQ(execute_select(statement), EXECUTE_DUPLICATE_KEY);
+}
