@@ -102,15 +102,15 @@ static Prepare_Result prepare_statement(Input_Buffer* input_buffer, Statement* s
 	return PREPARE_UNRECOGNIZED_STATEMENT;
 }
 
-Execute_Result execute_insert(Statement* statement) {
+static Execute_Result execute_insert(Statement* statement) {
 	return EXECUTE_SUCCESS;
 }
 
-Execute_Result execute_select(Statement* statement) {
+static Execute_Result execute_select(Statement* statement) {
 	return EXECUTE_DUPLICATE_KEY;
 }
 
-Execute_Result execute_statement(Statement* statement) {
+static Execute_Result execute_statement(Statement* statement) {
 	switch (statement->type) {
 		case (STATEMENT_INSERT):
 			return execute_insert(statement);
