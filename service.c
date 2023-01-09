@@ -93,7 +93,7 @@ static Prepare_Result prepare_select(Input_Buffer* input_buffer, Statement* stat
 }
 
 static Prepare_Result prepare_statement(Input_Buffer* input_buffer, Statement* statement) {
-	if(is_insert_statement(input_buffer->buffer)){
+	if(is_insert_statement(input_buffer->buffer)) {
 		return prepare_insert(input_buffer, statement);
 	}
 	if(is_select_statement(input_buffer->buffer)) {
