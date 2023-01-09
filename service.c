@@ -125,11 +125,20 @@ Result execute(Input_Buffer* input_buffer) {
 		return do_meta_command(input_buffer);
 	}
 
-	prepare_statement(input_buffer, &statement);
-	//execute_statement();
 	Result result;
-	result.code = 1;
-	result.description = "tudo certo";
+
+	prepare_statement(input_buffer, &statement);
+
+	switch(execute_statement(&statement)){
+		case(EXECUTE_SUCCESS):
+			result.code = 1;
+			result.description =  "Executed.";
+			break;
+		case (EXECUTE_DUPLICATE_KEY):
+			result.code = 0;
+			result.description = "Error: Duplicate key";
+			break;
+	}
 
 	return result;
 }
