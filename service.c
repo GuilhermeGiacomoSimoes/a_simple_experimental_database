@@ -126,37 +126,34 @@ Result execute(Input_Buffer* input_buffer) {
 	}
 
 	Result result;
-
 	switch(prepare_statement(input_buffer, &statement)){
 		case(PREPARE_SUCCESS):
 			break;
 		case(PREPARE_SYNTAX_ERROR):
 			result.description = "Syntax error. Could not parse statement.\n";
 			result.code = 0;
-			return result;
 			break;
 		case(PREPARE_UNRECOGNIZED_STATEMENT):
 			result.description = "Unrecognized keyword ar start .\n";
 			result.code = 0;
-			return result;
 			break;
 		case(PREPARE_NEGATIVE_ID):
 			result.description = "This id is negative\n";
 			result.code = 0;
-			return result;
 			break;
 	}
 
-	switch(execute_statement(&statement)){
-		case(EXECUTE_SUCCESS):
-			result.code = 1;
-			result.description =  "Executed.";
-			break;
-		case (EXECUTE_DUPLICATE_KEY):
-			result.code = 0;
-			result.description = "Error: Duplicate key";
-			break;
-	}
+	if(result.code)
+		switch(execute_statement(&statement)){
+			case(EXECUTE_SUCCESS):
+				result.code = 1;
+				result.description =  "Executed.";
+				break;
+			case (EXECUTE_DUPLICATE_KEY):
+				result.code = 0;
+				result.description = "Error: Duplicate key";
+				break;
+		}
 
 	return result;
 }
