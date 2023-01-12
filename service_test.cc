@@ -8,12 +8,14 @@ TEST(Service, is_meta_command_RETURN_TRUE) {
 	Input_Buffer* ib = (Input_Buffer*) malloc(sizeof(Input_Buffer));
 	ib->buffer = ".exit";
 	EXPECT_TRUE(is_meta_command(ib));
+	free(ib);
 }
 
 TEST(Service, is_meta_command_RETURN_FALSE) {
 	Input_Buffer* ib = (Input_Buffer*) malloc(sizeof(Input_Buffer));
 	ib->buffer = "exit";
 	EXPECT_FALSE(is_meta_command(ib));
+	free(ib);
 }
 
 TEST(Service, do_meta_command__RETURN_ERROR) {
