@@ -5,7 +5,7 @@
 #include "b_tree.h"
 #include "disk_operation.h"
 
-Row* b_tree_search(Page *page, int wanted_element) {
+Row* search(Page *page, int wanted_element) {
 	uint32_t i = 0;
 	while (i <= page->elems && (page->info[i] != NULL && wanted_element > page->info[i]->id)) {
 		i++;	
@@ -20,14 +20,14 @@ Row* b_tree_search(Page *page, int wanted_element) {
 	Page* page_child = disk_read(page, i);
 	free(page);
 
-	return b_tree_search(page_child, wanted_element);
+	return search(page_child, wanted_element);
 }
 
 Page* load_root() {
 	return disk_read(NULL, 0);
 }
 
-Page* b_tree_create() {
+Page* create() {
 	Page *x = malloc(sizeof(Page));
 	x->leaf = 1;
 	x->elems = 0;
@@ -104,7 +104,7 @@ void static b_tree_insert_nonfull(Page *page, Row* k) {
 	}
 }
 
-void b_tree_insert(Page *root, Row *k) {
+void insert(Page *root, Row *k) {
 	if(root->elems == MAX_ELEMENTS) {
 		Page *s = malloc(sizeof(Page))	;
 		root = s;
