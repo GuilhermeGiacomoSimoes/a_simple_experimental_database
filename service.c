@@ -128,6 +128,7 @@ Result execute(Input_Buffer* input_buffer) {
 	Result result;
 	switch(prepare_statement(input_buffer, &statement)){
 		case(PREPARE_SUCCESS):
+			result.code = 1;
 			break;
 		case(PREPARE_SYNTAX_ERROR):
 			result.description = "Syntax error. Could not parse statement.\n";
