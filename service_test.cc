@@ -134,6 +134,10 @@ TEST(Service, execute_select__RETURN_EXECUTE_DUPLICATE_KEY) {
 //TEST(Service, execute__RETURN_CODE_ZERO) {
 //	Input_Buffer* ib = (Input_Buffer*) malloc(sizeof(Input_Buffer));
 //	ib->buffer = "select 1";
+//
+//	ib->buffer_length = sizeof(ib->buffer);
+//	ib->input_length = sizeof(ib->buffer) - 1;
+//
 //	Result result = execute(ib);
 //	EXPECT_EQ(result.code, 0);
 //}
