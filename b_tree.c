@@ -2,7 +2,7 @@
 #include<stdint.h>
 #include<stdlib.h>
 #include "structure.h"
-#include "b_tree.h"
+#include "tree.h"
 #include "disk_operation.h"
 
 Row* search(Page *page, int wanted_element) {
