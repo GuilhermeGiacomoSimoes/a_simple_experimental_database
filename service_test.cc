@@ -29,9 +29,9 @@ TEST(Service, do_meta_command__RETURN_ERROR) {
 TEST(Service, prepare_statement__RETURN_SELECT) {
 	Input_Buffer* ib = (Input_Buffer*) malloc(sizeof(Input_Buffer));
 	ib->buffer = "select 1";
-	Statement *statement = (Statement*) malloc(sizeof(Statement*));
-	prepare_statement(ib, statement);
-	EXPECT_EQ(statement->type, STATEMENT_SELECT);
+	Statement statement;
+	prepare_statement(ib, &statement);
+	EXPECT_EQ(statement.type, STATEMENT_SELECT);
 }
 
 //TEST(Service, prepare_statement__RETURN_INSERT) {
