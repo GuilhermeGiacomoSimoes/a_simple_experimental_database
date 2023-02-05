@@ -3,6 +3,7 @@
 #include<string.h>
 
 #include "service.h"
+#include "tree.h"
 
 typedef enum {
 	PREPARE_SUCCESS,
