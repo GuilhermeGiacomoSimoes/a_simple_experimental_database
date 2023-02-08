@@ -104,11 +104,11 @@ static Prepare_Result prepare_statement(Input_Buffer* input_buffer, Statement* s
 }
 
 static Execute_Result execute_insert(Statement* statement) {
-	return EXECUTE_SUCCESS;
+	return insert();
 }
 
 static Execute_Result execute_select(Statement* statement) {
-	return EXECUTE_DUPLICATE_KEY;
+	return search();
 }
 
 static Execute_Result execute_statement(Statement* statement) {
