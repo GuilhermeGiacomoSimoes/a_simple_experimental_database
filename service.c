@@ -4,6 +4,7 @@
 
 #include "service.h"
 #include "tree.h"
+#include "structure.h"
 
 typedef enum {
 	PREPARE_SUCCESS,
@@ -103,20 +104,21 @@ static Prepare_Result prepare_statement(Input_Buffer* input_buffer, Statement* s
 	return PREPARE_UNRECOGNIZED_STATEMENT;
 }
 
-static Execute_Result execute_insert(Statement* statement) {
+static Execute_Result execute_insert(Statement* statement, Page *root) {
 	return insert();
 }
 
-static Execute_Result execute_select(Statement* statement) {
+static Execute_Result execute_select(Statement* statement, Page *root) {
 	return search();
 }
 
 static Execute_Result execute_statement(Statement* statement) {
+	Page *root = load_root();	
 	switch (statement->type) {
 		case (STATEMENT_INSERT):
-			return execute_insert(statement);
+			return execute_insert(statement, root);
 		case (STATEMENT_SELECT):
-			return execute_select(statement);
+			return execute_select(statement, root);
 	}
 }
 
