@@ -118,9 +118,17 @@ static Result execute_statement(Statement* statement) {
 	Page *root = load_root();	
 	switch (statement->type) {
 		case (STATEMENT_INSERT):
-			return execute_insert(statement, root);
+			int32_t result_of_insert = execute_insert(statement, root);
+			Result result;	
+			result.code = result_of_insert;
+			result.description = result_of_insert ? "Executed" : "Unknown error";
+			return result;
 		case (STATEMENT_SELECT):
-			return execute_select(statement, root);
+			Row *row = execute_select(statement, root);
+			Result result;
+			result.code = row->id != 0;
+			result.description = row->value;
+			return result;
 	}
 }
 
