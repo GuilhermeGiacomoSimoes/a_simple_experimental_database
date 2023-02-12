@@ -12,9 +12,9 @@ typedef struct {
 } Row;
 
 typedef struct {
-	uint32_t leaf;
-	uint32_t elems;
-	uint32_t current_address_memory;
+	int8_t root;
+	int32_t leaf;
+	int32_t amount_of_keys;
 	Row* info[MAX_ELEMENTS];
 	uint32_t childs[MAX_ELEMENTS + 1];
 } Page;
