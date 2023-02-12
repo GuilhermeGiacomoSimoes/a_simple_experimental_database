@@ -105,11 +105,11 @@ static Prepare_Result prepare_statement(Input_Buffer* input_buffer, Statement* s
 }
 
 static Execute_Result execute_insert(Statement* statement, Page *root) {
-	return insert();
+	return insert(root, statement->row_to_insert);
 }
 
 static Execute_Result execute_select(Statement* statement, Page *root) {
-	return search();
+	return search(root, statement->wanted_element);
 }
 
 static Execute_Result execute_statement(Statement* statement) {
