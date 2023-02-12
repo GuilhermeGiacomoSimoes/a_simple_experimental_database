@@ -34,6 +34,7 @@ typedef enum {
 	EXECUTE_SUCCESS, 
 	EXECUTE_TABLE_FULL, 
 	EXECUTE_DUPLICATE_KEY,
+	UNKNOWN_ERROR
 } Execute_Result;
 
 Result do_meta_command(Input_Buffer* input_buffer) {
