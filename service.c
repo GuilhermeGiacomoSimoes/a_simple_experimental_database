@@ -104,15 +104,16 @@ static Prepare_Result prepare_statement(Input_Buffer* input_buffer, Statement* s
 	return PREPARE_UNRECOGNIZED_STATEMENT;
 }
 
-static Execute_Result execute_insert(Statement* statement, Page *root) {
-	return insert(root, statement->row_to_insert);
+static int32_t execute_insert(Statement* statement, Page *root) {
+	int result = insert(root, statement->row_to_insert);
+	return result || 0;
 }
 
-static Execute_Result execute_select(Statement* statement, Page *root) {
+static Row* execute_select(Statement* statement, Page *root) {
 	return search(root, statement->wanted_element);
 }
 
-static Execute_Result execute_statement(Statement* statement) {
+static Result execute_statement(Statement* statement) {
 	Page *root = load_root();	
 	switch (statement->type) {
 		case (STATEMENT_INSERT):
@@ -147,17 +148,8 @@ Result execute(Input_Buffer* input_buffer) {
 			break;
 	}
 
-	if(result.code)
-		switch(execute_statement(&statement)){
-			case(EXECUTE_SUCCESS):
-				result.code = 1;
-				result.description =  "Executed.";
-				break;
-			case (EXECUTE_DUPLICATE_KEY):
-				result.code = 0;
-				result.description = "Error: Duplicate key";
-				break;
-		}
+	if(result.code) {
+		return execute_statement(&statement);
 
 	return result;
 }

@@ -105,7 +105,7 @@ void static b_tree_insert_nonfull(Page *page, Row* k) {
 	}
 }
 
-void insert(Page *root, Row *k) {
+int insert(Page *root, Row *k) {
 	if(root->elems == MAX_ELEMENTS) {
 		Page *s = malloc(sizeof(Page))	;
 		root = s;
@@ -118,4 +118,6 @@ void insert(Page *root, Row *k) {
 	else {
 		b_tree_insert_nonfull(root, k);
 	}
+
+	return 1;
 }

@@ -4,6 +4,6 @@
 Row* search(Page *page, int wanted_element);
 Page* load_root();
 Page* create();
-void insert(Page *root, Row *k);
+int insert(Page *root, Row *k);
 
 #endif
