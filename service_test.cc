@@ -26,23 +26,23 @@ TEST(Service, do_meta_command__RETURN_ERROR) {
 	free(ib);
 }
 
-//TEST(Service, prepare_statement__RETURN_SELECT) {
-//	Input_Buffer* ib = (Input_Buffer*) malloc(sizeof(Input_Buffer));
-//	ib->buffer = "select 1";
-//	Statement statement;
-//	prepare_statement(ib, &statement);
-//	EXPECT_EQ(statement.type, STATEMENT_SELECT);
-//}
+TEST(Service, prepare_statement__RETURN_SELECT) {
+	Input_Buffer* ib = (Input_Buffer*) malloc(sizeof(Input_Buffer));
+	ib->buffer = "select 1";
+	Statement statement;
+	prepare_statement(ib, &statement);
+	EXPECT_EQ(statement.type, STATEMENT_SELECT);
+}
 
-//TEST(Service, prepare_statement__RETURN_INSERT) {
-//	Input_Buffer* ib = (Input_Buffer*) malloc(sizeof(Input_Buffer));
-//	ib->buffer = "insert 1 guilherme";
-//	ib->buffer_length = sizeof(ib->buffer);
-//	ib->input_length = sizeof(ib->buffer);
-//	Statement statemet;
-//	prepare_statement(ib, &statemet);
-//	EXPECT_EQ(statemet.type, STATEMENT_INSERT);
-//}
+TEST(Service, prepare_statement__RETURN_INSERT) {
+	Input_Buffer* ib = (Input_Buffer*) malloc(sizeof(Input_Buffer));
+	ib->buffer = "insert 1 guilherme";
+	ib->buffer_length = sizeof(ib->buffer);
+	ib->input_length = sizeof(ib->buffer);
+	Statement statemet;
+	prepare_statement(ib, &statemet);
+	EXPECT_EQ(statemet.type, STATEMENT_INSERT);
+}
 
 TEST(Service, prepare_statement__RETURN_UNRECOGNIZED_STATEMENT) {
 	Input_Buffer* ib = (Input_Buffer*) malloc(sizeof(Input_Buffer));
