@@ -19,12 +19,4 @@ typedef struct {
 	uint32_t childs[MAX_ELEMENTS + 1];
 } Page;
 
-typedef struct {
-    char p1[3 * sizeof(uint32_t)];
-    char p2[MAX_ELEMENTS * sizeof(uint32_t)];
-    struct {
-        char data[sizeof(Row)];
-    } infos[MAX_ELEMENTS];
-} Page_data;
-
 #endif
