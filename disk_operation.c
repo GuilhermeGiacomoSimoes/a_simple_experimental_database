@@ -13,7 +13,7 @@
 #define NAME_FILE_DATABASE "database.db"
 
 #define ID_SIZE size_of_attribute(Row, id)
-#define USERNAME_SIZE size_of_attribute(Row, username)
+#define DATA_SIZE size_of_attribute(Row, username)
 #define ID_OFFSET 0
 #define USERNAME_OFFSET ID_OFFSET + ID_SIZE
 
