@@ -13,9 +13,9 @@
 #define NAME_FILE_DATABASE "database.db"
 
 #define ID_SIZE size_of_attribute(Row, id)
-#define DATA_SIZE size_of_attribute(Row, username)
+#define DATA_SIZE size_of_attribute(Row, data)
 #define ID_OFFSET 0
-#define USERNAME_OFFSET ID_OFFSET + ID_SIZE
+#define DATA_OFFSET ID_OFFSET + ID_SIZE
 
 #define LEAF_SIZE size_of_attribute(Page, leaf) 
 #define ELEMS_SIZE size_of_attribute(Page, elems) 
@@ -26,30 +26,12 @@
 
 void static serialize(Row* source, void* destination) {
 	memcpy(destination + ID_OFFSET, &(source->id), ID_SIZE);
-	memcpy(destination + ID_OFFSET, &(source->data), DATA_SIZE);
+	memcpy(destination + DATA_OFFSET, &(source->data), DATA_SIZE);
 }
 
-void static deserialize(Page_data* packed, Page* page) {
-	if (page == NULL || packed == NULL) {
-		exit(EXIT_FAILURE);
-	} 
-    memset(page, 0, sizeof(Page));
-    memcpy(&page->leaf, &packed->p1, 3 * sizeof(uint32_t));
-    memcpy(
-        &page->childs, &packed->p2,
-        MAX_ELEMENTS * sizeof(uint32_t));
-    // now for the rows
-    char* p = (char*)&packed->infos;
-    // creates a new row for each one in disk
-    for (uint32_t i = 0; i < MAX_ELEMENTS; i += 1)
-        if (*p++ == 0)
-            page->info[i] = NULL;
-        else
-        {
-            page->info[i] = (Row*)malloc(sizeof(Row));
-            memcpy(page->info[i], p, sizeof(Row));
-            p += sizeof(Row);
-        }
+void static deserialize(void* destination, Row* source) {
+	memcpy(destination + ID_OFFSET, &(source->id), ID_SIZE);
+	memcpy(destination + DATA_OFFSET, &(source->data), DATA_SIZE);
 }
 
 void disk_write(Page* page) {
