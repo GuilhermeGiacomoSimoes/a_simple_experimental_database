@@ -129,9 +129,8 @@ static Result execute_statement(Statement* statement) {
 
 Result execute(Input_Buffer* input_buffer) {
 	Statement statement; 
-	if(is_meta_command(input_buffer)) {
+	if(is_meta_command(input_buffer))
 		return do_meta_command(input_buffer);
-	}
 
 	Result result;
 	switch(prepare_statement(input_buffer, &statement)){
