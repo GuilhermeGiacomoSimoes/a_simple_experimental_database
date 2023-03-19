@@ -67,12 +67,12 @@ TEST(Service, is_select_statement__RETURN_FALSE) {
 	EXPECT_FALSE(is_select_statement("inseot"));
 }
 
-//TEST(Service, prepare_insert__RETURN_PREPARE_SUCCESS) {
-//	Input_Buffer* ib = (Input_Buffer*) malloc(sizeof(Input_Buffer));
-//	ib->buffer = "insert 1 guilherme";
-//	Statement statement;
-//	EXPECT_EQ(prepare_insert(ib, &statement), PREPARE_SUCCESS);
-//}
+TEST(Service, prepare_insert__RETURN_PREPARE_SUCCESS) {
+	Input_Buffer* ib = (Input_Buffer*) malloc(sizeof(Input_Buffer));
+	ib->buffer = "insert 1 guilherme";
+	Statement statement;
+	EXPECT_EQ(prepare_insert(ib, &statement), PREPARE_SUCCESS);
+}
 
 TEST(Service, prepare_insert__PREPARE_SYNTAX_ERROR) {
 	Input_Buffer* ib = (Input_Buffer*) malloc(sizeof(Input_Buffer));
@@ -81,26 +81,26 @@ TEST(Service, prepare_insert__PREPARE_SYNTAX_ERROR) {
 	EXPECT_EQ(prepare_insert(ib, &statement), PREPARE_SYNTAX_ERROR);
 }
 
-//TEST(Service, prepare_insert__PREPARE_NEGATIVE_ID) {
-//	Input_Buffer* ib = (Input_Buffer*) malloc(sizeof(Input_Buffer));
-//	ib->buffer = "insert -1 guilherme";
-//	Statement statement;
-//	EXPECT_EQ(prepare_insert(ib, &statement), PREPARE_NEGATIVE_ID);
-//}
+TEST(Service, prepare_insert__PREPARE_NEGATIVE_ID) {
+	Input_Buffer* ib = (Input_Buffer*) malloc(sizeof(Input_Buffer));
+	ib->buffer = "insert -1 guilherme";
+	Statement statement;
+	EXPECT_EQ(prepare_insert(ib, &statement), PREPARE_NEGATIVE_ID);
+}
 
-//TEST(Service, prepare_select__PREPARE_SUCCESS) {
-//	Input_Buffer* ib = (Input_Buffer*) malloc(sizeof(Input_Buffer));
-//	ib->buffer = "select 1";
-//	Statement statement;
-//	EXPECT_EQ(prepare_select(ib, &statement), PREPARE_SUCCESS);
-//}
+TEST(Service, prepare_select__PREPARE_SUCCESS) {
+	Input_Buffer* ib = (Input_Buffer*) malloc(sizeof(Input_Buffer));
+	ib->buffer = "select 1";
+	Statement statement;
+	EXPECT_EQ(prepare_select(ib, &statement), PREPARE_SUCCESS);
+}
 
-//TEST(Service, prepare_select__PREPARE_NEGATIVE_ID) {
-//	Input_Buffer* ib = (Input_Buffer*) malloc(sizeof(Input_Buffer));
-//	ib->buffer = "select -11";
-//	Statement statement;
-//	EXPECT_EQ(prepare_select(ib, &statement), PREPARE_NEGATIVE_ID);
-//}
+TEST(Service, prepare_select__PREPARE_NEGATIVE_ID) {
+	Input_Buffer* ib = (Input_Buffer*) malloc(sizeof(Input_Buffer));
+	ib->buffer = "select -11";
+	Statement statement;
+	EXPECT_EQ(prepare_select(ib, &statement), PREPARE_NEGATIVE_ID);
+}
 
 TEST(Service, prepare_select__PREPARE_SYNTAX_ERROR) {
 	Input_Buffer* ib = (Input_Buffer*) malloc(sizeof(Input_Buffer));
@@ -131,34 +131,34 @@ TEST(Service, execute_select__RETURN_EXECUTE_DUPLICATE_KEY) {
 	EXPECT_EQ(execute_select(statement), EXECUTE_DUPLICATE_KEY);
 }
 
-//TEST(Service, execute__RETURN_CODE_ZERO) {
-//	Input_Buffer* ib = (Input_Buffer*) malloc(sizeof(Input_Buffer));
-//	ib->buffer = "select 1";
-//
-//	ib->buffer_length = sizeof(ib->buffer);
-//	ib->input_length = sizeof(ib->buffer) - 1;
-//
-//	Result result = execute(ib);
-//	EXPECT_EQ(result.code, 0);
-//}
+TEST(Service, execute__RETURN_CODE_ZERO) {
+	Input_Buffer* ib = (Input_Buffer*) malloc(sizeof(Input_Buffer));
+	ib->buffer = "select 1";
 
-//TEST(Service, execute__RETURN_DUPLICATE_KEY_DESCRIPTION) {
-//	Input_Buffer* ib = (Input_Buffer*) malloc(sizeof(Input_Buffer));
-//	ib->buffer = "select 1";
-//	Result result = execute(ib);
-//	EXPECT_EQ(result.description, "Error: Duplicate key");
-//}
+	ib->buffer_length = sizeof(ib->buffer);
+	ib->input_length = sizeof(ib->buffer) - 1;
 
-//TEST(Service, execute__RETURN_CODE_ONE) {
-//	Input_Buffer* ib = (Input_Buffer*) malloc(sizeof(Input_Buffer));
-//	ib->buffer = "insert 1 guilherme";
-//	Result result = execute(ib);
-//	EXPECT_EQ(result.code, 0);
-//}
+	Result result = execute(ib);
+	EXPECT_EQ(result.code, 0);
+}
 
-//TEST(Service, execute__RETURN_EXECUTE_DESCRIPTION) {
-//	Input_Buffer* ib = (Input_Buffer*) malloc(sizeof(Input_Buffer));
-//	ib->buffer = "insert 1 guilherme";
-//	Result result = execute(ib);
-//	EXPECT_EQ(result.description, "Executed.");
-//}
+TEST(Service, execute__RETURN_DUPLICATE_KEY_DESCRIPTION) {
+	Input_Buffer* ib = (Input_Buffer*) malloc(sizeof(Input_Buffer));
+	ib->buffer = "select 1";
+	Result result = execute(ib);
+	EXPECT_EQ(result.description, "Error: Duplicate key");
+}
+
+TEST(Service, execute__RETURN_CODE_ONE) {
+	Input_Buffer* ib = (Input_Buffer*) malloc(sizeof(Input_Buffer));
+	ib->buffer = "insert 1 guilherme";
+	Result result = execute(ib);
+	EXPECT_EQ(result.code, 0);
+}
+
+TEST(Service, execute__RETURN_EXECUTE_DESCRIPTION) {
+	Input_Buffer* ib = (Input_Buffer*) malloc(sizeof(Input_Buffer));
+	ib->buffer = "insert 1 guilherme";
+	Result result = execute(ib);
+	EXPECT_EQ(result.description, "Executed.");
+}
