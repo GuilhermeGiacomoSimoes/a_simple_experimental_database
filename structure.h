@@ -8,7 +8,7 @@
 
 typedef struct {
 	uint32_t id;
-	char data[COLUMN_DATA_SIZE + 1];
+	char data[COLUMN_DATA_SIZE];
 } Row;
 
 typedef struct {
