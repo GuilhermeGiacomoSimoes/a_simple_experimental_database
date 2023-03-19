@@ -142,7 +142,7 @@ Result execute(Input_Buffer* input_buffer) {
 			result.code = 0;
 			break;
 		case(PREPARE_UNRECOGNIZED_STATEMENT):
-			result.description = "Unrecognized keyword ar start .\n";
+			result.description = "Unrecognized keyword at start .\n";
 			result.code = 0;
 			break;
 		case(PREPARE_NEGATIVE_ID):
