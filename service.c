@@ -20,11 +20,6 @@ typedef enum {
 } StatementType;
 
 typedef struct {
-	uint32_t id;
-	char value[256];
-} Row;
-
-typedef struct {
 	StatementType type;
 	Row *row_to_insert;
 	uint32_t wanted_element;
@@ -74,7 +69,7 @@ static Prepare_Result prepare_insert(Input_Buffer* input_buffer, Statement* stat
 
 	Row *row = (Row*) malloc(sizeof(Row));
 	row->id = id;
-	strcpy(row->value, value);
+	strcpy(row->data, value);
 
 	statement->row_to_insert = row;
 
@@ -127,7 +122,7 @@ static Result execute_statement(Statement* statement) {
 			Row *row = execute_select(statement, root);
 			Result result;
 			result.code = row->id != 0;
-			result.description = row->value;
+			result.description = row->data;
 			return result;
 	}
 }
