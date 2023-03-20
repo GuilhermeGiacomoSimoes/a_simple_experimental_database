@@ -25,7 +25,7 @@ Row* search(Page *page, int wanted_element) {
 }
 
 Page* load_root() {
-    return NULL;
+    return create();
 }
 
 Page* create() {
