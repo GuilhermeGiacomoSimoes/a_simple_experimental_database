@@ -39,7 +39,7 @@ Page* create() {
 
 int insert(Page *root, Row *k) {
     for(uint32_t index = 0; index < MAX_SIZE_ARR; index++) {
-        if(*(integer_array_for_test_mock + index) == NULL) {
+        if(*(integer_array_for_test_mock + index) == 0) {
             values_array_for_test_mock[index] = k->data;
             *(integer_array_for_test_mock + index) = ++index;
             return index;
