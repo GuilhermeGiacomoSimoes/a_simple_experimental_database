@@ -150,7 +150,7 @@ Result execute(Input_Buffer* input_buffer) {
 			break;
 	}
 
-	if(result.code) {
+	if(result.code) 
 		return execute_statement(&statement);
 
 	return result;
