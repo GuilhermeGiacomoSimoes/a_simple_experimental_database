@@ -123,6 +123,10 @@ static Result execute_statement(Statement* statement) {
 			result.code = row->id != 0;
 			result.description = row->data;
 			return result;
+		default:
+			result.code = 0;
+			result.description = "unknown error";
+			return result;
 	}
 }
 
