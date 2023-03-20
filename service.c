@@ -111,16 +111,15 @@ static Row* execute_select(Statement* statement, Page *root) {
 
 static Result execute_statement(Statement* statement) {
 	Page *root = load_root();	
+	Result result;	
 	switch (statement->type) {
 		case (STATEMENT_INSERT):
 			int32_t result_of_insert = execute_insert(statement, root);
-			Result result;	
 			result.code = result_of_insert;
 			result.description = result_of_insert ? "Executed" : "Unknown error";
 			return result;
 		case (STATEMENT_SELECT):
 			Row *row = execute_select(statement, root);
-			Result result;
 			result.code = row->id != 0;
 			result.description = row->data;
 			return result;
