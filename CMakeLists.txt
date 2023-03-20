@@ -18,7 +18,7 @@ enable_testing()
 add_executable(
   unit_test 
   service_test.cc
-  tree_mock.c
+  tree_in_main_memory.c
 )
 
 target_link_libraries(
