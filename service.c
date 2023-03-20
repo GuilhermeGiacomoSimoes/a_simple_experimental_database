@@ -118,17 +118,19 @@ static Result execute_statement(Statement* statement) {
 			int32_t result_of_insert = execute_insert(statement, root);
 			result.code = result_of_insert;
 			result.description = result_of_insert ? "Executed" : "Unknown error";
-			return result;
+			break;
 		case (STATEMENT_SELECT):
 			Row *row = execute_select(statement, root);
 			result.code = row->id != 0;
 			result.description = row->data;
-			return result;
+			break;
 		default:
 			result.code = 0;
 			result.description = "unknown error";
-			return result;
+			break;
 	}
+
+	return result;
 }
 
 Result execute(Input_Buffer* input_buffer) {
