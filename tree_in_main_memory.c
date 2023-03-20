@@ -30,9 +30,11 @@ Page* load_root() {
 
 Page* create() {
     for(uint32_t index = 0; index < MAX_SIZE_ARR; index++) {
-        *(integer_array_for_test_mock + index) = NULL;
+        *(integer_array_for_test_mock + index) = 0;
         *(values_array_for_test_mock + index) = "";
     }
+
+    return NULL;
 }
 
 int insert(Page *root, Row *k) {
