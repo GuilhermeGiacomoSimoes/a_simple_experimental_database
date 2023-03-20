@@ -86,6 +86,7 @@ static Prepare_Result prepare_select(Input_Buffer* input_buffer, Statement* stat
 
 	int32_t id = atoi(id_string);
 	if(id < 1) return PREPARE_NEGATIVE_ID;
+	statement->wanted_element = id;
 
 	return PREPARE_SUCCESS;
 }
