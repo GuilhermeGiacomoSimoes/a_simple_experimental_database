@@ -17,3 +17,4 @@ Makefile
 CTestTestfile.cmake
 cmake_install.cmake
 main
+.vscode/
