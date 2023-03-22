@@ -35,14 +35,15 @@ Row* search(Page *page, int wanted_element, ...) {
 }
 
 Page* load_root() {
-    return create();
+    //return create();
+    return NULL;
 }
 
 Page* create() {
-    for(uint32_t index = 0; index < MAX_SIZE_ARR; index++) {
-        *(integer_array_for_test_mock + index) = 0;
-        *(values_array_for_test_mock + index) = "";
-    }
+    //for(uint32_t index = 0; index < MAX_SIZE_ARR; index++) {
+    //    *(integer_array_for_test_mock + index) = 0;
+    //    *(values_array_for_test_mock + index) = "";
+    //}
 
     return NULL;
 }
