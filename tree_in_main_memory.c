@@ -13,15 +13,19 @@ uint32_t integer_array_for_test_mock[MAX_SIZE_ARR];
 char *values_array_for_test_mock[MAX_SIZE_ARR];
 
 Row* search(Page *page, int wanted_element) {
+    Row *row = (Row*) malloc(sizeof(Row));
+    row->id = 0;
+
     for(uint32_t index = 0; index < MAX_SIZE_ARR; index++) {
         if(*(integer_array_for_test_mock + index) == wanted_element) {
             char *value = *(values_array_for_test_mock + index);
-            Row *row = malloc(sizeof(Row));
 	        strcpy(row->data, value);
             row->id = index;
             return row;
         }
     }
+
+    return row;
 }
 
 Page* load_root() {
