@@ -2,6 +2,7 @@
 #include<stdint.h>
 #include<string.h>
 #include<stdlib.h>
+#include<stdarg.h>
 
 #include "structure.h"
 #include "tree.h"
