@@ -19,6 +19,7 @@ Row* search(Page *page, int wanted_element, ...) {
 
     Row *row = (Row*) malloc(sizeof(Row));
     row->id = 0;
+    strcpy(row->data, "not found");
 
     for(uint32_t index = 0; index < MAX_SIZE_ARR; index++) {
         if(*(integer_array_for_test_mock + index) == wanted_element) {
