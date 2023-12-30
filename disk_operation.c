@@ -17,7 +17,7 @@
 #define ID_OFFSET 0
 #define DATA_OFFSET ID_OFFSET + ID_SIZE
 
-void static serialize(row* source, void* destination) {
+void static serialize(const row* source, void* destination) {
 	memcpy(destination + ID_OFFSET, &(source->id), ID_SIZE);
 	memcpy(destination + DATA_OFFSET, &(source->data), DATA_SIZE);
 }
