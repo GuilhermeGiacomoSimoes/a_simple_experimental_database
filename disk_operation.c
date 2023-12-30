@@ -55,7 +55,7 @@ void disk_write(void* data) {
 	}
 }
 
-page* disk_read() {
+page disk_read() {
 	int fd = open(
 			NAME_FILE_DATABASE,
 			O_RDWR | O_CREAT,
@@ -75,9 +75,13 @@ page* disk_read() {
 
 	void *serialized_page = malloc(sizeof(page));
 	size_t bytes_read = read(fd, serialized_page, sizeof(page));
-
-	page* pp = (page*) malloc(sizeof(page));
-	deserialize(serialized_page, pp);
+	
+	page pp;
+	for(uint16_t idx = 0 ; idx < MAX_ELEMENTS; idx ++) {
+		row* r = (row*) malloc(sizeof(row));
+		deserialize(serialized_page, r);
+		pp.info[idx] = r;
+	}
 
 	return pp;
 }

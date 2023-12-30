@@ -4,7 +4,7 @@
 
 result insert(char* data)
 {
-	
+	disk_write(data);
 }
 
 
