@@ -6,7 +6,7 @@
 #include "common.h"
 
 input_buffer* new_input_buffer() {
-	input_buffer* input_buffer 	= (input_buffer*) malloc(sizeof(input_buffer));
+	input_buffer* input_buffer 	= malloc(sizeof(input_buffer));
 	input_buffer->buffer 		= NULL;
 	input_buffer->buffer_length = 0;
 	input_buffer->input_length 	= 0;
