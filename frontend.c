@@ -26,8 +26,8 @@ static void read_input(input_buffer* initialize_input_buffer) {
 	initialize_input_buffer->buffer[bytes_read - 1] = 0;
 }
 
-static void print_the_result(Result result) {
-	printf("%s\n", result.description);
+static void print_the_result(result res) {
+	printf("%s\n", res.description);
 }
 
 int main() {
@@ -37,7 +37,7 @@ int main() {
 	while(1) {
 		print_prompt();
 		read_input(initialize_input_buffer);
-		Result result = execute(initialize_input_buffer);
-		print_the_result(result);
+		result res = execute(initialize_input_buffer);
+		print_the_result(res);
 	}
 }
