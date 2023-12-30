@@ -12,8 +12,8 @@
 
 #define NAME_FILE_DATABASE "database.db"
 
-#define ID_SIZE size_of_attribute(Row, id)
-#define DATA_SIZE size_of_attribute(Row, data)
+#define ID_SIZE size_of_attribute(row, id)
+#define DATA_SIZE size_of_attribute(row, data)
 #define ID_OFFSET 0
 #define DATA_OFFSET ID_OFFSET + ID_SIZE
 
