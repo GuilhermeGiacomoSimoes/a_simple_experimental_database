@@ -36,11 +36,6 @@ void do_meta_command(input_buffer* input_buffer) {
 	if(strcmp(input_buffer->buffer, ".exit") == 0){
 		exit(EXIT_SUCCESS);	
 	}
-
-	Result *result = (Result*) malloc(sizeof(Result));
-	result->description = "ERROR: meta command does not exist\n";
-	result->code = 0;
-	return *(result);
 }
 
 static uint8_t is_meta_command(input_buffer* input_buffer) {
