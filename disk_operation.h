@@ -2,6 +2,6 @@
 #define _DISK_OPERATION_H_ 
 
 void disk_write(void* data);
-page* disk_read(page* page, int number_child);
+page disk_read();
 
 #endif
