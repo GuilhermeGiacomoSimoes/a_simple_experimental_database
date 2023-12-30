@@ -3,9 +3,10 @@
 #include<stdlib.h>
 
 #include "service.h"
+#include "common.h"
 
-Input_Buffer* new_input_buffer() {
-	Input_Buffer* input_buffer 	= (Input_Buffer*) malloc(sizeof(Input_Buffer));
+input_buffer* new_input_buffer() {
+	input_buffer* input_buffer 	= (input_buffer*) malloc(sizeof(input_buffer));
 	input_buffer->buffer 		= NULL;
 	input_buffer->buffer_length = 0;
 	input_buffer->input_length 	= 0;
@@ -17,8 +18,10 @@ static void print_prompt() {
 	printf("db> ");
 }
 
-static void read_input(Input_Buffer* initialize_input_buffer) {
-	size_t bytes_read = getline(&(initialize_input_buffer->buffer), &(initialize_input_buffer->buffer_length), stdin);
+static void read_input(input_buffer* initialize_input_buffer) {
+	size_t bytes_read = getline(&(initialize_input_buffer->buffer), 
+			&(initialize_input_buffer->buffer_length), stdin);
+
 	initialize_input_buffer->input_length = bytes_read - 1;
 	initialize_input_buffer->buffer[bytes_read - 1] = 0;
 }
@@ -29,7 +32,7 @@ static void print_the_result(Result result) {
 
 int main() {
 
-	Input_Buffer* initialize_input_buffer = new_input_buffer();
+	input_buffer* initialize_input_buffer = new_input_buffer();
 
 	while(1) {
 		print_prompt();

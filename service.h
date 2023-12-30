@@ -5,13 +5,8 @@ typedef struct {
 	char* 	buffer;
 	size_t 	buffer_length;
 	ssize_t input_length;
-} Input_Buffer;
+} input_buffer;
 
-typedef struct {
-	char* description;
-	uint8_t code;
-} Result;
-
-Result execute(Input_Buffer* input_buffer);
+result execute(input_buffer* input_buffer);
 
 #endif
