@@ -4,6 +4,8 @@
 #define MAX_ELEMENTS 55 
 #define COLUMN_DATA_SIZE 32
 
+#include "common.h"
+
 typedef struct {
 	uint32_t id;
 	char data[COLUMN_DATA_SIZE];
