@@ -3,8 +3,8 @@
 #include<string.h>
 
 #include "service.h"
-#include "tree.h"
-#include "structure.h"
+#include "store.h"
+#include "common.h"
 
 typedef enum {
 	PREPARE_SUCCESS,
