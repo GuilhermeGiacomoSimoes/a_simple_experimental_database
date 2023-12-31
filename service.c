@@ -34,9 +34,8 @@ typedef enum {
 
 void do_meta_command(input_buffer* input_buffer) 
 {
-	if(strcmp(input_buffer->buffer, ".exit") == 0){
+	if(strcmp(input_buffer->buffer, ".exit") == 0)
 		exit(EXIT_SUCCESS);	
-	}
 }
 
 static uint8_t is_meta_command(input_buffer* input_buffer) 
@@ -160,8 +159,8 @@ result execute(input_buffer* ib)
 			res.code = 0;
 			break;
 		case(PREPARE_STRING_TOO_LONG):
-			res.code = 0;
 			res.description = "This string too long";
+			res.code = 0;
 			break;
 	}
 

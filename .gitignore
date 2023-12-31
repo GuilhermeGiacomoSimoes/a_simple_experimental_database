@@ -18,3 +18,5 @@ cmake_install.cmake
 main
 .vscode/
 db
+.ccls-cache/
+.ccls-cache

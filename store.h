@@ -15,7 +15,7 @@ typedef struct {
 	row* info[MAX_ELEMENTS];
 } page;
 
-result insert(char* data);
+result insert(row* data);
 result search(uint32_t we);
 
 #endif

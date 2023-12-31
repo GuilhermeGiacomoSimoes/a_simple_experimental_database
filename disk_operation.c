@@ -48,9 +48,9 @@ void disk_write(row* data)
 		exit(EXIT_FAILURE);
 	}
 
-	void *serialized_data;
+	void *serialized_data = malloc(sizeof(*data));
 	serialize(data, serialized_data);
-	ssize_t bytes_written = write(fd, serialized_data, sizeof(data));
+	ssize_t bytes_written = write(fd, serialized_data, sizeof(serialized_data));
 
 	if(bytes_written == -1) {
 		printf("Error while try write file database\n");
