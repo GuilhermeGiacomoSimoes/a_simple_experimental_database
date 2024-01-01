@@ -29,7 +29,7 @@ void static deserialize(row* source, void* destination)
 	memcpy(&(source->data), destination + DATA_OFFSET, DATA_SIZE);
 }
 
-void disk_write(row* data)
+void disk_write(const row* data)
 {
 	int fd = open(
 			NAME_FILE_DATABASE,

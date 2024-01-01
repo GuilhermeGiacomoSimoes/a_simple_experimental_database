@@ -3,7 +3,7 @@
 
 #include "store.h"
 
-void disk_write(row* data);
+void disk_write(const row* data);
 page disk_read();
 
 #endif
