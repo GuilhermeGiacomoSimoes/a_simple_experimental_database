@@ -52,6 +52,8 @@ void disk_write(const row* data)
 	serialize(data, serialized_data);
 	ssize_t bytes_written = write(fd, serialized_data, sizeof(serialized_data));
 
+	free(serialized_data);
+
 	if(bytes_written == -1) {
 		printf("Error while try write file database\n");
 		exit(EXIT_FAILURE);
