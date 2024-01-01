@@ -50,7 +50,7 @@ void disk_write(const row* data)
 
 	void *serialized_data = malloc(sizeof(*data));
 	serialize(data, serialized_data);
-	ssize_t bytes_written = write(fd, serialized_data, sizeof(serialized_data));
+	ssize_t bytes_written = write(fd, serialized_data, ID_SIZE + DATA_SIZE);
 
 	free(serialized_data);
 
