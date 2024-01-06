@@ -7,8 +7,8 @@ typedef struct {
 	char* 	buffer;
 	size_t 	buffer_length;
 	ssize_t input_length;
-} input_buffer;
+} input_buffer_t;
 
-result execute(input_buffer* input_buffer);
+result_t execute(input_buffer_t* input_buffer);
 
 #endif

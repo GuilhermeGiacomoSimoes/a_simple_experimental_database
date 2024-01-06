@@ -9,13 +9,13 @@
 typedef struct {
 	uint32_t id;
 	char data[COLUMN_DATA_SIZE];
-} row;
+} row_t;
 
 typedef struct {
-	row* info[MAX_ELEMENTS];
-} page;
+	row_t* info[MAX_ELEMENTS];
+} page_t;
 
-result insert(row* data);
-result search(uint32_t we);
+result_t insert(row_t* data);
+result_t search(uint32_t we);
 
 #endif

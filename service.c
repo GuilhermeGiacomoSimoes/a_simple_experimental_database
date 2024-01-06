@@ -12,33 +12,33 @@ typedef enum {
 	PREPARE_SYNTAX_ERROR, 
 	PREPARE_STRING_TOO_LONG, 
 	PREPARE_NEGATIVE_ID
-} prepare_result;
+} prepare_result_t;
 
 typedef enum {
 	STATEMENT_INSERT, 
 	STATEMENT_SELECT
-} statement_type;
+} statement_type_e;
 
 typedef struct {
-	statement_type type;
-	row *row_to_insert;
+	statement_type_e type;
+	row_t *row_to_insert;
 	uint32_t wanted_element;
-} statement;
+} statement_t;
 
 typedef enum {
 	EXECUTE_SUCCESS, 
 	EXECUTE_TABLE_FULL, 
 	EXECUTE_DUPLICATE_KEY,
 	UNKNOWN_ERROR
-} execute_result;
+} execute_result_e;
 
-void do_meta_command(input_buffer* input_buffer) 
+void do_meta_command(input_buffer_t* input_buffer) 
 {
 	if(strcmp(input_buffer->buffer, ".exit") == 0)
 		exit(EXIT_SUCCESS);	
 }
 
-static uint8_t is_meta_command(input_buffer* input_buffer) 
+static uint8_t is_meta_command(input_buffer_t* input_buffer) 
 {
 	return input_buffer->buffer[0] == '.';
 }
@@ -53,8 +53,8 @@ static uint8_t is_select_statement(char* str)
 	return strncmp(str, "select", 6) == 0;
 } 
 
-static prepare_result prepare_insert(
-		input_buffer* input_buffer, statement* s) 
+static prepare_result_t prepare_insert(
+		input_buffer_t* input_buffer, statement_t* s) 
 {
 	s->type = STATEMENT_INSERT;
 
@@ -68,7 +68,7 @@ static prepare_result prepare_insert(
 	int32_t id = atoi(id_string);
 	if(id < 0) return PREPARE_NEGATIVE_ID;
 
-	row *r= (row*) malloc(sizeof(row));
+	row_t *r= (row_t*) malloc(sizeof(row_t));
 	r->id = id;
 	strcpy(r->data, value);
 
@@ -77,8 +77,8 @@ static prepare_result prepare_insert(
 	return PREPARE_SUCCESS;
 }
 
-static prepare_result prepare_select(
-		input_buffer* input_buffer, statement* s) 
+static prepare_result_t prepare_select(
+		input_buffer_t* input_buffer, statement_t* s) 
 {
 	s->type = STATEMENT_SELECT;
 
@@ -94,8 +94,8 @@ static prepare_result prepare_select(
 	return PREPARE_SUCCESS;
 }
 
-static prepare_result prepare_statement(
-		input_buffer* input_buffer, statement* s) 
+static prepare_result_t prepare_statement(
+		input_buffer_t* input_buffer, statement_t* s) 
 {
 	if(is_insert_statement(input_buffer->buffer))
 		return prepare_insert(input_buffer, s);
@@ -106,19 +106,19 @@ static prepare_result prepare_statement(
 	return PREPARE_UNRECOGNIZED_STATEMENT;
 }
 
-static result execute_insert(statement* s) 
+static result_t execute_insert(statement_t* s) 
 {
 	return insert(s->row_to_insert);
 }
 
-static result execute_select(statement* s) 
+static result_t execute_select(statement_t* s) 
 {
 	return search(s->wanted_element);
 }
 
-static result execute_statement(statement* s) 
+static result_t execute_statement(statement_t* s) 
 {
-	result res;	
+	result_t res;	
 	switch (s->type) {
 		case (STATEMENT_INSERT):
 			res = execute_insert(s);
@@ -135,13 +135,13 @@ static result execute_statement(statement* s)
 	return res;
 }
 
-result execute(input_buffer* ib) 
+result_t execute(input_buffer_t* ib) 
 {
 	if(is_meta_command(ib))
 		do_meta_command(ib);
 
-	statement s; 
-	result res;
+	statement_t s; 
+	result_t res;
 	switch(prepare_statement(ib, &s)){
 		case(PREPARE_SUCCESS):
 			res.code = 1;

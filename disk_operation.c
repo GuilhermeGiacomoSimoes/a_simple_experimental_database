@@ -12,24 +12,24 @@
 
 #define NAME_FILE_DATABASE "database.db"
 
-#define ID_SIZE size_of_attribute(row, id)
-#define DATA_SIZE size_of_attribute(row, data)
+#define ID_SIZE size_of_attribute(row_t, id)
+#define DATA_SIZE size_of_attribute(row_t, data)
 #define ID_OFFSET 0
 #define DATA_OFFSET ID_OFFSET + ID_SIZE
 
-void static serialize(const row* source, void* destination) 
+void static serialize(const row_t* source, char* destination) 
 {
 	memcpy(destination + ID_OFFSET, &(source->id), ID_SIZE);
 	memcpy(destination + DATA_OFFSET, &(source->data), DATA_SIZE);
 }
 
-void static deserialize(row* source, void* destination) 
+void static deserialize(row_t* source, void* destination) 
 {
 	memcpy(&(source->id), destination + ID_OFFSET, ID_SIZE);
 	memcpy(&(source->data), destination + DATA_OFFSET, DATA_SIZE);
 }
 
-void disk_write(const row* data)
+void disk_write(const row_t* data)
 {
 	int fd = open(
 			NAME_FILE_DATABASE,
@@ -48,7 +48,7 @@ void disk_write(const row* data)
 		exit(EXIT_FAILURE);
 	}
 
-	void *serialized_data = malloc(sizeof(*data));
+	char *serialized_data = malloc(sizeof(*data));
 	serialize(data, serialized_data);
 	ssize_t bytes_written = write(fd, serialized_data, ID_SIZE + DATA_SIZE);
 
@@ -60,7 +60,7 @@ void disk_write(const row* data)
 	}
 }
 
-page disk_read() 
+page_t disk_read() 
 {
 	int fd = open(
 			NAME_FILE_DATABASE,
@@ -79,12 +79,12 @@ page disk_read()
 		exit(EXIT_FAILURE); 
 	}
 
-	void *serialized_page = malloc(sizeof(page));
-	size_t bytes_read = read(fd, serialized_page, sizeof(page));
+	void *serialized_page = malloc(sizeof(page_t));
+	size_t bytes_read = read(fd, serialized_page, sizeof(page_t));
 	
-	page pp;
+	page_t pp;
 	for(uint16_t idx = 0 ; idx < MAX_ELEMENTS; idx ++) {
-		row* r = (row*) malloc(sizeof(row));
+		row_t* r = (row_t*) malloc(sizeof(row_t));
 		deserialize(serialized_page, r);
 		pp.info[idx] = r;
 	}

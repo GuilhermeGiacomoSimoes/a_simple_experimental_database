@@ -6,6 +6,6 @@
 typedef struct {
 	char* description;
 	uint8_t code;
-} result;
+} result_t;
 
 #endif
